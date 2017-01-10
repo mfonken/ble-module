@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+	<storageModule moduleId="org.eclipse.cdt.core.settings">
+		<cconfiguration id="com.silabs.ss.framework.project.toolchain.core.default#com.silabs.ss.tool.ide.arm.toolchain.iar:7.70.1.11437">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.silabs.ss.framework.project.toolchain.core.default#com.silabs.ss.tool.ide.arm.toolchain.iar:7.70.1.11437" moduleId="org.eclipse.cdt.core.settings" name="IAR ARM - Default">
+				<macros>
+					<stringMacro name="StudioSdkPath" type="VALUE_PATH_DIR" value="${StudioSdkPathFromID:com.silabs.stack.ble:2.1.1.0_-1958991346}"/>
+					<stringMacro name="StudioToolchainPath" type="VALUE_PATH_DIR" value="${StudioToolchainPathFromID:com.silabs.ss.tool.ide.arm.toolchain.iar:7.70.1.11437}"/>
+				</macros>
+				<externalSettings>
+					<externalSetting/>
+				</externalSettings>
+				<extensions>
+					<extension id="com.silabs.ss.framework.debugger.core.HEX" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="com.silabs.ss.framework.debugger.core.EBL" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="com.silabs.ss.framework.debugger.core.BIN" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="com.silabs.ss.framework.debugger.core.S37" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="com.iar.cdt.errorParser.com.iar.cdt.errorParser.ErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule buildConfig.needsApplyStock="true" buildConfig.stockConfigId="com.silabs.ss.framework.project.toolchain.core.default#com.silabs.ss.tool.ide.arm.toolchain.iar:7.70.1.11437" cppBuildConfig.builtinIncludes="studio:/project/inc/ studio:/sdk/protocol/bluetooth_2.1/ble_stack/inc/common/ studio:/sdk/protocol/bluetooth_2.1/ble_stack/inc/soc/ studio:/sdk/platform/emlib/inc/ studio:/sdk/platform/emlib/inc/" cppBuildConfig.builtinLibraryFiles="studio:/sdk/protocol/bluetooth_2.1/lib/binbootloader.o studio:/sdk/protocol/bluetooth_2.1/lib/stack.a studio:/sdk/protocol/bluetooth_2.1/lib/binstack.o" cppBuildConfig.builtinLibraryNames="" cppBuildConfig.builtinLibraryObjects="" cppBuildConfig.builtinLibraryPaths="" cppBuildConfig.builtinMacros="__NO_SYSTEM_INIT EFR32BG1B232F256GM32 __NO_SYSTEM_INIT EFR32BG1B232F256GM32" moduleId="com.silabs.ss.framework.ide.project.core.cpp" projectCommon.buildArtifactType="EXE" projectCommon.referencedModules="[{&quot;builtinExcludes&quot;:[],&quot;builtinSources&quot;:[&quot;device/EFR32_B_1_1_B/iar/startup_efr32bg1b.c&quot;],&quot;builtin&quot;:true,&quot;module&quot;:&quot;&lt;project:MModule xmlns:project=\&quot;http://www.silabs.com/ss/Project.ecore\&quot; builtin=\&quot;true\&quot; id=\&quot;com.silabs.module.plugin.external.com.silabs.stack.ble.ble.Silicon Labs Bluetooth Smart Framework.0.0.1.1182286265.device-base.\&quot;&gt;\r\n  &lt;inclusions pattern=\&quot;device(/.*){0,1}/startup_efr32bg1b.c\&quot;/&gt;\r\n&lt;/project:MModule&gt;&quot;},{&quot;builtinExcludes&quot;:[],&quot;builtinSources&quot;:[],&quot;builtin&quot;:true,&quot;module&quot;:&quot;&lt;project:MModule xmlns:project=\&quot;http://www.silabs.com/ss/Project.ecore\&quot; builtin=\&quot;true\&quot; id=\&quot;com.silabs.module.template.external.com.silabs.stack.ble.ble.Silicon Labs Bluetooth Smart Framework.0.0.1.1182286265.efr32-base\&quot;&gt;\r\n  &lt;inclusions pattern=\&quot;.*\&quot;/&gt;\r\n&lt;/project:MModule&gt;&quot;},{&quot;builtinExcludes&quot;:[],&quot;builtinSources&quot;:[&quot;emlib/em_usart.c&quot;,&quot;emlib/em_rtcc.c&quot;,&quot;emlib/em_i2c.c&quot;,&quot;emlib/em_gpio.c&quot;],&quot;builtin&quot;:true,&quot;module&quot;:&quot;&lt;project:MModule xmlns:project=\&quot;http://www.silabs.com/ss/Project.ecore\&quot; builtin=\&quot;true\&quot; id=\&quot;com.silabs.module.plugin.external.com.silabs.stack.ble.ble.Silicon Labs Bluetooth Smart Framework.0.0.1.1182286265.emlib-base.\&quot;&gt;\r\n  &lt;inclusions pattern=\&quot;emlib/em_system.c\&quot;/&gt;\r\n  &lt;inclusions pattern=\&quot;emlib/em_emu.c\&quot;/&gt;\r\n  &lt;inclusions pattern=\&quot;emlib/em_cmu.c\&quot;/&gt;\r\n  &lt;inclusions pattern=\&quot;emlib/em_device.c\&quot;/&gt;\r\n  &lt;inclusions pattern=\&quot;emlib/em_chip.c\&quot;/&gt;\r\n  &lt;inclusions pattern=\&quot;emlib/em_assert.c\&quot;/&gt;\r\n  &lt;inclusions pattern=\&quot;emlib/em_adc.c\&quot;/&gt;\r\n  &lt;inclusions pattern=\&quot;emlib/em_gpcrc.c\&quot;/&gt;\r\n  &lt;inclusions pattern=\&quot;emlib/em_gpio.c\&quot;/&gt;\r\n  &lt;inclusions pattern=\&quot;emlib/em_i2c.c\&quot;/&gt;\r\n  &lt;inclusions pattern=\&quot;emlib/em_ldma.c\&quot;/&gt;\r\n  &lt;inclusions pattern=\&quot;emlib/em_prs.c\&quot;/&gt;\r\n  &lt;inclusions pattern=\&quot;emlib/em_rtcc.c\&quot;/&gt;\r\n  &lt;inclusions pattern=\&quot;emlib/em_usart.c\&quot;/&gt;\r\n&lt;/project:MModule&gt;&quot;}]" projectCommon.toolchainId="com.silabs.ss.tool.ide.arm.toolchain.iar:7.70.1.11437" projectCommon.userSettings="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#13;&#10;&lt;project name=&quot;com.silabs.ember.stack.ble.addition&quot; propertyScope=&quot;project&quot; contentRoot=&quot;.&quot;&gt;&#13;&#10;  &lt;folder name=&quot;src&quot;&gt;&#13;&#10;    &lt;file name=&quot;InitDevice.c&quot; uri=&quot;file:src/InitDevice.c&quot;/&gt;&#13;&#10;  &lt;/folder&gt;&#13;&#10;  &lt;file name=&quot;gatt.xml&quot; uri=&quot;file:./gatt.xml&quot;/&gt;&#13;&#10;  &lt;file name=&quot;gatt_db.c&quot; uri=&quot;file:./gatt_db.c&quot;/&gt;&#13;&#10;  &lt;file name=&quot;gatt_db.h&quot; uri=&quot;file:./gatt_db.h&quot;/&gt;&#13;&#10;  &lt;file name=&quot;BgBuild_Log.txt&quot; uri=&quot;file:./BgBuild_Log.txt&quot;/&gt;&#13;&#10;  &lt;file name=&quot;efr32bg1b232f256gm32.hwconf&quot; uri=&quot;file:./efr32bg1b232f256gm32.hwconf&quot;/&gt;&#13;&#10;  &lt;file name=&quot;main.c&quot; uri=&quot;file:main.c&quot;/&gt;&#13;&#10;  &lt;file name=&quot;ble-configuration.h&quot; uri=&quot;file:./ble-configuration.h&quot;/&gt;&#13;&#10;  &lt;file name=&quot;efr32.eww&quot; uri=&quot;file:./efr32.eww&quot;/&gt;&#13;&#10;  &lt;file name=&quot;efr32.ewd&quot; uri=&quot;file:./efr32.ewd&quot;/&gt;&#13;&#10;  &lt;file name=&quot;efr32.ewp&quot; uri=&quot;file:./efr32.ewp&quot;/&gt;&#13;&#10;  &lt;file name=&quot;create_ebl_files.bat&quot; uri=&quot;file:./create_ebl_files.bat&quot;/&gt;&#13;&#10;  &lt;file name=&quot;create_ebl_files.sh&quot; uri=&quot;file:./create_ebl_files.sh&quot;/&gt;&#13;&#10;  &lt;includePath uri=&quot;studio:/sdk/platform/CMSIS/Include&quot;/&gt;&#13;&#10;  &lt;includePath uri=&quot;studio:/sdk/platform/Device/SiliconLabs/EFR32BG1B/Include&quot;/&gt;&#13;&#10;  &lt;includePath uri=&quot;studio:/sdk/platform/emdrv/common/inc&quot;/&gt;&#13;&#10;  &lt;includePath uri=&quot;studio:/sdk/platform/emdrv/dmadrv/config&quot;/&gt;&#13;&#10;  &lt;includePath uri=&quot;studio:/sdk/platform/emdrv/dmadrv/inc&quot;/&gt;&#13;&#10;  &lt;includePath uri=&quot;studio:/sdk/platform/emdrv/gpiointerrupt/inc&quot;/&gt;&#13;&#10;  &lt;includePath uri=&quot;studio:/sdk/platform/emdrv/nvm/config&quot;/&gt;&#13;&#10;  &lt;includePath uri=&quot;studio:/sdk/platform/emdrv/nvm/inc&quot;/&gt;&#13;&#10;  &lt;includePath uri=&quot;studio:/sdk/platform/emdrv/rtcdrv/config&quot;/&gt;&#13;&#10;  &lt;includePath uri=&quot;studio:/sdk/platform/emdrv/rtcdrv/inc&quot;/&gt;&#13;&#10;  &lt;includePath uri=&quot;studio:/sdk/platform/emdrv/sleep/inc&quot;/&gt;&#13;&#10;  &lt;includePath uri=&quot;studio:/sdk/platform/emdrv/spidrv/config&quot;/&gt;&#13;&#10;  &lt;includePath uri=&quot;studio:/sdk/platform/emdrv/spidrv/inc&quot;/&gt;&#13;&#10;  &lt;includePath uri=&quot;studio:/sdk/platform/emdrv/tempdrv/config&quot;/&gt;&#13;&#10;  &lt;includePath uri=&quot;studio:/sdk/platform/emdrv/tempdrv/inc&quot;/&gt;&#13;&#10;  &lt;includePath uri=&quot;studio:/sdk/platform/emdrv/uartdrv/config&quot;/&gt;&#13;&#10;  &lt;includePath uri=&quot;studio:/sdk/platform/emdrv/uartdrv/inc&quot;/&gt;&#13;&#10;  &lt;includePath uri=&quot;studio:/sdk/platform/emdrv/ustimer/config&quot;/&gt;&#13;&#10;  &lt;includePath uri=&quot;studio:/sdk/platform/emdrv/ustimer/inc&quot;/&gt;&#13;&#10;  &lt;includePath uri=&quot;studio:/sdk/platform/emlib/inc&quot;/&gt;&#13;&#10;  &lt;includePath uri=&quot;studio:/sdk/hardware/kit/common/bsp&quot;/&gt;&#13;&#10;  &lt;includePath uri=&quot;studio:/sdk/hardware/kit/common/drivers&quot;/&gt;&#13;&#10;  &lt;includePath uri=&quot;studio:/sdk/platform/radio/rail_lib/chip/efr32/rf/common/cortex&quot;/&gt;&#13;&#10;  &lt;includePath uri=&quot;file:src&quot;/&gt;&#13;&#10;  &lt;includePath uri=&quot;file:.&quot;/&gt;&#13;&#10;  &lt;includePath uri=&quot;studio:/project/src&quot;/&gt;&#13;&#10;  &lt;macroDefinition languageCompatibility=&quot;c&quot; name=&quot;GENERATION_DONE&quot;/&gt;&#13;&#10;  &lt;macroDefinition name=&quot;SILABS_AF_USE_HWCONF&quot; value=&quot;&quot;/&gt;&#13;&#10;&lt;/project&gt;&#13;&#10;"/>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactName="${ProjName}" buildArtefactType="com.iar.cdt.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=com.iar.cdt.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" cleanCommand="rm -rf" description="" id="com.silabs.ss.framework.project.toolchain.core.default#com.silabs.ss.tool.ide.arm.toolchain.iar:7.70.1.11437" name="IAR ARM - Default" parent="iar.arm.toolchain.project.exe.configuration.debug.v5.4.0">
+					<folderInfo id="com.silabs.ss.framework.project.toolchain.core.default#com.silabs.ss.tool.ide.arm.toolchain.iar:7.70.1.11437." name="/" resourcePath="">
+						<toolChain id="iar.arm.toolchain.project.exe.configuration.debug.toolchain.v5.4.0.1743145866" name="IAR Toolchain for ARM - (7.x)" superClass="iar.arm.toolchain.project.exe.configuration.debug.toolchain.v5.4.0">
+							<option id="iar.arm.toolchain.option.cpuCore.v5.4.0.418965146" name="Processor core:" superClass="iar.arm.toolchain.option.cpuCore.v5.4.0" value="iar.arm.toolchain.option.cpuCore.Cortex-M4F.v5.5.0" valueType="enumerated"/>
+							<option id="iar.arm.toolchain.option.endianMode.v5.4.0.48762536" name="Endian mode:" superClass="iar.arm.toolchain.option.endianMode.v5.4.0"/>
+							<option id="iar.arm.toolchain.option.bigEndianFormat.v5.4.0.1750238118" name="Big-endian format:" superClass="iar.arm.toolchain.option.bigEndianFormat.v5.4.0"/>
+							<option id="iar.arm.toolchain.option.printfFormatter.v5.4.0.2043966872" name="Printf formatter:" superClass="iar.arm.toolchain.option.printfFormatter.v5.4.0"/>
+							<option id="iar.arm.toolchain.option.scanfFormatter.v5.4.0.953518369" name="Scanf formatter:" superClass="iar.arm.toolchain.option.scanfFormatter.v5.4.0"/>
+							<option id="iar.arm.toolchain.option.bufferedOutput.v6.1.0.1061073918" name="Buffered terminal output" superClass="iar.arm.toolchain.option.bufferedOutput.v6.1.0"/>
+							<option id="iar.arm.toolchain.option.mfc.v5.5.2.1948872959" name="Enable multi-file compilation" superClass="iar.arm.toolchain.option.mfc.v5.5.2"/>
+							<option id="iar.arm.toolchain.option.fpu.v5.4.0.1670286167" name="FPU:" superClass="iar.arm.toolchain.option.fpu.v5.4.0" value="iar.arm.toolchain.common.option.fpu.VFPv4.v5.5.0" valueType="enumerated"/>
+							<option id="iar.arm.toolchain.option.libraryConfig.v5.4.0.707981615" name="Library:" superClass="iar.arm.toolchain.option.libraryConfig.v5.4.0" value="iar.arm.toolchain.option.libraryConfig.none.v5.4.0" valueType="enumerated"/>
+							<option id="iar.arm.toolchain.option.libraryConfigFile.v5.4.0.2013488890" name="Configuration file:" superClass="iar.arm.toolchain.option.libraryConfigFile.v5.4.0" value="${TOOLKIT_DIR}/inc/c/DLib_Config_Normal.h" valueType="string"/>
+							<option id="iar.arm.toolchain.option.semihosted.v5.4.0.1223661146" name="Include semihosting interface" superClass="iar.arm.toolchain.option.semihosted.v5.4.0" value="false" valueType="boolean"/>
+							<option id="iar.arm.toolchain.option.misra-c.enable.924137529" name="Enable MISRA-C" superClass="iar.arm.toolchain.option.misra-c.enable"/>
+							<option id="iar.arm.toolchain.option.AgatonSax::rtcEnable.v6.8.0.772378321" name="Enable" superClass="iar.arm.toolchain.option.AgatonSax::rtcEnable.v6.8.0"/>
+							<option id="iar.arm.toolchain.option.AgatonSax::rtcEnableBounds.v6.8.0.1505261778" name="Enable bounds checking" superClass="iar.arm.toolchain.option.AgatonSax::rtcEnableBounds.v6.8.0"/>
+							<option id="iar.arm.toolchain.option.AgatonSax::rtcTrackPtrBounds.v6.8.0.432846934" name="Track pointer bounds" superClass="iar.arm.toolchain.option.AgatonSax::rtcTrackPtrBounds.v6.8.0"/>
+							<option id="iar.arm.toolchain.option.AgatonSax::rtcCheckAccesses.v6.8.0.378522016" name="Check accesses" superClass="iar.arm.toolchain.option.AgatonSax::rtcCheckAccesses.v6.8.0"/>
+							<option id="iar.arm.toolchain.option.AgatonSax::rtcGenerateEntries.v6.8.0.1795382195" name="Generate functions callable from non-instrumented code" superClass="iar.arm.toolchain.option.AgatonSax::rtcGenerateEntries.v6.8.0"/>
+							<option id="iar.arm.toolchain.option.AgatonSax::rtcCheckNonInstrumentedPointers_icc.v6.8.0.106995751" name="Check pointers from non-&#10;instrumented functions" superClass="iar.arm.toolchain.option.AgatonSax::rtcCheckNonInstrumentedPointers_icc.v6.8.0"/>
+							<option id="iar.arm.toolchain.option.AgatonSax::rtcIntOverflow.v6.8.0.1067520343" name="Integer overflow" superClass="iar.arm.toolchain.option.AgatonSax::rtcIntOverflow.v6.8.0"/>
+							<option id="iar.arm.toolchain.option.AgatonSax::rtcInclUnsigned.v6.8.0.545459808" name="Including unsigned" superClass="iar.arm.toolchain.option.AgatonSax::rtcInclUnsigned.v6.8.0"/>
+							<option id="iar.arm.toolchain.option.AgatonSax::rtcIntConversion.v6.8.0.967428233" name="Integer conversion" superClass="iar.arm.toolchain.option.AgatonSax::rtcIntConversion.v6.8.0"/>
+							<option id="iar.arm.toolchain.option.AgatonSax::rtcInclExplicit.v6.8.0.1413501724" name="Including explicit casts" superClass="iar.arm.toolchain.option.AgatonSax::rtcInclExplicit.v6.8.0"/>
+							<option id="iar.arm.toolchain.option.AgatonSax::rtcIntShiftOverflow.v6.8.0.1349579169" name="Integer shift overflow" superClass="iar.arm.toolchain.option.AgatonSax::rtcIntShiftOverflow.v6.8.0"/>
+							<option id="iar.arm.toolchain.option.AgatonSax::rtcInclUnsignedShiftOverflow.v6.8.0.1263853753" name="Including unsigned shifts" superClass="iar.arm.toolchain.option.AgatonSax::rtcInclUnsignedShiftOverflow.v6.8.0"/>
+							<option id="iar.arm.toolchain.option.AgatonSax::rtcUnhandledCase.v6.8.0.128573062" name="Unhandled switch case" superClass="iar.arm.toolchain.option.AgatonSax::rtcUnhandledCase.v6.8.0"/>
+							<option id="iar.arm.toolchain.option.AgatonSax::rtcDivByZero.v6.8.0.1520510335" name="Division by zero" superClass="iar.arm.toolchain.option.AgatonSax::rtcDivByZero.v6.8.0"/>
+							<option id="iar.arm.toolchain.option.AgatonSax::rtcDebugHeap.v6.8.0.49120931" name="Use checked heap" superClass="iar.arm.toolchain.option.AgatonSax::rtcDebugHeap.v6.8.0"/>
+							<option id="iar.arm.toolchain.option.AgatonSax::rtcCheckNonInstrumentedPointers.v6.8.0.2103010947" name="Check pointers from non-&#10;instrumented memory" superClass="iar.arm.toolchain.option.AgatonSax::rtcCheckNonInstrumentedPointers.v6.8.0"/>
+							<option id="iar.arm.toolchain.option.AgatonSax::rtcNrTrackedPointers.v6.8.0.172944599" name="Number of entries:" superClass="iar.arm.toolchain.option.AgatonSax::rtcNrTrackedPointers.v6.8.0"/>
+							<option id="iar.arm.toolchain.option.useDSPLibrary.v6.2.2.578566049" name="DSP Library" superClass="iar.arm.toolchain.option.useDSPLibrary.v6.2.2"/>
+							<targetPlatform binaryParser="org.eclipse.cdt.core.ELF;com.silabs.ss.framework.debugger.core.BIN;com.silabs.ss.framework.debugger.core.HEX;com.silabs.ss.framework.debugger.core.S37;com.silabs.ss.framework.debugger.core.EBL" id="iar.arm.toolchain.targetPlatform.v5.4.0.936135367" isAbstract="false" name="IAR Target platform for ARM (ELF)" osList="win32,linux" superClass="iar.arm.toolchain.targetPlatform.v5.4.0"/>
+							<builder buildPath="${workspace_loc:/ble-module}/IAR ARM - Default" id="cdt.managedbuild.target.gnu.builder.base.29404140" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.gnu.builder.base"/>
+							<tool id="iar.arm.toolchain.compiler.v5.4.1.1727680150" name="IAR C/C++ Compiler for ARM" superClass="iar.arm.toolchain.compiler.v5.4.1">
+								<option defaultValue="true" id="iar.arm.toolchain.compiler.option.debugInfo.v5.4.0.894363988" name="Generate debug information" superClass="iar.arm.toolchain.compiler.option.debugInfo.v5.4.0" valueType="boolean"/>
+								<option defaultValue="iar.arm.toolchain.compiler.option.optLevel.none.v5.4.0" id="iar.arm.toolchain.compiler.option.optLevel.v5.4.0.304670016" name="Optimization level:" superClass="iar.arm.toolchain.compiler.option.optLevel.v5.4.0" valueType="enumerated"/>
+								<option defaultValue="true" id="iar.arm.toolchain.compiler.option.optCSE.v5.4.0.1728227371" name="Disable common subexpression elimination" superClass="iar.arm.toolchain.compiler.option.optCSE.v5.4.0" valueType="boolean"/>
+								<option defaultValue="true" id="iar.arm.toolchain.compiler.option.optUnroll.v5.4.0.1485313715" name="Disable loop unrolling" superClass="iar.arm.toolchain.compiler.option.optUnroll.v5.4.0" valueType="boolean"/>
+								<option defaultValue="true" id="iar.arm.toolchain.compiler.option.optInline.v5.4.0.1889184432" name="Disable function inlining" superClass="iar.arm.toolchain.compiler.option.optInline.v5.4.0" valueType="boolean"/>
+								<option defaultValue="true" id="iar.arm.toolchain.compiler.option.optCodeMotion.v5.4.0.1909631892" name="Disable code motion" superClass="iar.arm.toolchain.compiler.option.optCodeMotion.v5.4.0" valueType="boolean"/>
+								<option defaultValue="true" id="iar.arm.toolchain.compiler.option.optAliasAnalysis.v5.4.0.1972304933" name="Disable type-based alias analysis" superClass="iar.arm.toolchain.compiler.option.optAliasAnalysis.v5.4.0" valueType="boolean"/>
+								<option defaultValue="true" id="iar.arm.toolchain.compiler.option.optStaticClustering.v5.4.0.1860781856" name="Disable static clustering" superClass="iar.arm.toolchain.compiler.option.optStaticClustering.v5.4.0" valueType="boolean"/>
+								<option defaultValue="true" id="iar.arm.toolchain.compiler.option.optScheduling.v5.4.0.214407894" name="Disable instruction scheduling" superClass="iar.arm.toolchain.compiler.option.optScheduling.v5.4.0" valueType="boolean"/>
+								<option id="iar.arm.toolchain.compiler.option.cpuMode.v5.4.0.1329574544" name="Processor mode:" superClass="iar.arm.toolchain.compiler.option.cpuMode.v5.4.0" value="iar.arm.toolchain.compiler.option.cpuMode.thumb.v5.4.0" valueType="enumerated"/>
+								<option id="iar.arm.toolchain.compiler.option.incPaths.v5.4.0.1916666948" name="Additional include directories" superClass="iar.arm.toolchain.compiler.option.incPaths.v5.4.0" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/sensors/camera}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/hardware/kit/common/bsp&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/kinetic}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/CMSIS/Include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/hardware/kit/common/drivers&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/dmadrv/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/uartdrv/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/spidrv/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/sensors/touch}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/gpiointerrupt/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/rtcdrv/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/spidrv/config&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
+									<listOptionValue builtIn="false" value="C:/Users/Matthew%25252520Fonken/SimplicityStudio/v4_workspace/ble-module"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/rtcdrv/config&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/ustimer/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/radio/rail_lib/chip/efr32/rf/common/cortex&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/ustimer/config&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/dmadrv/config&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/tempdrv/config&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/sensors/imu}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/uartdrv/config&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/tempdrv/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/nvm/config&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/sleep/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/Device/SiliconLabs/EFR32BG1B/Include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/system}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/nvm/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/common/inc&quot;"/>
+									<listOptionValue builtIn="false" value="C:/Users/Matthew%25252520Fonken/SimplicityStudio/v4_workspace/ble-module/src"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/protocol/bluetooth_2.1/ble_stack/inc/common&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/protocol/bluetooth_2.1/ble_stack/inc/soc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emlib/inc&quot;"/>
+								</option>
+								<option id="iar.arm.toolchain.compiler.option.enableVLA.v6.1.0.1730204030" name="Allow VLA" superClass="iar.arm.toolchain.compiler.option.enableVLA.v6.1.0"/>
+								<option id="iar.arm.toolchain.compiler.option.codeSection.v5.4.0.36568057" name="Code section name:" superClass="iar.arm.toolchain.compiler.option.codeSection.v5.4.0"/>
+								<option id="iar.arm.toolchain.compiler.option.ropi.v5.5.0.1338165582" name="Position-independent code and read-only data (ropi)" superClass="iar.arm.toolchain.compiler.option.ropi.v5.5.0"/>
+								<option id="iar.arm.toolchain.compiler.option.suppress.v5.4.0.729766823" name="Suppress these diagnostics:" superClass="iar.arm.toolchain.compiler.option.suppress.v5.4.0" valueType="stringList">
+									<listOptionValue builtIn="false" value="pa050"/>
+								</option>
+								<option id="iar.arm.toolchain.compiler.option.noRwDynamicInit.v5.5.0.771612588" name="No dynamic read/write initialization" superClass="iar.arm.toolchain.compiler.option.noRwDynamicInit.v5.5.0"/>
+								<option id="iar.arm.toolchain.compiler.option.languageConformance.v6.1.0.1843735919" name="Language conformance" superClass="iar.arm.toolchain.compiler.option.languageConformance.v6.1.0"/>
+								<option id="iar.arm.toolchain.compiler.option.relaxedFp.v6.1.0.1289962282" name="Relaxed floating-point semantics" superClass="iar.arm.toolchain.compiler.option.relaxedFp.v6.1.0"/>
+								<option id="iar.arm.toolchain.compiler.option.treatAsRemarks.v5.4.0.272263555" name="Treat these as remarks:" superClass="iar.arm.toolchain.compiler.option.treatAsRemarks.v5.4.0"/>
+								<option id="iar.arm.toolchain.compiler.option.cdialect.v6.1.0.1658882612" name="C dialect" superClass="iar.arm.toolchain.compiler.option.cdialect.v6.1.0"/>
+								<option id="iar.arm.toolchain.compiler.option.cppdialect.v6.1.0.1024299987" name="C++ dialect" superClass="iar.arm.toolchain.compiler.option.cppdialect.v6.1.0" value="iar.arm.toolchain.compiler.option.cppdialect.ecpp.v6.1.0" valueType="enumerated"/>
+								<option id="iar.arm.toolchain.compiler.option.enableRemarks.v5.4.0.607272326" name="Enable remarks" superClass="iar.arm.toolchain.compiler.option.enableRemarks.v5.4.0"/>
+								<option id="iar.arm.toolchain.compiler.option.preserveComments.v6.2.0.1151225765" name="Preserve comments" superClass="iar.arm.toolchain.compiler.option.preserveComments.v6.2.0"/>
+								<option id="iar.arm.toolchain.compiler.option.treatAsWarnings.v5.4.0.2053770400" name="Treat these as warnings:" superClass="iar.arm.toolchain.compiler.option.treatAsWarnings.v5.4.0"/>
+								<option id="iar.arm.toolchain.compiler.option.ignoreStdInc.v5.4.0.1995502783" name="Ignore standard include directories" superClass="iar.arm.toolchain.compiler.option.ignoreStdInc.v5.4.0"/>
+								<option id="iar.arm.toolchain.compiler.option.treatAsErrors.v5.4.0.1526390001" name="Treat these as errors:" superClass="iar.arm.toolchain.compiler.option.treatAsErrors.v5.4.0" valueType="stringList">
+									<listOptionValue builtIn="false" value="pe223"/>
+								</option>
+								<option id="iar.arm.toolchain.compiler.option.noExceptions.v6.1.0.52196803" name="C++ without exceptions" superClass="iar.arm.toolchain.compiler.option.noExceptions.v6.1.0" value="true" valueType="boolean"/>
+								<option id="iar.arm.toolchain.compiler.option.multibyte.v6.1.0.898076298" name="Enable multibyte support" superClass="iar.arm.toolchain.compiler.option.multibyte.v6.1.0"/>
+								<option id="iar.arm.toolchain.compiler.option.treatAllWarningsAsErrors.v5.4.0.919143660" name="Treat all warnings as errors" superClass="iar.arm.toolchain.compiler.option.treatAllWarningsAsErrors.v5.4.0"/>
+								<option id="iar.arm.toolchain.compiler.option.interwork.v5.4.0.284597174" name="Generate interwork code" superClass="iar.arm.toolchain.compiler.option.interwork.v5.4.0" value="false" valueType="boolean"/>
+								<option id="iar.arm.toolchain.compiler.option.charIs.v6.1.0.1724540026" name="Plain 'char' is:" superClass="iar.arm.toolchain.compiler.option.charIs.v6.1.0"/>
+								<option id="iar.arm.toolchain.compiler.option.rwpi.v5.5.0.462502164" name="Position-independent read/write data (rwpi)" superClass="iar.arm.toolchain.compiler.option.rwpi.v5.5.0"/>
+								<option id="iar.arm.toolchain.compiler.option.generateLineDirectives.v6.2.0.720234709" name="Generate #line directives" superClass="iar.arm.toolchain.compiler.option.generateLineDirectives.v6.2.0"/>
+								<option id="iar.arm.toolchain.compiler.option.language.v6.1.0.1124082130" name="Language" superClass="iar.arm.toolchain.compiler.option.language.v6.1.0"/>
+								<option id="iar.arm.toolchain.compiler.option.destroyStaticObjects.v6.1.0.933887168" name="Destroy static objects" superClass="iar.arm.toolchain.compiler.option.destroyStaticObjects.v6.1.0"/>
+								<option id="iar.arm.toolchain.compiler.option.noSizeConstraints.v6.4.0.1907082572" name="No size constraints" superClass="iar.arm.toolchain.compiler.option.noSizeConstraints.v6.4.0"/>
+								<option id="iar.arm.toolchain.compiler.option.additionalUserOptions.1188727290" name="Use command line options" superClass="iar.arm.toolchain.compiler.option.additionalUserOptions" value="--enum_is_int" valueType="string"/>
+								<option id="iar.arm.toolchain.compiler.option.noRTTI.v6.1.0.550522764" name="C++ without RTTI" superClass="iar.arm.toolchain.compiler.option.noRTTI.v6.1.0" value="true" valueType="boolean"/>
+								<option id="iar.arm.toolchain.compiler.option.requirePrototypes.v6.1.0.258696285" name="Require prototypes" superClass="iar.arm.toolchain.compiler.option.requirePrototypes.v6.1.0"/>
+								<option id="iar.arm.toolchain.compiler.option.cppInlineSemantics.v6.1.0.933570991" name="Use C++ inline semantics" superClass="iar.arm.toolchain.compiler.option.cppInlineSemantics.v6.1.0"/>
+								<option id="iar.arm.toolchain.compiler.option.preprocessorOut.v6.2.0.773046285" name="Preprocessor output to file" superClass="iar.arm.toolchain.compiler.option.preprocessorOut.v6.2.0"/>
+								<option id="iar.arm.toolchain.compiler.option.defines.v5.4.0.775013476" name="Defined Symbols:" superClass="iar.arm.toolchain.compiler.option.defines.v5.4.0" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="SILABS_AF_USE_HWCONF=1"/>
+									<listOptionValue builtIn="false" value="GENERATION_DONE=1"/>
+									<listOptionValue builtIn="false" value="__NO_SYSTEM_INIT=1"/>
+									<listOptionValue builtIn="false" value="EFR32BG1B232F256GM32=1"/>
+								</option>
+								<inputType id="iar.arm.toolchain.compiler.inputType.c.v6.12.0.1212980170" name="IAR C/C++ Compiler Input Type" superClass="iar.arm.toolchain.compiler.inputType.c.v6.12.0"/>
+							</tool>
+							<tool id="iar.arm.toolchain.assembler.v5.4.0.1687378965" name="IAR Assembler for ARM" superClass="iar.arm.toolchain.assembler.v5.4.0">
+								<option defaultValue="true" id="iar.arm.toolchain.assembler.option.debugInfo.v5.4.0.577691118" name="Generate debug information" superClass="iar.arm.toolchain.assembler.option.debugInfo.v5.4.0" valueType="boolean"/>
+								<option id="iar.arm.toolchain.assembler.option.includePaths.v5.4.0.1563421176" name="Additional include directories:" superClass="iar.arm.toolchain.assembler.option.includePaths.v5.4.0" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/sensors/camera}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/hardware/kit/common/bsp&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/kinetic}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/CMSIS/Include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/hardware/kit/common/drivers&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/dmadrv/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/uartdrv/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/spidrv/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/sensors/touch}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/gpiointerrupt/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/rtcdrv/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/spidrv/config&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
+									<listOptionValue builtIn="false" value="C:/Users/Matthew%25252520Fonken/SimplicityStudio/v4_workspace/ble-module"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/rtcdrv/config&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/ustimer/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/radio/rail_lib/chip/efr32/rf/common/cortex&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/ustimer/config&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/dmadrv/config&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/tempdrv/config&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/sensors/imu}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/uartdrv/config&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/tempdrv/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/nvm/config&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/sleep/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/Device/SiliconLabs/EFR32BG1B/Include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/system}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/nvm/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/common/inc&quot;"/>
+									<listOptionValue builtIn="false" value="C:/Users/Matthew%25252520Fonken/SimplicityStudio/v4_workspace/ble-module/src"/>
+									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emlib/inc&quot;"/>
+								</option>
+								<option id="iar.arm.toolchain.assembler.option.quoteCharacters.v5.4.0.866449664" name="Macro quote characters:" superClass="iar.arm.toolchain.assembler.option.quoteCharacters.v5.4.0"/>
+								<option id="iar.arm.toolchain.assembler.option.maxErrors.v5.4.0.1361605085" name="Max number of errors:" superClass="iar.arm.toolchain.assembler.option.maxErrors.v5.4.0" value="100" valueType="string"/>
+								<option id="iar.arm.toolchain.assembler.option.extraOptions.v5.4.0.243835968" name="Use command line options:" superClass="iar.arm.toolchain.assembler.option.extraOptions.v5.4.0"/>
+								<option id="iar.arm.toolchain.assembler.option.linesPerPage.v5.4.0.1220206977" name="Lines/page:" superClass="iar.arm.toolchain.assembler.option.linesPerPage.v5.4.0" value="80" valueType="string"/>
+								<option id="iar.arm.toolchain.assembler.option.generateListFile.v5.4.0.77262198" name="Output list file" superClass="iar.arm.toolchain.assembler.option.generateListFile.v5.4.0" value="true" valueType="boolean"/>
+								<option id="iar.arm.toolchain.assembler.option.includeMacroExpansions.v6.2.0.110412531" name="Macro expansions" superClass="iar.arm.toolchain.assembler.option.includeMacroExpansions.v6.2.0" value="true" valueType="boolean"/>
+								<option id="iar.arm.toolchain.assembler.option.omitHeader.v5.4.0.784755438" name="Omit header" superClass="iar.arm.toolchain.assembler.option.omitHeader.v5.4.0" value="true" valueType="boolean"/>
+								<option id="iar.arm.toolchain.assembler.option.crossRefDefines.v6.2.0.186659900" name="#defines" superClass="iar.arm.toolchain.assembler.option.crossRefDefines.v6.2.0"/>
+								<option id="iar.arm.toolchain.assembler.option.includeMacroInfo.v5.4.0.413449891" name="Macro execution info" superClass="iar.arm.toolchain.assembler.option.includeMacroInfo.v5.4.0"/>
+								<option id="iar.arm.toolchain.assembler.option.enableMultibyte.v5.4.0.1364602858" name="Enable multibyte support" superClass="iar.arm.toolchain.assembler.option.enableMultibyte.v5.4.0"/>
+								<option id="iar.arm.toolchain.assembler.option.asmCrossReference.v6.2.0.311086181" name="Include cross reference" superClass="iar.arm.toolchain.assembler.option.asmCrossReference.v6.2.0"/>
+								<option id="iar.arm.toolchain.assembler.option.alternativeRegisterNames.v5.4.0.372248272" name="Allow alternative register names, mnemonics and operands" superClass="iar.arm.toolchain.assembler.option.alternativeRegisterNames.v5.4.0"/>
+								<option id="iar.arm.toolchain.assembler.option.crossRefDualLineSpacing.v6.2.0.155856087" name="Dual line spacing" superClass="iar.arm.toolchain.assembler.option.crossRefDualLineSpacing.v6.2.0"/>
+								<option id="iar.arm.toolchain.assembler.option.includeMacroDefinitions.v6.2.0.1220373004" name="Macro definitions" superClass="iar.arm.toolchain.assembler.option.includeMacroDefinitions.v6.2.0"/>
+								<option id="iar.arm.toolchain.assembler.option.caseSensitiveSymbols.v5.4.0.1750843342" name="User symbols are case sensitive" superClass="iar.arm.toolchain.assembler.option.caseSensitiveSymbols.v5.4.0"/>
+								<option id="iar.arm.toolchain.assembler.option.crossRefInternalSymbols.v6.2.0.1124861266" name="Internal symbols" superClass="iar.arm.toolchain.assembler.option.crossRefInternalSymbols.v6.2.0"/>
+								<option id="iar.arm.toolchain.assembler.option.asmListContents.v6.2.0.531492991" name="Include listing" superClass="iar.arm.toolchain.assembler.option.asmListContents.v6.2.0" value="true" valueType="boolean"/>
+								<option id="iar.arm.toolchain.assembler.option.includeMultilineCode.v6.2.0.1035435708" name="Multiline code" superClass="iar.arm.toolchain.assembler.option.includeMultilineCode.v6.2.0"/>
+								<option id="iar.arm.toolchain.assembler.option.includeAsmLinesOnly.v6.2.0.961344647" name="Assembled lines only" superClass="iar.arm.toolchain.assembler.option.includeAsmLinesOnly.v6.2.0"/>
+								<option id="iar.arm.toolchain.assembler.option.ignoreStdInc.v5.4.0.1493981458" name="Ignore standard include paths" superClass="iar.arm.toolchain.assembler.option.ignoreStdInc.v5.4.0"/>
+								<option id="iar.arm.toolchain.assembler.option.tabSpacing.v5.4.0.194911052" name="Tab spacing:" superClass="iar.arm.toolchain.assembler.option.tabSpacing.v5.4.0" value="8" valueType="string"/>
+								<option id="iar.arm.toolchain.assembler.option.disableAllWarnings.v5.4.0.434045386" name="Disable all warnings" superClass="iar.arm.toolchain.assembler.option.disableAllWarnings.v5.4.0"/>
+								<option id="iar.arm.toolchain.assembler.option.includeInclude.v5.4.0.1471037336" name="#included text" superClass="iar.arm.toolchain.assembler.option.includeInclude.v5.4.0"/>
+								<option id="iar.arm.toolchain.assembler.option.definedSymbols.v5.4.0.755376387" name="Defined symbols:" superClass="iar.arm.toolchain.assembler.option.definedSymbols.v5.4.0" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="SILABS_AF_USE_HWCONF=1"/>
+									<listOptionValue builtIn="false" value="__NO_SYSTEM_INIT=1"/>
+									<listOptionValue builtIn="false" value="EFR32BG1B232F256GM32=1"/>
+								</option>
+								<inputType id="iar.arm.toolchain.assembler.inputType.asmFile.v5.4.0.1164699821" name="IAR Assembler input type for ARM (asm, s)" superClass="iar.arm.toolchain.assembler.inputType.asmFile.v5.4.0"/>
+							</tool>
+							<tool id="iar.arm.toolchain.linker.v5.4.0.471015905" name="IAR Linker for ARM" superClass="iar.arm.toolchain.linker.v5.4.0">
+								<option id="iar.arm.toolchain.linker.option.icfFile.v5.4.0.1724056626" name="Linker configuration file:" superClass="iar.arm.toolchain.linker.option.icfFile.v5.4.0" value="${workspace_loc:/${ProjName}/linker/bleDemo.icf}" valueType="string"/>
+								<option id="iar.arm.toolchain.linker.option.generateAdditonalOutput.v5.5.2.1757491496" name="Generate additional output" superClass="iar.arm.toolchain.linker.option.generateAdditonalOutput.v5.5.2" value="true" valueType="boolean"/>
+								<option id="iar.arm.toolchain.linker.option.outFormat.type.intelExtended.v5.5.2.438296680" name="Generate Intel extended output" superClass="iar.arm.toolchain.linker.option.outFormat.type.intelExtended.v5.5.2" value="true" valueType="boolean"/>
+								<option id="iar.arm.toolchain.linker.option.outFormat.type.binary.v5.5.2.82109543" name="Generate binary output" superClass="iar.arm.toolchain.linker.option.outFormat.type.binary.v5.5.2" value="true" valueType="boolean"/>
+								<option id="iar.arm.toolchain.linker.option.outFormat.type.motorola.v5.5.2.542684624" name="Generate Motorola output" superClass="iar.arm.toolchain.linker.option.outFormat.type.motorola.v5.5.2" value="true" valueType="boolean"/>
+								<option id="iar.arm.toolchain.linker.option.altOutputFile.motorola.v5.5.2.986217213" name="Output file" superClass="iar.arm.toolchain.linker.option.altOutputFile.motorola.v5.5.2" value="${ProjName}.s37" valueType="string"/>
+								<option id="iar.arm.toolchain.linker.option.checksumType.v5.5.2.484399203" name="Algorithm:" superClass="iar.arm.toolchain.linker.option.checksumType.v5.5.2"/>
+								<option id="iar.arm.toolchain.linker.option.configSymbolDefs.v6.2.0.286277878" name="Configuration file symbol definitions" superClass="iar.arm.toolchain.linker.option.configSymbolDefs.v6.2.0"/>
+								<option id="iar.arm.toolchain.linker.option.fillEnd.v5.5.2.1417584853" name="End address:" superClass="iar.arm.toolchain.linker.option.fillEnd.v5.5.2"/>
+								<option id="iar.arm.toolchain.linker.option.generateChecksum.v5.5.2.148824321" name="Generate checksum" superClass="iar.arm.toolchain.linker.option.generateChecksum.v5.5.2"/>
+								<option id="iar.arm.toolchain.linker.option.checksumAlignment.v5.5.2.809031473" name="Alignment:" superClass="iar.arm.toolchain.linker.option.checksumAlignment.v5.5.2"/>
+								<option id="iar.arm.toolchain.linker.option.complement.v5.5.2.1721289199" name="Complement:" superClass="iar.arm.toolchain.linker.option.complement.v5.5.2"/>
+								<option id="iar.arm.toolchain.linker.option.fill.v5.5.2.509399289" name="Fill unused code memory" superClass="iar.arm.toolchain.linker.option.fill.v5.5.2"/>
+								<option id="iar.arm.toolchain.linker.option.enableStackUsage.v6.3.0.103270758" name="Enable stack usage analysis" superClass="iar.arm.toolchain.linker.option.enableStackUsage.v6.3.0"/>
+								<option id="iar.arm.toolchain.linker.option.checksumReverse.v6.1.0.404611053" name="Reverse byte order within word" superClass="iar.arm.toolchain.linker.option.checksumReverse.v6.1.0"/>
+								<option id="iar.arm.toolchain.linker.option.autoLibrarySelection.1305699010" name="Automatic runtime library selection" superClass="iar.arm.toolchain.linker.option.autoLibrarySelection"/>
+								<option id="iar.arm.toolchain.linker.option.outFormat.v5.5.2.1645590369" name="Output format:" superClass="iar.arm.toolchain.linker.option.outFormat.v5.5.2" value="iar.arm.toolchain.linker.option.outFormat.intelExtended.v5.5.2" valueType="enumerated"/>
+								<option id="iar.arm.toolchain.linker.option.useAsInput.v6.1.0.1274113924" name="Use as input" superClass="iar.arm.toolchain.linker.option.useAsInput.v6.1.0"/>
+								<option id="iar.arm.toolchain.linker.option.mergeDuplicateSections.v6.2.2.686992931" name="Merge duplicate sections" superClass="iar.arm.toolchain.linker.option.mergeDuplicateSections.v6.2.2"/>
+								<option id="iar.arm.toolchain.linker.option.checksumResultFullSize.v5.5.2.10082486" name="Result in full size" superClass="iar.arm.toolchain.linker.option.checksumResultFullSize.v5.5.2"/>
+								<option id="iar.arm.toolchain.linker.option.stripDebugInformation.v5.4.0.262620872" name="Include debug information in output" superClass="iar.arm.toolchain.linker.option.stripDebugInformation.v5.4.0"/>
+								<option id="iar.arm.toolchain.linker.option.extraOptions.v5.4.0.1236413754" name="Use command line options:" superClass="iar.arm.toolchain.linker.option.extraOptions.v5.4.0" value="--no_range_reservations" valueType="string"/>
+								<option id="iar.arm.toolchain.linker.option.entryOverride.v6.2.3.368087375" name="Override default program entry" superClass="iar.arm.toolchain.linker.option.entryOverride.v6.2.3" value="true" valueType="boolean"/>
+								<option id="iar.arm.toolchain.linker.option.logFileVeenerStatistics.v5.4.0.346885386" name="Log veener statistics" superClass="iar.arm.toolchain.linker.option.logFileVeenerStatistics.v5.4.0"/>
+								<option id="iar.arm.toolchain.linker.option.logFileUnusedFragments.v5.5.0.1642958717" name="Log unused section fragments" superClass="iar.arm.toolchain.linker.option.logFileUnusedFragments.v5.5.0"/>
+								<option id="iar.arm.toolchain.linker.option.treatAsErrors.v5.4.0.1225206044" name="Treat these as errors:" superClass="iar.arm.toolchain.linker.option.treatAsErrors.v5.4.0"/>
+								<option id="iar.arm.toolchain.linker.option.logFileModuleSelections.v5.4.0.1222586959" name="Log module selections" superClass="iar.arm.toolchain.linker.option.logFileModuleSelections.v5.4.0"/>
+								<option id="iar.arm.toolchain.linker.option.logFileSectionSelections.v5.4.0.45454602" name="Log section selections" superClass="iar.arm.toolchain.linker.option.logFileSectionSelections.v5.4.0"/>
+								<option id="iar.arm.toolchain.linker.option.logFile.v6.2.2.268254789" name="Generate log file" superClass="iar.arm.toolchain.linker.option.logFile.v6.2.2"/>
+								<option id="iar.arm.toolchain.linker.option.forceExceptions.v6.1.0.436277020" name="Always include C++ exceptions" superClass="iar.arm.toolchain.linker.option.forceExceptions.v6.1.0"/>
+								<option id="iar.arm.toolchain.linker.option.fillPattern.v5.5.2.883558265" name="Fill pattern:" superClass="iar.arm.toolchain.linker.option.fillPattern.v5.5.2"/>
+								<option id="iar.arm.toolchain.linker.option.checksumUnitSize.v6.4.0.468808231" name="Checksum unit size:" superClass="iar.arm.toolchain.linker.option.checksumUnitSize.v6.4.0"/>
+								<option id="iar.arm.toolchain.linker.option.imageInput.v5.4.0.1929563800" name="Raw binary image:" superClass="iar.arm.toolchain.linker.option.imageInput.v5.4.0"/>
+								<option id="iar.arm.toolchain.linker.option.keep.v5.4.0.610379151" name="Keep symbols:" superClass="iar.arm.toolchain.linker.option.keep.v5.4.0" valueType="stringList">
+									<listOptionValue builtIn="false" value="__iar_program_start"/>
+								</option>
+								<option id="iar.arm.toolchain.linker.option.enableRemarks.v5.4.0.1299032776" name="Enable remarks" superClass="iar.arm.toolchain.linker.option.enableRemarks.v5.4.0"/>
+								<option id="iar.arm.toolchain.linker.option.noExceptions.v6.1.0.1499772725" name="Allow C++ exceptions" superClass="iar.arm.toolchain.linker.option.noExceptions.v6.1.0"/>
+								<option id="iar.arm.toolchain.linker.option.entryDefinedByApplication.v5.4.0.1390923162" name="Defined by application" superClass="iar.arm.toolchain.linker.option.entryDefinedByApplication.v5.4.0"/>
+								<option id="iar.arm.toolchain.linker.option.treatAsRemarks.v5.4.0.1932091454" name="Treat these as remarks:" superClass="iar.arm.toolchain.linker.option.treatAsRemarks.v5.4.0"/>
+								<option id="iar.arm.toolchain.linker.option.checksumSize.v5.5.2.1699327327" name="Checksum size:" superClass="iar.arm.toolchain.linker.option.checksumSize.v5.5.2"/>
+								<option id="iar.arm.toolchain.linker.option.performVFE.v6.2.2.1257263812" name="Perform C++ Virtual Function Elimination" superClass="iar.arm.toolchain.linker.option.performVFE.v6.2.2"/>
+								<option id="iar.arm.toolchain.linker.option.warningsAreErrors.v5.4.0.1411501829" name="Treat all warnings as errors" superClass="iar.arm.toolchain.linker.option.warningsAreErrors.v5.4.0"/>
+								<option id="iar.arm.toolchain.linker.option.forceVFE.v6.2.2.1354853197" name="Even if some modules are missing VFE information" superClass="iar.arm.toolchain.linker.option.forceVFE.v6.2.2"/>
+								<option id="iar.arm.toolchain.linker.option.fillStart.v5.5.2.338976492" name="Start address:" superClass="iar.arm.toolchain.linker.option.fillStart.v5.5.2"/>
+								<option id="iar.arm.toolchain.linker.option.programEntry.v5.4.0.154634731" name="Entry symbol:" superClass="iar.arm.toolchain.linker.option.programEntry.v5.4.0"/>
+								<option id="iar.arm.toolchain.linker.option.callGraphOutput.v6.3.0.1572981447" name="Call graph output (XML)" superClass="iar.arm.toolchain.linker.option.callGraphOutput.v6.3.0"/>
+								<option id="iar.arm.toolchain.linker.option.stackUsageControlFile.v6.3.0.332555993" name="Control file" superClass="iar.arm.toolchain.linker.option.stackUsageControlFile.v6.3.0"/>
+								<option id="iar.arm.toolchain.linker.option.inline.v6.1.0.251853180" name="Inline small routines" superClass="iar.arm.toolchain.linker.option.inline.v6.1.0"/>
+								<option id="iar.arm.toolchain.linker.option.logFileInitializationDecisions.v5.4.0.575069076" name="Log initialization decisions" superClass="iar.arm.toolchain.linker.option.logFileInitializationDecisions.v5.4.0"/>
+								<option id="iar.arm.toolchain.linker.option.suppressThese.v5.4.0.1590127121" name="Suppress these diagnostics (e.g. e106):" superClass="iar.arm.toolchain.linker.option.suppressThese.v5.4.0"/>
+								<option id="iar.arm.toolchain.linker.option.logFileRedirectedSymbols.v5.5.0.1738933498" name="Log redirected symbols" superClass="iar.arm.toolchain.linker.option.logFileRedirectedSymbols.v5.5.0"/>
+								<option id="iar.arm.toolchain.linker.option.logFileLibrarySelections.v5.5.0.17192607" name="Log automatic library selection" superClass="iar.arm.toolchain.linker.option.logFileLibrarySelections.v5.5.0"/>
+								<option id="iar.arm.toolchain.linker.option.bitOrder.v5.5.2.487479917" name="Bit order:" superClass="iar.arm.toolchain.linker.option.bitOrder.v5.5.2"/>
+								<option id="iar.arm.toolchain.linker.option.checksumCrcPolynomial.v5.5.2.853583556" name="Crc polynomial:" superClass="iar.arm.toolchain.linker.option.checksumCrcPolynomial.v5.5.2"/>
+								<option id="iar.arm.toolchain.linker.option.mapFile.v6.2.2.1158712942" name="Generate linker map file" superClass="iar.arm.toolchain.linker.option.mapFile.v6.2.2"/>
+								<option id="iar.arm.toolchain.linker.option.initialValue.v5.5.2.363238551" name="Initial value:" superClass="iar.arm.toolchain.linker.option.initialValue.v5.5.2"/>
+								<option id="iar.arm.toolchain.linker.option.treatAsWarnings.v5.4.0.1562268040" name="Treat these as warnings:" superClass="iar.arm.toolchain.linker.option.treatAsWarnings.v5.4.0"/>
+								<option id="iar.arm.toolchain.linker.option.additionalLibraries.v5.5.0.1806121283" name="Additional libraries" superClass="iar.arm.toolchain.linker.option.additionalLibraries.v5.5.0" valueType="libs">
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="&quot;${StudioSdkPath}/protocol/bluetooth_2.1/lib/binbootloader.o&quot;"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="&quot;${StudioSdkPath}/protocol/bluetooth_2.1/lib/stack.a&quot;"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="&quot;${StudioSdkPath}/protocol/bluetooth_2.1/lib/binstack.o&quot;"/>
+								</option>
+								<inputType id="iar.arm.toolchain.linker.inputType.object.v5.4.0.2020230085" name="IAR Linker Input Type for ARM (o)" superClass="iar.arm.toolchain.linker.inputType.object.v5.4.0">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+								</inputType>
+							</tool>
+							<tool id="iar.arm.toolchain.archive.v5.4.0.618500329" name="IAR Library Builder for ARM" superClass="iar.arm.toolchain.archive.v5.4.0"/>
+						</toolChain>
+					</folderInfo>
+					<sourceEntries>
+						<entry excluding="emlib/RD-0057-0101|emlib/em_leuart.c|device/EFR32_M_1_1_P|device/EFR32_B_1_1_P|device/EFR32_B_1_1_V|emlib(/.*){0,1}/em_gpio.c|emlib(/.*){0,1}/em_i2c.c|emlib(/.*){0,1}/em_rtcc.c|emlib(/.*){0,1}/em_usart.c|emlib(/.*){0,1}/em_msc.c|emlib(/.*){0,1}/em_cryotimer.c|emlib(/.*){0,1}/em_timer.c|emlib(/.*){0,1}/em_adc.c|emlib(/.*){0,1}/em_leuart.c" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name=""/>
+					</sourceEntries>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+	</storageModule>
+	<storageModule core.installationPath="file:/C:/Users/Matthew%20Fonken/SimplicityStudio/v4_workspace/ble-module" moduleId="com.silabs.ss.framework.ide.project.core.cpp" project.generation="24" projectCommon.boardIds="com.silabs.board.none:0.0.0" projectCommon.partId="mcu.arm.efr32.bg1.efr32bg1b232f256gm32" projectCommon.sdkId="com.silabs.stack.ble:2.1.1.0_-1958991346"/>
+	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+		<project id="ble-module.com.silabs.ss.framework.ide.project.core.cdt.cdtMbsProjectType.1350882345" name="SLS CDT Project" projectType="com.silabs.ss.framework.ide.project.core.cdt.cdtMbsProjectType"/>
+	</storageModule>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="refreshScope"/>
+</cproject>
