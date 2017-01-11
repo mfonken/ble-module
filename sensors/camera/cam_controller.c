@@ -11,13 +11,13 @@
 
 centroids_t centroids;
 
-void initCamera( void )
+void Camera_Init( void )
 {
 	Print_Char( CAMERA_INIT );
 	uint8_t n = Read_Char();
 }
 
-void readCamera( void )
+void Camera_Read( void )
 {
 	uint8_t cmd = Read_Char();
 	char out[10];

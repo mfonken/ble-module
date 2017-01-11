@@ -73,6 +73,9 @@ main.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c
 main.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\emlib\inc\em_bus.h
 main.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\emlib\inc\em_cmu.h
 main.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\emlib\inc\em_assert.h
-main.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\usart_sp.h
-main.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\app.h
+main.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\utilities\usart_sp.h
+main.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\app\app.h
+main.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\math.h
+main.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\ymath.h
+main.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\xtgmath.h
 main.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\inc\InitDevice.h

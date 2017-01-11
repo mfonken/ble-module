@@ -10,6 +10,8 @@
 
 #include <stdint.h>
 
+#define CAM_UART		USART0
+
 #define CAMERA_INIT		0xab
 #define CENTROID_HEAD	0xee
 
@@ -29,8 +31,8 @@ typedef struct
 
 extern centroids_t centroids;
 
-void initCamera( void );
-void readCamera( void );
+void Camera_Init( void );
+void Camera_Read( void );
 void readCentroidData( centroids_t * centroids );
 
 

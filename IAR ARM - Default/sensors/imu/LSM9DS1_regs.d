@@ -11,5 +11,5 @@ sensors/imu/LSM9DS1_regs.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Work
 sensors/imu/LSM9DS1_regs.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\ystdio.h
 sensors/imu/LSM9DS1_regs.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\imu\LSM9DS1_regs.h
 sensors/imu/LSM9DS1_regs.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\stdint.h
-sensors/imu/LSM9DS1_regs.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\i2c_sp.h
+sensors/imu/LSM9DS1_regs.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\utilities\i2c_sp.h
 sensors/imu/LSM9DS1_regs.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\stdbool.h

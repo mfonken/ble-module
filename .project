@@ -63,7 +63,7 @@
 		<link>
 			<name>emlib/em_timer.c</name>
 			<type>1</type>
-			<locationURI>PARENT-5-PROJECT_LOC/SiliconLabs/SimplicityStudio/v4/developer/stacks/ble/v2.1.1.0/platform/emlib/src/em_timer.c</locationURI>
+			<locationURI>STUDIO_SDK_LOC/platform/emlib/src/em_timer.c</locationURI>
 		</link>
 		<link>
 			<name>emlib/em_usart.c</name>

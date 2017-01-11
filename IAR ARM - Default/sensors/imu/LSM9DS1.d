@@ -59,7 +59,7 @@ sensors/imu/LSM9DS1.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v
 sensors/imu/LSM9DS1.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\Device\SiliconLabs\EFR32BG1B\Include\efr32bg1b_af_ports.h
 sensors/imu/LSM9DS1.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\Device\SiliconLabs\EFR32BG1B\Include\efr32bg1b_af_pins.h
 sensors/imu/LSM9DS1.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\stdbool.h
-sensors/imu/LSM9DS1.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\i2c_sp.h
+sensors/imu/LSM9DS1.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\utilities\i2c_sp.h
 sensors/imu/LSM9DS1.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\imu\LSM9DS1.h
 sensors/imu/LSM9DS1.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\kinetic\kinetic_types.h
 sensors/imu/LSM9DS1.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\imu\LSM9DS1_regs.h

@@ -106,7 +106,12 @@ void main(void)
   /* Initialize stack */
   gecko_init(&config);
 
+  /* Initialize App */
+  app_init();
+
   while (1) {
+	app();
+
 //	Print_String("Loop.\r\n", 7);
     /* Event pointer for handling events */
     struct gecko_cmd_packet* evt;
@@ -119,12 +124,10 @@ void main(void)
 
     	case gecko_evt_le_connection_opened_id:
 			Print_String("Connected.\r\n", 12);
-			initialize3DMode();
 			break;
 		/* This boot event is generated when the system boots up after reset.
 		 * Here the system is set to start advertising immediately after boot procedure. */
 		case gecko_evt_system_boot_id:
-			appInit();
 			Print_String("Boot.\r\n", 7);
 			/* Set advertising parameters. 100ms advertisement interval. All channels used.
 			 * The first two parameters are minimum and maximum advertising interval, both in
@@ -136,7 +139,6 @@ void main(void)
 			break;
 
 		case gecko_evt_le_connection_closed_id:
-			deinitialize3DMode();
 			Print_String("Disconnected.\r\n", 15);
 			/* Restart advertising after client has disconnected */
 			gecko_cmd_le_gap_set_mode(le_gap_general_discoverable, le_gap_undirected_connectable);

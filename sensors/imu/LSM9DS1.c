@@ -54,7 +54,7 @@ double magResolutions[4] = { 0.00014, 0.00029, 0.00043, 0.00058 };
 uint8_t IMU_GetRegister( uint8_t reg )
 {
 	uint8_t i2c_read_data[1];
-	I2C_Read( LSM9DS1_IMU_ADDR, reg, i2c_read_data, 1 );
+	I2C_Read_Reg( LSM9DS1_IMU_ADDR, reg, i2c_read_data, 1 );
 	return i2c_read_data[0];
 }
 
@@ -163,19 +163,19 @@ LSM9DS1_t * IMU_Update( void )
 {
 	/* Combine low and high byte values */
 	uint8_t                    i2c_read_data[6];
-	I2C_Read( LSM9DS1_IMU_ADDR, XL_OUT, i2c_read_data, 6 );
+	I2C_Read_Reg( LSM9DS1_IMU_ADDR, XL_OUT, i2c_read_data, 6 );
 	int16_t accel[3];
 	accel[0] = ( i2c_read_data[1] << 8 ) | i2c_read_data[0];
 	accel[1] = ( i2c_read_data[3] << 8 ) | i2c_read_data[2];
 	accel[2] = ( i2c_read_data[5] << 8 ) | i2c_read_data[4];
 
-	I2C_Read( LSM9DS1_IMU_ADDR, G_OUT, i2c_read_data, 6 );
+	I2C_Read_Reg( LSM9DS1_IMU_ADDR, G_OUT, i2c_read_data, 6 );
 	int16_t gyro[3];
 	gyro[0] = ( i2c_read_data[1] << 8 ) | i2c_read_data[0];
 	gyro[1] = ( i2c_read_data[3] << 8 ) | i2c_read_data[2];
 	gyro[2] = ( i2c_read_data[5] << 8 ) | i2c_read_data[4];
 
-    I2C_Read( LSM9DS1_MAG_ADDR, M_OUT, i2c_read_data, 6 );
+	I2C_Read_Reg( LSM9DS1_MAG_ADDR, M_OUT, i2c_read_data, 6 );
 	int16_t mag[3];
 	mag[0] = ( i2c_read_data[1] << 8 ) | i2c_read_data[0];
 	mag[1] = ( i2c_read_data[3] << 8 ) | i2c_read_data[2];

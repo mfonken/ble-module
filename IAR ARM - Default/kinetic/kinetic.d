@@ -67,4 +67,4 @@ kinetic/kinetic.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-mo
 kinetic/kinetic.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\emlib\inc\em_rtcc.h
 kinetic/kinetic.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\emlib\inc\em_assert.h
 kinetic/kinetic.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\kinetic\matrix.h
-kinetic/kinetic.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\usart_sp.h
+kinetic/kinetic.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\utilities\usart_sp.h

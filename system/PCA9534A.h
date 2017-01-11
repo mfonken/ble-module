@@ -1,18 +1,18 @@
 //
-//  PCA9534A.h
+//  SysCtlr.h
 //  
 //
 //  Created by Matthew Fonken on 12/17/16.
 //
 //
 
-#ifndef PCA9534A_h
-#define PCA9534A_h
+#ifndef SysCtlr_h
+#define SysCtlr_h
 
 #include <stdio.h>
 #include <stdint.h>
 
-#define PCA9534A_ADDR   0x70
+#define SysCtlr_ADDR   0x70
 
 #define INPUT_REGISTER  0
 #define OUTPUT_REGISTER 1
@@ -48,7 +48,7 @@
 #define INT_M1_DIR      INPUT
 #define INT_T_DIR       INPUT
 
-#define PCA9534A_PORT_DIR        (   \
+#define SysCtlr_PORT_DIR        (   \
     VREG_MODE_DIR  << VREG_MODE  | \
     PWR_SWITCH_DIR << PWR_SWITCH | \
     OC_FLAG_DIR    << OC_FLAG    | \
@@ -64,7 +64,7 @@
 #define IMU_CS_DEFAULT      ON
 #define FRC_EN_DEFAULT      OFF
 
-#define PCA9534A_OUTPUT_DEFAULT         \
+#define SysCtlr_OUTPUT_DEFAULT         \
     VREG_MODE_DEFAULT  << VREG_MODE  | \
     PWR_SWITCH_DEFAULT << PWR_SWITCH | \
     IMU_CS_DEFAULT     << IMU_CS     | \
@@ -80,11 +80,17 @@ typedef struct
     uint8_t oc_flag     :1;
     uint8_t pwr_switch  :1;
     uint8_t vreg_mode   :1;
-} PCA9534A_port_t;
+} SysCtlr_port_t;
 
-void PCA9534A_Init( void );
-uint8_t * PCA9534A_Get(  void );
-void PCA9534A_Set( uint8_t port );
-void PCA9534A_Toggle( uint8_t port );
+void SysCtlr_Init( void );
+uint8_t * SysCtlr_Get(  void );
+void SysCtlr_Set( uint8_t port );
+void SysCtlr_Toggle( uint8_t port );
+void Enable_Magnometer( void );
+void Disable_Magnometer( void );
+void Enable_Force_Sensor( void );
+void Disable_Force_Sensor( void );
+void Enable_Camera( void );
+void Disable_Camera( void );
 
-#endif /* PCA9534A_h */
+#endif /* SysCtlr_h */
