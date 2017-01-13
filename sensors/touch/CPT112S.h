@@ -27,7 +27,7 @@ enum event_types
     SLIDER_ACTIVITY = 2,
 };
 
-void Touch_Init( void );
+void 	  Touch_Init( void );
 uint8_t * Touch_Read( void );
 
 #endif /* CPT112S_h */

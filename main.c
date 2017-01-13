@@ -102,7 +102,6 @@ void main(void)
   /* Initialize peripherals */
   enter_DefaultMode_from_RESET();
 
-
   /* Initialize stack */
   gecko_init(&config);
 
@@ -112,7 +111,6 @@ void main(void)
   while (1) {
 	app();
 
-//	Print_String("Loop.\r\n", 7);
     /* Event pointer for handling events */
     struct gecko_cmd_packet* evt;
 

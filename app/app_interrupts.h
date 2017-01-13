@@ -27,11 +27,14 @@
 /* System utilities */
 #include "usart_sp.h"
 
-void registerTimer( 	  uint32_t T );
-void releaseTimer( 				void );
-void registerCameraInterrupt( 	void );
-void releaseCameraInterrupt( 	void );
-void registerGPIOInterrupt( 	void );
-void releaseGPIOInterrupt( 		void );
+/* Interrupt Registers */
+void registerTimer( TIMER_TypeDef * timer, uint32_t period );
+void enableTimer(   TIMER_TypeDef * timer );
+void disableTimer(  TIMER_TypeDef * timer );
+void resetTimer(  	TIMER_TypeDef * timer );
+void enableUARTInterrupt( 	void );
+void disableUARTInterrupt( 	void );
+void enableGPIOInterrupt(	void );
+void disableGPIOInterrupt( 	void );
 
 #endif /* SYSTEM_APP_INTERRUPTS_H_ */

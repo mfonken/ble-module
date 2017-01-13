@@ -5,6 +5,7 @@
  *      Author: Matthew Fonken
  */
 
+/* Own header */
 #include "app_interrupts.h"
 
 /* Libraries containing Gecko configuration values */
@@ -21,11 +22,13 @@
 #include "LSM9DS1.h"
 #include "CPT112S.h"
 
-void registerTimer( uint32_t T )
-{
-	Print_String( "Starting timer.\r\n", 17 );
 
-	/* Select TIMER0 parameters */
+/* Interrupt Registers */
+void registerTimer( TIMER_TypeDef * timer, uint32_t period )
+{
+	//Print_String( "Starting timer.\r\n", 17 );
+
+	/* Select timer parameters */
 	TIMER_Init_TypeDef timerInit =
 	{
 		.enable     = true,
@@ -41,43 +44,49 @@ void registerTimer( uint32_t T )
 		.sync       = false,
 	};
 
-	/* Enable overflow interrupt */
-	TIMER_IntEnable( TIMER0, TIMER_IF_OF );
-
-	/* Enable TIMER0 interrupt vector in NVIC */
-	NVIC_EnableIRQ( TIMER0_IRQn );
-
 	/* Set TIMER Top value */
-	TIMER_TopSet( TIMER0, ( T * TICK_TO_MS ) );
+	TIMER_TopSet( timer, ( period * TICK_TO_MS ) );
 
 	/* Configure TIMER */
-	TIMER_Init( TIMER0, &timerInit );
+	TIMER_Init( timer, &timerInit );
+
+	/* Enable timer interrupt vector in NVIC */
+	IRQn_Type iqrn;
+	if( timer == TIMER0) iqrn = TIMER0_IRQn;
+	else 				 iqrn = TIMER1_IRQn;
+	NVIC_EnableIRQ( iqrn );
 }
 
-void releaseTimer( void )
+void enableTimer( TIMER_TypeDef * timer )
 {
-	TIMER_Reset( TIMER0 );
+	TIMER_IntEnable( timer, TIMER_IF_OF );
 }
 
-void registerCameraInterrupt( void )
+void disableTimer(  TIMER_TypeDef * timer )
 {
-	Print_String( "Starting camera interrupt.\r\n", 17 );
+	TIMER_IntDisable( timer, TIMER_IF_OF );
+}
 
-	/* Prepare UART Rx and Tx interrupts */
+void resetTimer( TIMER_TypeDef * timer )
+{
+	TIMER_Reset( timer );
+}
+
+void enableUARTInterrupt( void )
+{
+	/* Prepare UART Rx interrupts */
 	USART_IntClear(CAM_UART, _USART_IF_MASK);
 	USART_IntEnable(CAM_UART, USART_IF_RXDATAV);
 	NVIC_ClearPendingIRQ(USART0_RX_IRQn);
-	NVIC_ClearPendingIRQ(USART0_TX_IRQn);
 	NVIC_EnableIRQ(USART0_RX_IRQn);
-	NVIC_EnableIRQ(USART0_TX_IRQn);
 }
 
-void releaseCameraInterrupt( void )
+void disableUARTInterrupt( void )
 {
 	USART_IntDisable(CAM_UART, USART_IF_RXDATAV);
 }
 
-void registerGPIOInterrupt( void )
+void enableGPIOInterrupt( void )
 {
 	/* Enable interrupt in core for odd gpio interrupts */
 	NVIC_ClearPendingIRQ(GPIO_ODD_IRQn);
@@ -87,7 +96,7 @@ void registerGPIOInterrupt( void )
 	GPIO_IntConfig(gpioPortA, 0, true, false, true);
 }
 
-void releaseGPIOInterrupt( void )
+void disableGPIOInterrupt( void )
 {
 	NVIC_DisableIRQ(GPIO_ODD_IRQn);
 }

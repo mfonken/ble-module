@@ -11,12 +11,11 @@
 #include <stdint.h>
 #include <math.h>
 
+#define SYNC_TIMER			TIMER0
 #define SYNC_TIMER_PERIOD 	100
-#define FORCE_TIMER_PERIOD 	100
 
-#define _3D_MODE_LOC			0
-#define _2D_MODE_LOC			1
-#define _LP_MODE_LOC			2
+#define FORCE_TIMER			TIMER1
+#define FORCE_TIMER_PERIOD 	100
 
 typedef struct
 {
@@ -28,16 +27,17 @@ typedef struct
 
 extern app_t mode;
 
+/* App */
 void app_init( 			void );
 void app( 				void );
 void appModeSet( 	 app_t * );
+
+/* Modes */
 void enter2DMode( 		void );
 void exit2DMode( 		void );
 void enter3DMode( 		void );
 void exit3DMode( 		void );
 void enterSleepMode( 	void );
 void exitSleepMode( 	void );
-void registerTimer( uint32_t );
-void releaseTimer( 		void );
 
 #endif /* SYSTEM_APP_H_ */
