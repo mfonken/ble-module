@@ -12,58 +12,61 @@
 
 uint8_t curr_port;
 
-void SysCtlr_Init( void )
+void SYSCTL_Init( void )
 {
-    uint8_t i2c_write_data[2] = { CONFIG_REGISTER, SysCtlr_PORT_DIR };
+    uint8_t i2c_write_data[2] = { CONFIG_REGISTER, SYSCTL_PORT_DIR };
     I2C_Write( SysCtlr_ADDR, i2c_write_data, 2 );
 
-    SysCtlr_Set( SysCtlr_OUTPUT_DEFAULT );
-}
-uint8_t * SysCtlr_Get(  void )
-{
-    return 0;
+    SYSCTL_Set( SYSCTL_OUTPUT_DEFAULT );
 }
 
-void SysCtlr_Set( uint8_t port )
+uint8_t SYSCTL_Get( void )
+{
+	uint8_t i2c_read_data[1];
+	I2C_Read_Reg( SysCtlr_ADDR, INPUT_REGISTER, i2c_read_data, 1 );
+    return i2c_read_data[0];
+}
+
+void SYSCTL_Set( uint8_t port )
 {
     uint8_t i2c_write_data[2] = { OUTPUT_REGISTER, *( uint8_t * )&port };
     I2C_Write( SysCtlr_ADDR, i2c_write_data, 2 );
     curr_port = port;
 }
 
-void SysCtlr_Toggle( uint8_t port )
+void SYSCTL_Toggle( uint8_t port )
 {
     uint8_t i2c_write_data[2] = { TOGGLE_REGISTER, *( uint8_t * )&port };
     I2C_Write( SysCtlr_ADDR, i2c_write_data, 2 );
 }
 
-void Enable_Magnometer( void )
+void SYSCTL_Enable_Magnometer( void )
 {
 	curr_port |=  ( 1 << IMU_CS );
-	SysCtlr_Set( curr_port );
+	SYSCTL_Set( curr_port );
 }
-void Disable_Magnometer( void )
+void SYSCTL_Disable_Magnometer( void )
 {
 	curr_port &= ~( 1 << IMU_CS );
-	SysCtlr_Set( curr_port );
+	SYSCTL_Set( curr_port );
 }
-void Enable_Force_Sensor( void )
+void SYSCTL_Enable_Force_Sensor( void )
 {
 	curr_port |=  ( 1 << FRC_EN );
-	SysCtlr_Set( curr_port );
+	SYSCTL_Set( curr_port );
 }
-void Disable_Force_Sensor( void )
+void SYSCTL_Disable_Force_Sensor( void )
 {
 	curr_port &= ~( 1 << FRC_EN );
-	SysCtlr_Set( curr_port );
+	SYSCTL_Set( curr_port );
 }
-void Enable_Camera( void )
+void SYSCTL_Enable_Camera( void )
 {
 	curr_port |=  ( 1 << VREG_MODE );
-	SysCtlr_Set( curr_port );
+	SYSCTL_Set( curr_port );
 }
-void Disable_Camera( void )
+void SYSCTL_Disable_Camera( void )
 {
 	curr_port &= ~( 1 << VREG_MODE );
-	SysCtlr_Set( curr_port );
+	SYSCTL_Set( curr_port );
 }

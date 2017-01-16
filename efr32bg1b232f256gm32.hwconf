@@ -7,9 +7,12 @@
     <property object="CMU" propertyId="clocksettings.lfclocksettings.lfaclocksource" value="LFXO"/>
     <property object="CMU" propertyId="clocksettings.lfclocksettings.lfbclocksource" value="LFXO"/>
     <property object="CMU" propertyId="clocksettings.lfclocksettings.lfeclocksource" value="LFXO"/>
+    <property object="CMU" propertyId="clocksettings.lfclocksettings.lfrcorequired" value="Yes"/>
     <property object="CMU" propertyId="cmu.settings.hiddenbysdk" value="On"/>
     <property object="CMU" propertyId="hfxo.initialization.autostartem01" value="Enabled"/>
     <property object="CMU" propertyId="hfxo.initialization.autostarthfxoonem01entry" value="Enable"/>
+    <property object="CRYOTIMER" propertyId="ABPeripheral.included" value="true"/>
+    <property object="CRYOTIMER" propertyId="cryotimer.clocking.eventafterevery" value="32k cycles"/>
     <property object="DefaultMode" propertyId="mode.diagramLocation" value="0, 0"/>
     <property object="EMU" propertyId="ABPeripheral.included" value="true"/>
     <property object="EMU" propertyId="emu.settings.hiddenbysdk" value="On"/>
@@ -33,7 +36,7 @@
     <property object="PORTIO" propertyId="portio.i2c0.enable.scl" value="Enabled"/>
     <property object="PORTIO" propertyId="portio.i2c0.enable.sda" value="Enabled"/>
     <property object="PORTIO" propertyId="portio.i2c0.location.i2c0_sclloc" value="15"/>
-    <property object="PORTIO" propertyId="portio.i2c0.location.i2c0_sdaloc" value="10"/>
+    <property object="PORTIO" propertyId="portio.i2c0.location.i2c0_sdaloc" value="15"/>
     <property object="PORTIO" propertyId="portio.leuart0.location.leuart0_rxloc" value="26"/>
     <property object="PORTIO" propertyId="portio.lfxo.enable.n" value="Enabled"/>
     <property object="PORTIO" propertyId="portio.lfxo.enable.n.hiddenbysdk" value="On"/>

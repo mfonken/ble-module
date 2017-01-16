@@ -13,10 +13,14 @@
 
 /* Application */
 #include "app.h"
+#include "app_interrupts.h"
 
 /* Utilities */
 #include "clock_sp.h"
+#include "usart_sp.h"
+#include "rf_controller.h"
 
+/* Types */
 #include "data_types.h"
 
 #define CAM_UART		USART0
@@ -57,18 +61,21 @@ extern centroids_t	centroids;
 extern beacon_t 	beacons[MAX_CENTROIDS];
 extern buffer_t 	camera_buffer;
 
-void 	Camera_Init(	  void );
-void 	Camera_Read( 	  void );
-uint8_t Camera_Check(  uint8_t );
-void 	Camera_Buffer( uint8_t );
+void 	Camera_Init(	void );
+void 	Camera_Read( 	void );
+uint8_t Camera_Check(  	uint8_t );
+void 	Camera_Buffer( 	uint8_t );
+void	Camera_Enable(	void );
+void	Camera_Disable(	void );
 
-void	Beacon_Add( centroid_t * );
-void	Beacon_Check( void );
+
+void	Beacon_Add( 	centroid_t * );
+void	Beacon_Check( 	void );
 bool 	Beacon_Compare( centroid_t *, centroid_t * );
 void	Beacon_Compose( void );
-void 	Beacon_Copy( centroid_t *, centroid_t * );
-void	Beacon_Perge( void );
-void 	Beacon_Sort( uint8_t );
-void 	Beacon_Update( uint8_t, centroid_t * );
+void 	Beacon_Copy( 	centroid_t *, centroid_t * );
+void	Beacon_Perge( 	void );
+void 	Beacon_Sort( 	uint8_t );
+void 	Beacon_Update( 	uint8_t, centroid_t * );
 
 #endif /* SENSORS_CAMERA_CAM_CONTROLLER_H_ */

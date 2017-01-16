@@ -14,6 +14,23 @@
 /* Interrupt header */
 #include "app_interrupts.h"
 
+/* Gecko Library */
+#include "em_emu.h"
+#include "em_cmu.h"
+#include "em_timer.h"
+#include "em_usart.h"
+#include "em_gpio.h"
+
+/* System utilities */
+#include "usart_sp.h"
+#include "clock_sp.h"
+
+/* Peripheral/Sensor headers */
+#include "cam_controller.h"
+#include "PCA9534A.h"
+#include "LSM9DS1.h"
+#include "CPT112S.h"
+
 /* Sensor type headers */
 #include "sensor_data_types.h"
 
@@ -27,16 +44,18 @@
 #define _3D_MODE_DEFAULT	true
 #define _SLEEP_MODE_DEFAULT	false
 
+#define DEFAULT_BEACON_INTENSITY 	100
+#define DEFAULT_BEACON_DURATION		1000 /* Milliseconds */
+
 extern app_t 			mode;
-//extern sync_t 			sync;
 extern sensor_data_t 	sensors;
 
 /* App */
-void app_init( 			void );
-void app( 				void );
-void appModeSet( 	 app_t * );
+void app_init( 				void );
+void app( 					void );
+void appModeSet( 	 	 app_t * );
 
-void autoDetectMode( void );
+void autoDetectMode( 		void );
 
 void enableSyncTimer( 	sync_t * );
 void disableSyncTimer( 		void );

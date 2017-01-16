@@ -8,25 +8,8 @@
 /* Own header */
 #include "app.h"
 
-/* Libraries containing Gecko configuration values */
-#include "em_emu.h"
-#include "em_cmu.h"
-#include "em_timer.h"
-#include "em_usart.h"
-#include "em_gpio.h"
-
-/* Peripheral/Sensor headers */
-#include "cam_controller.h"
-#include "PCA9534A.h"
-#include "LSM9DS1.h"
-#include "CPT112S.h"
-
-/* System utilities */
-#include "usart_sp.h"
-
 /* App variables */
 app_t 			mode;
-//sync_t 			sync;
 sensor_data_t 	sensors;
 
 /* Interrupt variables */
@@ -54,22 +37,43 @@ void USART0_RX_IRQHandler(void)
 	}
 }
 
+/* Sensor sync timer */
 void TIMER0_IRQHandler(void)
 {
 	TIMER_IntClear( TIMER0, TIMER_IF_OF );      	// Clear overflow flag
-	Print_String( "\tTimer.\r\n\0", 10 );
+	Print_String( "\tTimer 0.\r\n\0", 10 );
 }
 
+/* Force sensor Timer */
+void TIMER1_IRQHandler(void)
+{
+	TIMER_IntClear( TIMER1, TIMER_IF_OF );      	// Clear overflow flag
+	Print_String( "\tTimer 1.\r\n\0", 10 );
+}
+
+/* Beacon RF timer */
+void CRYOTIMER_IRQHandler(void)
+{
+	CRYOTIMER_IntClear( TIMER_IF_OF );      	// Clear overflow flag
+
+	/* TODO: Add beacon intensity check - RF_Step(bool)*/
+	RF_Kick();
+	Print_String( "\tCryotimer 0.\r\n\0", 10 );
+}
+
+/* SYSCTL Interrupt Handler */
 void GPIO_ODD_IRQHandler(void)
 {
 	GPIO_IntClear(GPIO_IntGet());
 	exitSleepMode();
 }
 
-/* App */
+/* App Initialize */
 void app_init( void )
 {
-	SysCtlr_Init();
+	SYSCLK_Init();
+
+	SYSCTL_Init();
 	IMU_Init();
 	Touch_Init();
 	Camera_Init();
@@ -131,26 +135,30 @@ void disableSyncTimer( void )
 
 void enableStylusSensors( void )
 {
-	Enable_Force_Sensor();
+	SYSCTL_Enable_Force_Sensor();
 	enableTimer( FORCE_TIMER );
+	/* TODO: Enable IMU for updated board */
 }
 
 void disableStylusSensors( void )
 {
-	Disable_Force_Sensor();
+	SYSCTL_Disable_Force_Sensor();
 	disableTimer( FORCE_TIMER );
+	/* TODO: Disable IMU for updated board */
 }
 
 void enableSpatialSensors( void )
 {
-	Enable_Camera();
-	Enable_Magnometer();
+	Camera_Enable();
+	SYSCTL_Enable_Magnometer();
+	/* TODO: Enable full IMU for updated board */
 }
 
 void disableSpatialSensors( void )
 {
-	Disable_Camera();
-	Disable_Magnometer();
+	Camera_Disable();
+	SYSCTL_Disable_Magnometer();
+	/* TODO: Disable full IMU for updated board */
 }
 
 void enterSleepMode( void )
@@ -173,5 +181,4 @@ void exitSleepMode( void )
 
 	registerTimer( SYNC_TIMER, SYNC_TIMER_PERIOD );
 	registerTimer( FORCE_TIMER, FORCE_TIMER_PERIOD );
-
 }

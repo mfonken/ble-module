@@ -48,7 +48,7 @@
 #define INT_M1_DIR      INPUT
 #define INT_T_DIR       INPUT
 
-#define SysCtlr_PORT_DIR        (   \
+#define SYSCTL_PORT_DIR        (   \
     VREG_MODE_DIR  << VREG_MODE  | \
     PWR_SWITCH_DIR << PWR_SWITCH | \
     OC_FLAG_DIR    << OC_FLAG    | \
@@ -64,7 +64,7 @@
 #define IMU_CS_DEFAULT      ON
 #define FRC_EN_DEFAULT      OFF
 
-#define SysCtlr_OUTPUT_DEFAULT         \
+#define SYSCTL_OUTPUT_DEFAULT         \
     VREG_MODE_DEFAULT  << VREG_MODE  | \
     PWR_SWITCH_DEFAULT << PWR_SWITCH | \
     IMU_CS_DEFAULT     << IMU_CS     | \
@@ -82,15 +82,15 @@ typedef struct
     uint8_t vreg_mode   :1;
 } SysCtlr_port_t;
 
-void SysCtlr_Init( void );
-uint8_t * SysCtlr_Get(  void );
-void SysCtlr_Set( uint8_t port );
-void SysCtlr_Toggle( uint8_t port );
-void Enable_Magnometer( void );
-void Disable_Magnometer( void );
-void Enable_Force_Sensor( void );
-void Disable_Force_Sensor( void );
-void Enable_Camera( void );
-void Disable_Camera( void );
+void 	SYSCTL_Init( 				 void );
+uint8_t SYSCTL_Get(  			 	 void );
+void 	SYSCTL_Set( 			  	 uint8_t );
+void 	SYSCTL_Toggle( 				 uint8_t );
+void	SYSCTL_Enable_Magnometer( 	 void );
+void 	SYSCTL_Disable_Magnometer( 	 void );
+void 	SYSCTL_Enable_Force_Sensor(  void );
+void	SYSCTL_Disable_Force_Sensor( void );
+void	SYSCTL_Enable_Camera( 		 void );
+void 	SYSCTL_Disable_Camera( 		 void );
 
 #endif /* SysCtlr_h */

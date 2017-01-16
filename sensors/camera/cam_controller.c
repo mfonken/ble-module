@@ -6,9 +6,6 @@
  */
 
 #include "cam_controller.h"
-#include "usart_sp.h"
-#include "app_interrupts.h"
-#include <stdio.h>
 
 #define	diff( a, b ) ( a - b > 0 ) ? a - b : b - a
 
@@ -29,6 +26,18 @@ void Camera_Init( void )
 	Print_Char( CAMERA_INIT );
 	uint8_t n = Read_Char();
 	num_tracked = 0;
+}
+
+void Camera_Enable( void )
+{
+	SYSCTL_Enable_Camera();
+	RF_Session_Init( DEFAULT_BEACON_INTENSITY, DEFAULT_BEACON_DURATION );
+}
+
+void Camera_Disable( void )
+{
+	SYSCTL_Disable_Camera();
+	RF_Session_End();
 }
 
 void Camera_Print( uint8_t cmd )
@@ -167,7 +176,7 @@ void Beacon_Perge( void )
 	uint8_t perged = 0;
 	for( int i = 0; i < num_tracked; i++ )
 	{
-		if( beacons[map[i]].timestamp > MAX_TRACK_AGE )
+		if( ( timestamp() - beacons[map[i]].timestamp ) > MAX_TRACK_AGE )
 		{
 			map[i] = map[i + 1 + perged];
 			perged++;

@@ -1,22 +1,15 @@
-/*
- * app_interrupts.h
- *
- *  Created on: Jan 10, 2017
+/***********************************************************************************************//**
+ * \file   app_interrupts.h
+ * \brief  App Interrupt Controller
+ ***************************************************************************************************
  *      Author: Matthew Fonken
- */
+ **************************************************************************************************/
 
 #ifndef SYSTEM_APP_INTERRUPTS_H_
 #define SYSTEM_APP_INTERRUPTS_H_
 
 #define TIMER_PRESCALE		timerPrescale1
 #define TICK_TO_MS			( 1 / ( 1 << TIMER_PRESCALE ) )
-
-/*
- * app_interrupts.c
- *
- *  Created on: Jan 10, 2017
- *      Author: Matthew Fonken
- */
 
 #include "app_interrupts.h"
 

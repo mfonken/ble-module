@@ -20,6 +20,7 @@
 #include "em_chip.h"
 #include "em_assert.h"
 #include "em_adc.h"
+#include "em_cryotimer.h"
 #include "em_gpcrc.h"
 #include "em_gpio.h"
 #include "em_i2c.h"
@@ -49,6 +50,7 @@ extern void enter_DefaultMode_from_RESET(void) {
 	I2C0_enter_DefaultMode_from_RESET();
 	GPCRC_enter_DefaultMode_from_RESET();
 	LDMA_enter_DefaultMode_from_RESET();
+	CRYOTIMER_enter_DefaultMode_from_RESET();
 	PRS_enter_DefaultMode_from_RESET();
 	PORTIO_enter_DefaultMode_from_RESET();
 	// [Config Calls]$
@@ -124,6 +126,9 @@ extern void CMU_enter_DefaultMode_from_RESET(void) {
 	/* Setting system LFXO frequency */
 	SystemLFXOClockSet(32768);
 
+	/* Enable LFRCO oscillator, and wait for it to be stable */
+	CMU_OscillatorEnable(cmuOsc_LFRCO, true, true);
+
 	// [LE clocks enable]$
 
 	// $[LFACLK Setup]
@@ -147,6 +152,9 @@ extern void CMU_enter_DefaultMode_from_RESET(void) {
 
 	/* Enable clock for ADC0 */
 	CMU_ClockEnable(cmuClock_ADC0, true);
+
+	/* Enable clock for CRYOTIMER */
+	CMU_ClockEnable(cmuClock_CRYOTIMER, true);
 
 	/* Enable clock for GPCRC */
 	CMU_ClockEnable(cmuClock_GPCRC, true);
@@ -497,7 +505,7 @@ extern void I2C0_enter_DefaultMode_from_RESET(void) {
 	/* Set up SDA */
 	I2C0->ROUTEPEN = I2C0->ROUTEPEN | I2C_ROUTEPEN_SDAPEN;
 	I2C0->ROUTELOC0 = (I2C0->ROUTELOC0 & (~_I2C_ROUTELOC0_SDALOC_MASK))
-			| I2C_ROUTELOC0_SDALOC_LOC10;
+			| I2C_ROUTELOC0_SDALOC_LOC15;
 	// [I2C0 I/O setup]$
 
 	// $[I2C0 initialization]
@@ -604,6 +612,19 @@ extern void LETIMER0_enter_DefaultMode_from_RESET(void) {
 extern void CRYOTIMER_enter_DefaultMode_from_RESET(void) {
 
 	// $[CRYOTIMER_Init]
+	CRYOTIMER_Init_TypeDef cryoInit = CRYOTIMER_INIT_DEFAULT;
+
+	/* General settings */
+	cryoInit.enable = 1;
+	cryoInit.debugRun = 0;
+	cryoInit.em4Wakeup = 0;
+
+	/* Clocking settings */
+	/* With a frequency of 32768Hz on LFRCO, this will result in a 1000.00 ms timeout */
+	cryoInit.osc = cryotimerOscLFRCO;
+	cryoInit.presc = cryotimerPresc_1;
+	cryoInit.period = cryotimerPeriod_32k;
+	CRYOTIMER_Init(&cryoInit);
 	// [CRYOTIMER_Init]$
 
 }
