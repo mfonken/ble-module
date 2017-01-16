@@ -1,6 +1,6 @@
 main.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\main.c
 main.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\boards.h
-main.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\ble-configuration.h
+main.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\ble\ble-configuration.h
 main.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\board_features.h
 main.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\protocol\bluetooth_2.1\ble_stack\inc\common\bg_types.h
 main.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\stdint.h
@@ -20,7 +20,7 @@ main.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\protoco
 main.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\protocol\bluetooth_2.1\ble_stack\inc\common\bg_gattdb_def.h
 main.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\protocol\bluetooth_2.1\ble_stack\inc\common\bg_errorcodes.h
 main.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\protocol\bluetooth_2.1\ble_stack\inc\common\bg_dfu.h
-main.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\gatt_db.h
+main.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\ble\gatt_db.h
 main.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\protocol\bluetooth_2.1\ble_stack\inc\soc\aat.h
 main.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\protocol\bluetooth_2.1\ble_stack\inc\soc\aat_def.h
 main.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\emlib\inc\em_emu.h
@@ -78,4 +78,8 @@ main.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\app\ap
 main.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\math.h
 main.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\ymath.h
 main.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\xtgmath.h
+main.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\app\app_interrupts.h
+main.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\emlib\inc\em_timer.h
+main.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\emlib\inc\em_usart.h
+main.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\sensor_data_types.h
 main.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\inc\InitDevice.h

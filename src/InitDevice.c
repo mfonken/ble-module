@@ -497,7 +497,7 @@ extern void I2C0_enter_DefaultMode_from_RESET(void) {
 	/* Set up SDA */
 	I2C0->ROUTEPEN = I2C0->ROUTEPEN | I2C_ROUTEPEN_SDAPEN;
 	I2C0->ROUTELOC0 = (I2C0->ROUTELOC0 & (~_I2C_ROUTELOC0_SDALOC_MASK))
-			| I2C_ROUTELOC0_SDALOC_LOC15;
+			| I2C_ROUTELOC0_SDALOC_LOC10;
 	// [I2C0 I/O setup]$
 
 	// $[I2C0 initialization]

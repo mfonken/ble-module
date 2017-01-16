@@ -22,6 +22,12 @@
 #include "LSM9DS1.h"
 #include "CPT112S.h"
 
+sync_t sync;
+
+void sensorSyncSet( sync_t * s )
+{
+	sync = *s;
+}
 
 /* Interrupt Registers */
 void registerTimer( TIMER_TypeDef * timer, uint32_t period )

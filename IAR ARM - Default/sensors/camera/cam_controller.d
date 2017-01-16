@@ -8,9 +8,11 @@ sensors/camera/cam_controller.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\
 sensors/camera/cam_controller.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\DLib_Product.h
 sensors/camera/cam_controller.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\xencoding_limits.h
 sensors/camera/cam_controller.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\DLib_Threads.h
-sensors/camera/cam_controller.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\utilities\data_types.h
-sensors/camera/cam_controller.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\utilities\usart_sp.h
 sensors/camera/cam_controller.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\stdbool.h
+sensors/camera/cam_controller.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\app\app.h
+sensors/camera/cam_controller.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\math.h
+sensors/camera/cam_controller.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\ymath.h
+sensors/camera/cam_controller.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\xtgmath.h
 sensors/camera/cam_controller.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\app\app_interrupts.h
 sensors/camera/cam_controller.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\emlib\inc\em_timer.h
 sensors/camera/cam_controller.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\Device\SiliconLabs\EFR32BG1B\Include\em_device.h
@@ -60,6 +62,10 @@ sensors/camera/cam_controller.o: C:\SiliconLabs\SimplicityStudio\v4\developer\st
 sensors/camera/cam_controller.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\Device\SiliconLabs\EFR32BG1B\Include\efr32bg1b_af_pins.h
 sensors/camera/cam_controller.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\emlib\inc\em_assert.h
 sensors/camera/cam_controller.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\emlib\inc\em_usart.h
+sensors/camera/cam_controller.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\utilities\usart_sp.h
+sensors/camera/cam_controller.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\sensor_data_types.h
+sensors/camera/cam_controller.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\utilities\clock_sp.h
+sensors/camera/cam_controller.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\utilities\data_types.h
 sensors/camera/cam_controller.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\stdio.h
 sensors/camera/cam_controller.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\ysizet.h
 sensors/camera/cam_controller.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\ystdio.h

@@ -27,6 +27,16 @@
 /* System utilities */
 #include "usart_sp.h"
 
+typedef struct
+{
+	uint8_t accel:1;
+	uint8_t  gyro:1;
+	uint8_t   mag:1;
+	uint8_t   cam:1;
+} sync_t;
+
+void sensorSyncSet( sync_t * );
+
 /* Interrupt Registers */
 void registerTimer( TIMER_TypeDef * timer, uint32_t period );
 void enableTimer(   TIMER_TypeDef * timer );

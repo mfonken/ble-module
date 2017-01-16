@@ -7,7 +7,6 @@
 
 /* Own header */
 #include "app.h"
-#include "app_interrupts.h"
 
 /* Libraries containing Gecko configuration values */
 #include "em_emu.h"
@@ -26,7 +25,9 @@
 #include "usart_sp.h"
 
 /* App variables */
-app_t mode;
+app_t 			mode;
+//sync_t 			sync;
+sensor_data_t 	sensors;
 
 /* Interrupt variables */
 uint8_t buffer_rx;
@@ -73,9 +74,9 @@ void app_init( void )
 	Touch_Init();
 	Camera_Init();
 
-	mode._2d = false;
-	mode._3d = true;
-	mode._sl = false;
+	mode._2d = _2D_MODE_DEFAULT;
+	mode._3d = _3D_MODE_DEFAULT;
+	mode._sl = _SLEEP_MODE_DEFAULT;
 	appModeSet( &mode );
 
 	registerTimer( SYNC_TIMER, SYNC_TIMER_PERIOD );
@@ -84,13 +85,7 @@ void app_init( void )
 
 void app( void )
 {
-	if( mode._2d )
-	{
-	}
-	if( mode._3d )
-	{
 
-	}
 }
 
 void appModeSet( app_t * m )
@@ -99,38 +94,60 @@ void appModeSet( app_t * m )
 	if( mode._sl )
 	{
 		enterSleepMode();
+		return;
 	}
-	if( mode._2d )
-	{
-		enter2DMode();
-	}
-	if( mode._3d )
-	{
-		enter3DMode();
-	}
-
+	if( mode._2d )	enableStylusSensors();
+	else			disableStylusSensors();
+	if( mode._3d ) 	enableSpatialSensors();
+	else			disableSpatialSensors();
+	sync_t sync;
+	sync.accel 	= mode._2d;
+	sync.gyro  	= mode._2d;
+	sync.mag	= mode._3d;
+	sync.cam	= mode._3d;
+	enableSyncTimer( &sync );
 }
 
-/* Modes */
-void enter2DMode( void )
+void autoDetectMode( void )
+{
+	/*TODO: Scan camera and force sensor to determine appropriate mode.
+	 * 		Camera has two or more beacons.
+	 * 		Force sensor has force.
+	 */
+	mode._2d = _2D_MODE_DEFAULT;
+	mode._3d = _3D_MODE_DEFAULT;
+	mode._sl = _SLEEP_MODE_DEFAULT;
+}
+
+void enableSyncTimer( sync_t * s )
+{
+	sensorSyncSet( s );
+	enableTimer( SYNC_TIMER );
+}
+void disableSyncTimer( void )
+{
+	disableTimer( SYNC_TIMER );
+}
+
+void enableStylusSensors( void )
 {
 	Enable_Force_Sensor();
 	enableTimer( FORCE_TIMER );
 }
 
-void exit2DMode( void )
+void disableStylusSensors( void )
 {
 	Disable_Force_Sensor();
 	disableTimer( FORCE_TIMER );
 }
 
-void enter3DMode( void )
+void enableSpatialSensors( void )
 {
 	Enable_Camera();
 	Enable_Magnometer();
 }
 
-void exit3DMode( void )
+void disableSpatialSensors( void )
 {
 	Disable_Camera();
 	Disable_Magnometer();
@@ -140,16 +157,21 @@ void enterSleepMode( void )
 {
 	disableTimer( SYNC_TIMER );
 	disableTimer( FORCE_TIMER );
-	enableGPIOInterrupt();
+	disableStylusSensors();
+	disableSpatialSensors();
 
+	enableGPIOInterrupt();
 	EMU_EnterEM3( true );
 }
 
 void exitSleepMode( void )
 {
 	EMU_EnterEM1();
+	disableGPIOInterrupt();
+
+	autoDetectMode();
 
 	registerTimer( SYNC_TIMER, SYNC_TIMER_PERIOD );
 	registerTimer( FORCE_TIMER, FORCE_TIMER_PERIOD );
-	disableGPIOInterrupt();
+
 }

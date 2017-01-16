@@ -33,9 +33,8 @@
     <property object="PORTIO" propertyId="portio.i2c0.enable.scl" value="Enabled"/>
     <property object="PORTIO" propertyId="portio.i2c0.enable.sda" value="Enabled"/>
     <property object="PORTIO" propertyId="portio.i2c0.location.i2c0_sclloc" value="15"/>
-    <property object="PORTIO" propertyId="portio.i2c0.location.i2c0_sdaloc" value="15"/>
-    <property object="PORTIO" propertyId="portio.leuart0.location.leuart0_rxloc" value="31"/>
-    <property object="PORTIO" propertyId="portio.leuart0.location.leuart0_txloc" value="1"/>
+    <property object="PORTIO" propertyId="portio.i2c0.location.i2c0_sdaloc" value="10"/>
+    <property object="PORTIO" propertyId="portio.leuart0.location.leuart0_rxloc" value="26"/>
     <property object="PORTIO" propertyId="portio.lfxo.enable.n" value="Enabled"/>
     <property object="PORTIO" propertyId="portio.lfxo.enable.n.hiddenbysdk" value="On"/>
     <property object="PORTIO" propertyId="portio.lfxo.enable.p" value="Enabled"/>

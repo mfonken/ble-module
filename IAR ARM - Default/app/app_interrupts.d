@@ -61,8 +61,14 @@ app/app_interrupts.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble
 app/app_interrupts.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\emlib\inc\em_gpio.h
 app/app_interrupts.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\emlib\inc\em_bus.h
 app/app_interrupts.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\camera\cam_controller.h
+app/app_interrupts.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\app\app.h
+app/app_interrupts.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\math.h
+app/app_interrupts.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\ymath.h
+app/app_interrupts.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\xtgmath.h
+app/app_interrupts.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\sensor_data_types.h
+app/app_interrupts.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\utilities\clock_sp.h
 app/app_interrupts.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\utilities\data_types.h
-app/app_interrupts.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\PCA9534A.h
+app/app_interrupts.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\utilities\PCA9534A.h
 app/app_interrupts.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\stdio.h
 app/app_interrupts.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\ysizet.h
 app/app_interrupts.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\ystdio.h

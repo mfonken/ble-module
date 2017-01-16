@@ -109,7 +109,7 @@ void main(void)
   app_init();
 
   while (1) {
-	app();
+	//app();
 
     /* Event pointer for handling events */
     struct gecko_cmd_packet* evt;
@@ -119,7 +119,6 @@ void main(void)
 
     /* Handle events */
     switch (BGLIB_MSG_ID(evt->header)) {
-
     	case gecko_evt_le_connection_opened_id:
 			Print_String("Connected.\r\n", 12);
 			break;

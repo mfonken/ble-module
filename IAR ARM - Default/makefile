@@ -9,7 +9,6 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include system/utilities/subdir.mk
--include system/subdir.mk
 -include src/subdir.mk
 -include sensors/touch/subdir.mk
 -include sensors/imu/subdir.mk
@@ -17,6 +16,7 @@ RM := rm -rf
 -include kinetic/subdir.mk
 -include emlib/subdir.mk
 -include device/EFR32_B_1_1_B/iar/subdir.mk
+-include ble/subdir.mk
 -include app/subdir.mk
 -include subdir.mk
 -include objects.mk
