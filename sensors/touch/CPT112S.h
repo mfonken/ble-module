@@ -11,6 +11,8 @@
 #include <stdio.h>
 #include <stdint.h>
 
+#include "app.h"
+
 #define TOUCH_CTR_ADDR      0xe0
 
 typedef struct
@@ -18,6 +20,7 @@ typedef struct
     uint32_t packet_counter :4;
     uint32_t type           :4;
     uint32_t description    :16;
+    uint32_t RESERVED       :8;
 } touch_ctr_event_t;
 
 enum event_types

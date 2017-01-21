@@ -36,17 +36,34 @@ void RF_Kick( void )
 
 bool RF_Step( bool i )
 {
-	if( ( beacon_status.intensity < INTENSITY_STEP ) ||
-		( beacon_status.intensity > INTENSITY_TOP ) )
-	{
-		RF_Kick();
-		return false;
+    bool full_step = true;
+    if( i )
+    {
+        /* If intensity is too high, cap at max */
+        if( beacon_status.intensity > INTENSITY_TOP_STEP )
+        {
+            beacon_status.intensity = INTENSITY_MAX;
+            
+        }
+        else
+        {
+            beacon_status.intensity += INTENSITY_STEP;
+        }
 	}
-	if( i ) beacon_status.intensity += INTENSITY_STEP;
-	else 	beacon_status.intensity -= INTENSITY_STEP;
-
-	RF_Tx( &beacon_status );
-	return true;
+    else
+    {
+        if( beacon_status.intensity > INTENSITY_STEP )
+        {
+            beacon_status.intensity -= INTENSITY_STEP;
+        }
+        /* If intensity is too low, don't change */
+        else
+        {
+            full_step = false;
+        }
+    }
+    RF_Kick();
+	return full_step;
 }
 
 void RF_Tx( beacon_device_t * b)

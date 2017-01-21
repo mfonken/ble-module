@@ -14,7 +14,7 @@ void Touch_Init( void )
 
 }
 
-uint8_t * touch_read( void )
+uint8_t * Touch_Read( void )
 {
     uint8_t i2c_read_data[3];
     I2C_Read( TOUCH_CTR_ADDR, i2c_read_data, 3 );

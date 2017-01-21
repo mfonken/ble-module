@@ -17,12 +17,13 @@ centroids_t	centroids;
 
 uint32_t	beacon_vector[2];
 
-/********************************************************************
+/****************************************************************//**
  * Camera Communication Functions
  *******************************************************************/
 
 void Camera_Init( void )
 {
+    /* TODO: Needs to HW enabled and probably init every use */
 	Print_Char( CAMERA_INIT );
 	uint8_t n = Read_Char();
 	num_tracked = 0;

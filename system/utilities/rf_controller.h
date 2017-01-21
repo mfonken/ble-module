@@ -19,11 +19,12 @@
 #include "em_usart.h"
 #include "em_cryotimer.h"
 
-#define BEACON_HEADER	0xbe
-#define BEACON_USART	USART1
+#define BEACON_HEADER       0xbe
+#define BEACON_USART        USART1
 
-#define INTENSITY_STEP	0x10
-#define INTENSITY_TOP 	0xff - INTENSITY_STEP
+#define INTENSITY_MAX       0xff
+#define INTENSITY_STEP      0x10
+#define INTENSITY_TOP_STEP 	INTENSITY_MAX - INTENSITY_STEP
 
 typedef struct
 {

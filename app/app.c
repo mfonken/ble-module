@@ -56,7 +56,7 @@ void CRYOTIMER_IRQHandler(void)
 {
 	CRYOTIMER_IntClear( TIMER_IF_OF );      	// Clear overflow flag
 
-	/* TODO: Add beacon intensity check - RF_Step(bool)*/
+	/* TODO: Add beacon intensity check - RF_Step(up/down)*/
 	RF_Kick();
 	Print_String( "\tCryotimer 0.\r\n\0", 10 );
 }
