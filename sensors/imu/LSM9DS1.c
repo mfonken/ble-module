@@ -159,40 +159,77 @@ void IMU_Init( void )
  * \brief Read IMU accel and gyro data
  * \param[in] read_data Array to store read data
  *****************************************************************************/
-LSM9DS1_t * IMU_Update( void )
+LSM9DS1_t * IMU_Update_All( void )
 {
-	/* Combine low and high byte values */
-	uint8_t                    i2c_read_data[6];
-	I2C_Read_Reg( LSM9DS1_IMU_ADDR, XL_OUT, i2c_read_data, 6 );
-	int16_t accel[3];
-	accel[0] = ( i2c_read_data[1] << 8 ) | i2c_read_data[0];
-	accel[1] = ( i2c_read_data[3] << 8 ) | i2c_read_data[2];
-	accel[2] = ( i2c_read_data[5] << 8 ) | i2c_read_data[4];
+    IMU_Update_Accel();
+    IMU_Update_Gyro();
+    IMU_Update_Mag();
+    
+    IMU_Update_Roll();
+    IMU_Update_Pitch();
+    IMU_Update_Yaw();
 
-	I2C_Read_Reg( LSM9DS1_IMU_ADDR, G_OUT, i2c_read_data, 6 );
-	int16_t gyro[3];
-	gyro[0] = ( i2c_read_data[1] << 8 ) | i2c_read_data[0];
-	gyro[1] = ( i2c_read_data[3] << 8 ) | i2c_read_data[2];
-	gyro[2] = ( i2c_read_data[5] << 8 ) | i2c_read_data[4];
+    return &this;
+}
 
-	I2C_Read_Reg( LSM9DS1_MAG_ADDR, M_OUT, i2c_read_data, 6 );
-	int16_t mag[3];
-	mag[0] = ( i2c_read_data[1] << 8 ) | i2c_read_data[0];
-	mag[1] = ( i2c_read_data[3] << 8 ) | i2c_read_data[2];
-	mag[2] = ( i2c_read_data[5] << 8 ) | i2c_read_data[4];
+LSM9DS1_t * IMU_Update_Angles( void )
+{
+    IMU_Update_Accel();
+    IMU_Update_Mag();
+    
+    IMU_Update_Roll();
+    IMU_Update_Pitch();
+    IMU_Update_Yaw();
+
+    return &this;
+}
+
+void IMU_Update_Accel( void )
+{
+    /* Combine low and high byte values */
+    uint8_t                    i2c_read_data[6];
+    I2C_Read_Reg( LSM9DS1_IMU_ADDR, XL_OUT, i2c_read_data, 6 );
+    int16_t accel[3];
+    accel[0] = ( i2c_read_data[1] << 8 ) | i2c_read_data[0];
+    accel[1] = ( i2c_read_data[3] << 8 ) | i2c_read_data[2];
+    accel[2] = ( i2c_read_data[5] << 8 ) | i2c_read_data[4];
     
     for( int i = 0; i < 3 ; i++ )
     {
-    	this.imu.accel[i] = accel[i] * this.imu.accel_res - this.imu.accel_bias[i];
-    	this.imu.gyro[i]  = gyro[i]  * this.imu.gyro_res  - this.imu.gyro_bias[i];
-    	this.imu.mag[i]   = mag[i]   * this.imu.mag_res	  - this.imu.mag_bias[i];
+        this.imu.accel[i] = accel[i] * this.imu.accel_res - this.imu.accel_bias[i];
     }
+}
 
-    calculateRoll();
-    calculatePitch();
-    calculateYaw();
+void IMU_Update_Gyro( void )
+{
+    /* Combine low and high byte values */
+    uint8_t                    i2c_read_data[6];
+    I2C_Read_Reg( LSM9DS1_IMU_ADDR, G_OUT, i2c_read_data, 6 );
+    int16_t gyro[3];
+    gyro[0] = ( i2c_read_data[1] << 8 ) | i2c_read_data[0];
+    gyro[1] = ( i2c_read_data[3] << 8 ) | i2c_read_data[2];
+    gyro[2] = ( i2c_read_data[5] << 8 ) | i2c_read_data[4];
+    
+    for( int i = 0; i < 3 ; i++ )
+    {
+        this.imu.gyro[i]  = gyro[i]  * this.imu.gyro_res  - this.imu.gyro_bias[i];
+    }
+}
 
-    return &this;
+void IMU_Update_Mag( void )
+{
+    /* Combine low and high byte values */
+    uint8_t                    i2c_read_data[6];
+    I2C_Read_Reg( LSM9DS1_MAG_ADDR, M_OUT, i2c_read_data, 6 );
+    int16_t mag[3];
+    mag[0] = ( i2c_read_data[1] << 8 ) | i2c_read_data[0];
+    mag[1] = ( i2c_read_data[3] << 8 ) | i2c_read_data[2];
+    mag[2] = ( i2c_read_data[5] << 8 ) | i2c_read_data[4];
+    
+    for( int i = 0; i < 3 ; i++ )
+    {
+        this.imu.mag[i]   = mag[i]   * this.imu.mag_res	  - this.imu.mag_bias[i];
+    }
 }
 
 /******************************************************************************
@@ -206,7 +243,7 @@ LSM9DS1_t * IMU_Update( void )
  * \brief Calculate roll angle (phi) from accelerometer data
  * \param[out] Return roll
  *****************************************************************************/
-void calculateRoll( void )
+void IMU_Update_Roll( void )
 {
     /* AN4248: Eq. 13 */
     this.imu.roll = atan2( this.imu.accel[0], this.imu.accel[2] );
@@ -220,7 +257,7 @@ void calculateRoll( void )
  * \brief Calculate pitch angle (theta) from accelerometer data
  * \param[out] Return pitch
  *****************************************************************************/
-void calculatePitch( void )
+void IMU_Update_Pitch( void )
 {
     /* AN4248: Eq. 14 */
     double den = ( this.imu.accel[0] * sin( this.imu.roll ) ) + ( this.imu.accel[2] * cos ( this.imu.roll ) );
@@ -234,8 +271,7 @@ void calculatePitch( void )
 /**************************************************************************//**
  * \brief Calculate yaw angle (psi) from magnetometer data, pitch, and roll
  * \param[out] Return yaw
- *****************************************************************************/
-void calculateYaw( void )
+ ****IMU_Update_Yaw( void )
 {
 	double Bx = this.imu.mag[1];
 	double By = this.imu.mag[0];
@@ -255,7 +291,7 @@ void calculateYaw( void )
  * \brief Calculate roll angle (phi) error from accelerometer data
  * \param[out] Return roll error
  *****************************************************************************/
-double calculateRollError( void )
+double IMU_Update_Roll_Error( void )
 {
     double sin_phi   = sin( this.imu.roll );
     double sin_theta = sin( this.imu.pitch );
@@ -278,6 +314,7 @@ vec3_t * getNonGravAcceleration( ang3_t * tba )
 {
     /* Create a vector of accelerometer values */
     vec3_t avec;
+    IMU_Update_Accel();
     avec.ihat = this.imu.accel[0];
     avec.jhat = this.imu.accel[1];
     avec.khat = this.imu.accel[2];

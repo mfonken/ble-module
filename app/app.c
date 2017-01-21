@@ -77,6 +77,8 @@ void app_init( void )
 	IMU_Init();
 	Touch_Init();
 	Camera_Init();
+    
+    Kinetic_Init();
 
 	mode._2d = _2D_MODE_DEFAULT;
 	mode._3d = _3D_MODE_DEFAULT;

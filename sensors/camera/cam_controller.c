@@ -108,7 +108,6 @@ void Beacon_Add( centroid_t * a )
 	map[num_tracked] = num_tracked;
 }
 
-
 void Beacon_Check( void )
 {
 	for( int i = 0; i < centroids.count; i++ )
@@ -152,6 +151,12 @@ void Beacon_Copy( centroid_t * a, centroid_t * b)
 {
 	a->x = b->x;
 	a->y = b->y;
+}
+
+void Beacon_Get( centroid_t vis[2] )
+{
+    Beacon_Copy(
+    vis[0].x beacons[map[index]]
 }
 
 void Beacon_Sort( uint8_t starting_index )
