@@ -3,7 +3,7 @@
  * \brief  Quick Kalman Filter
  ***************************************************************************************************
  *      Author: Matthew Fonken
- *      Sources:
+ *     Sources: http://preview.tinyurl.com/9djhrem
  **************************************************************************************************/
 
 /* Own header */
@@ -30,8 +30,8 @@
  *  \param[in] v Initial value
  **************************************************************************************************/
 
-void initKalman( kalman_t *k,
-                        double    v )
+void Kalman_Init( kalman_t *k,
+                  double    v )
 {
     k->K[0]        = 0;
     k->K[1]        = 0;
@@ -75,10 +75,10 @@ void initKalman( kalman_t *k,
  &P_{11_k} &=& P_{11_k} - K_{1_k}P_{01_k} \\
  \f}
  **************************************************************************************************/
-void updateKalman( kalman_t *k,
-                   double    value_new,
-                   double    rate_new,
-                   double    delta_time )
+void Kalman_Update( kalman_t *k,
+                    double    value_new,
+                    double    rate_new,
+                    double    delta_time )
 {
     /* =-----= PREDICT =-----= */
     /* Predict values */
@@ -88,8 +88,7 @@ void updateKalman( kalman_t *k,
     /* Predict error covariance */
     double P_k_diag = delta_time * k->P_k[1][1];
     k->P_k[0][0] +=   delta_time *
-    ( delta_time *
-     k->P_k[1][1] -
+    ( delta_time  * k->P_k[1][1] -
      k->P_k[0][1] -
      k->P_k[1][0] +
      VALUE_UNCERTAINTY );
@@ -112,8 +111,7 @@ void updateKalman( kalman_t *k,
     k->P_k[1][0] -= k->K[1] * k->P_k[0][0];
     k->P_k[1][1] -= k->K[1] * k->P_k[0][1];
     
-    uint32_t time = RTCC->TIME;
-    k->timestamp = (double)time;
+    k->timestamp = timestamp();
 };
 
 /** @} (end addtogroup kinetic) */
