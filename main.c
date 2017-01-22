@@ -108,9 +108,33 @@ void main(void)
   /* Initialize App */
   app_init();
 
-  while (1) {
-	//app();
+  //IMU_Init();
 
+  while (1) {
+//	app();
+//	LSM9DS1_t * imu = IMU_Update();
+//	Print_Char('m');
+//	Print_Char(',');
+//	Print_Double_Ascii( imu->imu.mag[0] );
+//	Print_Char(',');
+//	Print_Double_Ascii( imu->imu.mag[1] );
+//	Print_Char(',');
+//	Print_Double_Ascii( imu->imu.mag[2] );
+//	Print_Char('f');
+//	Print_Char(',');
+//	Print_Double_Ascii( imu->imu.pitch );
+//	Print_Char(',');
+//	Print_Double_Ascii( imu->imu.roll );
+//	Print_Char(',');
+//	Print_Double_Ascii( imu->imu.yaw );
+//
+//	Print_Char('\r');
+//	Print_Char('\0');
+//	Print_Char('\n');
+//	Print_Char('\0');
+//	for(int i = 0; i < 200000; i++);
+//  }
+//  {
     /* Event pointer for handling events */
     struct gecko_cmd_packet* evt;
 

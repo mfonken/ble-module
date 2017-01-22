@@ -17,8 +17,7 @@ extern "C" {
 #include <stdio.h>
 #include <stdint.h>
     
-/* em library */
-#include "em_rtcc.h"
+#include "clock_sp.h"
 
 /* Included types header */
 #include "kinetic_types.h"

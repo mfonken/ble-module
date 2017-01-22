@@ -15,6 +15,7 @@
 #include "em_device.h"
 
 /* Included types header */
+#include "sensor_data_types.h"
 #include "kinetic_types.h"
 #include "LSM9DS1_regs.h"
 
@@ -94,31 +95,35 @@ void 		IMU_Init( void );
  * \brief Read IMU accel and gyro data
  * \param[in] read_data Array to store read data
  *****************************************************************************/
-LSM9DS1_t * IMU_Update( void );
+LSM9DS1_t * IMU_Update_All( void );
+LSM9DS1_t * IMU_Update_Angles( void );
+void IMU_Update_Accel( void );
+void IMU_Update_Gyro( void );
+void IMU_Update_Mag( void );
 
 /**************************************************************************//**
  * \brief Calculate roll angle (phi) from accelerometer data
  * \param[out] Return roll
  *****************************************************************************/
-void 		calculateRoll( void );
+void 		IMU_Update_Roll( void );
 
 /**************************************************************************//**
  * \brief Calculate pitch angle (theta) from accelerometer data
  * \param[out] Return pitch
  *****************************************************************************/
-void 		calculatePitch( void );
+void 		IMU_Update_Pitch( void );
 
 /**************************************************************************//**
  * \brief Calculate yaw angle (psi) from magnetometer data, pitch, and roll
  * \param[out] Return yaw
  *****************************************************************************/
-void      	calculateYaw( void );
+void      	IMU_Update_Yaw( void );
 
 /**************************************************************************//**
  * \brief Calculate roll angle (phi) error from accelerometer data
  * \param[out] Return roll error
  *****************************************************************************/
-double      calculateRollError( void );
+double      IMU_Update_Roll_Error( void );
 
 /**************************************************************************//**
  * \brief Get no gravitation acceleration from accelerometer data

@@ -21,6 +21,9 @@
 #include "em_usart.h"
 #include "em_gpio.h"
 
+/* Kinetic */
+#include "kinetic.h"
+
 /* System utilities */
 #include "usart_sp.h"
 #include "clock_sp.h"
@@ -48,6 +51,7 @@
 #define DEFAULT_BEACON_DURATION		1000 /* Milliseconds */
 
 extern app_t 			mode;
+extern kinetic_t		kinetics;
 extern sensor_data_t 	sensors;
 
 /* App */

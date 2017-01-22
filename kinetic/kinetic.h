@@ -74,22 +74,22 @@ Function Declarations
 /***********************************************************************************************//**
  *  \brief  Initialize Kinetic Sensors
  **************************************************************************************************/
-void Kinetic_Init( void );
+void Kinetic_Init( kinetic_t * kinetics );
     
 /***********************************************************************************************//**
  *  \brief  Initialize Filters for Kinetic Data
  **************************************************************************************************/
-void Filters_Init( void );
+void Filters_Init( kinetic_t * kinetics );
     
 /***********************************************************************************************//**
  *  \brief  Update rotation filter data
  **************************************************************************************************/
-void Kinetic_Update_Rotation( void );
+void Kinetic_Update_Rotation( kinetic_t * kinetics );
     
 /***********************************************************************************************//**
  *  \brief  Update position filter data
  **************************************************************************************************/
-void Kinetic_Update_Position( double vis[2] )
+void Kinetic_Update_Position( kinetic_t *kinetics, cartesian2_t vis[2] );
     
 /***********************************************************************************************//**
  *  \brief  Initialize Filters for Kinetic Data

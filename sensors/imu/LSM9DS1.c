@@ -271,7 +271,8 @@ void IMU_Update_Pitch( void )
 /**************************************************************************//**
  * \brief Calculate yaw angle (psi) from magnetometer data, pitch, and roll
  * \param[out] Return yaw
- ****IMU_Update_Yaw( void )
+ *****************************************************************************/
+ void IMU_Update_Yaw( void )
 {
 	double Bx = this.imu.mag[1];
 	double By = this.imu.mag[0];

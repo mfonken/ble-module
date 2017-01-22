@@ -90,8 +90,8 @@ void Kalman_Update( kalman_t *k,
     k->P_k[0][0] +=   delta_time *
     ( delta_time  * k->P_k[1][1] -
      k->P_k[0][1] -
-     k->P_k[1][0] +
-     VALUE_UNCERTAINTY );
+     k->P_k[1][0]) +
+     VALUE_UNCERTAINTY;
     k->P_k[0][1] -= P_k_diag;
     k->P_k[1][0] -= P_k_diag;
     k->P_k[1][1] += BIAS_UNCERTAINTY * delta_time;

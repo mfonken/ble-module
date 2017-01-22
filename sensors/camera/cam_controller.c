@@ -32,13 +32,13 @@ void Camera_Init( void )
 void Camera_Enable( void )
 {
 	SYSCTL_Enable_Camera();
-	RF_Session_Init( DEFAULT_BEACON_INTENSITY, DEFAULT_BEACON_DURATION );
+	//RF_Session_Init( DEFAULT_BEACON_INTENSITY, DEFAULT_BEACON_DURATION );
 }
 
 void Camera_Disable( void )
 {
 	SYSCTL_Disable_Camera();
-	RF_Session_End();
+	//RF_Session_End();
 }
 
 void Camera_Print( uint8_t cmd )
@@ -155,8 +155,8 @@ void Beacon_Copy( centroid_t * a, centroid_t * b)
 
 void Beacon_Get( centroid_t vis[2] )
 {
-    Beacon_Copy(
-    vis[0].x beacons[map[index]]
+//    Beacon_Copy(
+//    vis[0].x beacons[map[index]]
 }
 
 void Beacon_Sort( uint8_t starting_index )

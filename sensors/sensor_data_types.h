@@ -26,6 +26,23 @@ typedef struct
 	uint32_t 	timestamp;
 } synced_sensor_data_t;
 
+typedef struct
+{
+	uint8_t 	accel[3];
+	uint8_t 	gyro[3];
+	uint8_t 	mag[3];
+	uint8_t 	accel_res;
+	uint8_t 	gyro_res;
+	uint8_t 	mag_res;
+	uint8_t 	accel_bias[3];
+	uint8_t 	gyro_bias[3];
+	uint8_t 	mag_bias[3];
+
+	double		roll;
+	double		pitch;
+	double		yaw;
+} imu_t;
+
 /* 6 Bytes */
 typedef struct
 {

@@ -11,6 +11,7 @@ kinetic/kalman.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5
 kinetic/kalman.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\ysizet.h
 kinetic/kalman.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\ystdio.h
 kinetic/kalman.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\stdint.h
+kinetic/kalman.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\utilities\clock_sp.h
 kinetic/kalman.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\emlib\inc\em_rtcc.h
 kinetic/kalman.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\Device\SiliconLabs\EFR32BG1B\Include\em_device.h
 kinetic/kalman.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\Device\SiliconLabs\EFR32BG1B\Include\efr32bg1b232f256gm32.h
@@ -59,4 +60,6 @@ kinetic/kalman.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1
 kinetic/kalman.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\Device\SiliconLabs\EFR32BG1B\Include\efr32bg1b_af_pins.h
 kinetic/kalman.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\stdbool.h
 kinetic/kalman.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\emlib\inc\em_assert.h
+kinetic/kalman.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\emlib\inc\em_cmu.h
+kinetic/kalman.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\emlib\inc\em_bus.h
 kinetic/kalman.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\kinetic\kinetic_types.h
