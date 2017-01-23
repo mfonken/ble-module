@@ -33,7 +33,10 @@
 #include "em_emu.h"
 #include "em_cmu.h"
 
-/* System utilities */
+/* System */
+#include "startup.h"
+
+/* Utilities */
 #include "usart_sp.h"
 
 /* App header */
@@ -104,6 +107,9 @@ void main(void)
 
   /* Initialize stack */
   gecko_init(&config);
+    
+  /* Initialize system hardware */
+  startup();
 
   /* Initialize App */
   app_init();
@@ -111,30 +117,6 @@ void main(void)
   //IMU_Init();
 
   while (1) {
-//	app();
-//	LSM9DS1_t * imu = IMU_Update();
-//	Print_Char('m');
-//	Print_Char(',');
-//	Print_Double_Ascii( imu->imu.mag[0] );
-//	Print_Char(',');
-//	Print_Double_Ascii( imu->imu.mag[1] );
-//	Print_Char(',');
-//	Print_Double_Ascii( imu->imu.mag[2] );
-//	Print_Char('f');
-//	Print_Char(',');
-//	Print_Double_Ascii( imu->imu.pitch );
-//	Print_Char(',');
-//	Print_Double_Ascii( imu->imu.roll );
-//	Print_Char(',');
-//	Print_Double_Ascii( imu->imu.yaw );
-//
-//	Print_Char('\r');
-//	Print_Char('\0');
-//	Print_Char('\n');
-//	Print_Char('\0');
-//	for(int i = 0; i < 200000; i++);
-//  }
-//  {
     /* Event pointer for handling events */
     struct gecko_cmd_packet* evt;
 
@@ -144,12 +126,12 @@ void main(void)
     /* Handle events */
     switch (BGLIB_MSG_ID(evt->header)) {
     	case gecko_evt_le_connection_opened_id:
-			Print_String("Connected.\r\n", 12);
+			Print_String("Connected.\r\n");
 			break;
 		/* This boot event is generated when the system boots up after reset.
 		 * Here the system is set to start advertising immediately after boot procedure. */
 		case gecko_evt_system_boot_id:
-			Print_String("Boot.\r\n", 7);
+			Print_String("Boot.\r\n");
 			/* Set advertising parameters. 100ms advertisement interval. All channels used.
 			 * The first two parameters are minimum and maximum advertising interval, both in
 			 * units of (milliseconds * 1.6). The third parameter '7' sets advertising on all channels. */
@@ -160,7 +142,7 @@ void main(void)
 			break;
 
 		case gecko_evt_le_connection_closed_id:
-			Print_String("Disconnected.\r\n", 15);
+			Print_String("Disconnected.\r\n");
 			/* Restart advertising after client has disconnected */
 			gecko_cmd_le_gap_set_mode(le_gap_general_discoverable, le_gap_undirected_connectable);
 			break;
@@ -172,7 +154,7 @@ void main(void)
 		/* Check if the user-type OTA Control Characteristic was written.
 		 * If ota_control was written, boot the device into Device Firmware Upgrade (DFU) mode. */
 		case gecko_evt_gatt_server_user_write_request_id:
-			Print_String("Write request.\r\n", 16);
+			Print_String("Write request.\r\n");
 			if(evt->data.evt_gatt_server_user_write_request.characteristic==gattdb_ota_control)
 			{
 			  gecko_cmd_system_reset(1);

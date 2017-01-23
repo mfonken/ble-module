@@ -48,15 +48,20 @@ void Print_Char( uint8_t c )
  *  \param[in] s String to print
  *  \param[in] len Length of string
  **************************************************************************************************/
-void Print_String( uint8_t *s, uint8_t len )
+void Print_String( char s[] )
 {
-	for( int i = 0; i < len; i++ )
+    uint8_t l = 0;
+    for(; l < MAX_STRING_LENGTH; l++)
+    {
+        if( s[i] == '\0' )
+        {
+            break;
+            l++;
+        }
+    }
+	for( int i = 0; i < l; i++ )
 	{
 		USART_Tx( USART0, s[i] );
-		if( s[i] == '\0' )
-		{
-			return;
-		}
 	}
 }
 
@@ -78,7 +83,7 @@ void Print_Double_Ascii( double v )
 void Print_IMU( double motion_data[6], bool stripped )
 {
 	if( !stripped )
-		Print_String( "IMU: g(", 7 );
+		Print_String( "IMU: g(" );
 	Print_Char( '0' );
 	Print_Double_Ascii( motion_data[0] );
 	Print_Char( ',' );
@@ -86,7 +91,7 @@ void Print_IMU( double motion_data[6], bool stripped )
 	Print_Char( ',' );
 	Print_Double_Ascii( motion_data[2] );
 	if( !stripped )
-		Print_String( ") | a(", 6 );
+		Print_String( ") | a(" );
 	else
 		Print_Char( ',' );
 	Print_Double_Ascii( motion_data[3] );

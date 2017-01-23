@@ -16,9 +16,9 @@ sensor_data_t 	sensors;
 /* Interrupt variables */
 uint8_t buffer_rx;
 
-/**********************/
-/* Interrupt Handlers */
-/**********************/
+/***********************************************************************************************//**
+ * Interrupt Handlers
+ **************************************************************************************************/
 
 /* Camera USART */
 void USART0_RX_IRQHandler(void)
@@ -42,7 +42,7 @@ void USART0_RX_IRQHandler(void)
 void TIMER0_IRQHandler(void)
 {
 	TIMER_IntClear( TIMER0, TIMER_IF_OF );      	// Clear overflow flag
-	//Print_String( "\tTimer 0.\r\n", 11 );
+	//Print_String( "\tTimer 0.\r\n" );
 
 	disableTimer( SYNC_TIMER );
 	Kinetic_Update_Rotation( &kinetics );
@@ -54,7 +54,7 @@ void TIMER0_IRQHandler(void)
 void TIMER1_IRQHandler(void)
 {
 	TIMER_IntClear( TIMER1, TIMER_IF_OF );      	// Clear overflow flag
-	Print_String( "\tTimer 1.\r\n", 11 );
+	Print_String( "\tTimer 1.\r\n" );
 }
 
 /* Beacon RF timer */
@@ -64,7 +64,7 @@ void CRYOTIMER_IRQHandler(void)
 
 	/* TODO: Add beacon intensity check - RF_Step(up/down)*/
 	RF_Kick();
-	Print_String( "\tCryotimer 0.\r\n\0", 10 );
+	Print_String( "\tCryotimer 0.\r\n\0" );
 }
 
 /* SYSCTL Interrupt Handler */
@@ -74,24 +74,15 @@ void GPIO_ODD_IRQHandler(void)
 	exitSleepMode();
 }
 
+/***********************************************************************************************//**
+ * Application
+ **************************************************************************************************/
+
 /* App Initialize */
 void app_init( void )
 {
-	SYSCLK_Init();
-	Print_String("System Clock Initialized.\r\n", 27);
-
-	SYSCTL_Init();
-	Print_String("System Controller Initialized.\r\n", 32);
-
-	IMU_Init();
-	Print_String("IMU Initialized.\r\n", 18);
-	//Touch_Init();
-
-	//Camera_Init();
-	Print_String("Camera Initialized.\r\n", 21);
-
     Kinetic_Init( &kinetics );
-	Print_String("Kinetic Initialized.\r\n", 22);
+	Print_String( "Kinetic Initialized.\r\n" );
 
 	mode._2d = _2D_MODE_DEFAULT;
 	mode._3d = _3D_MODE_DEFAULT;
