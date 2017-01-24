@@ -22,7 +22,7 @@
 #include "usart_sp.h"
 
 
-#define NUM_AVAILABLE_IRQ FPUEH_IRQn
+#define NUM_AVAILABLE_IRQ FPUEH_IRQn + 1
 
 typedef void (callback_f)(void);
 
