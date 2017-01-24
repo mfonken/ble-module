@@ -10,6 +10,8 @@
 #include "em_usart.h"
 #include "em_i2c.h"
 
+#include "usart_sp.h"
+
 /***********************************************************************************************//**
  * @addtogroup Application
  * @{
@@ -53,7 +55,7 @@ void Print_String( char s[] )
     uint8_t l = 0;
     for(; l < MAX_STRING_LENGTH; l++)
     {
-        if( s[i] == '\0' )
+        if( s[l] == '\0' )
         {
             break;
             l++;
@@ -73,7 +75,7 @@ void Print_Double_Ascii( double v )
 {
 	uint8_t output[9];
 	uint8_t len = sprintf( ( char * )output,"%.3f", v);
-	Print_String( output, len );
+	Print_String( output );
 }
 
 /***********************************************************************************************//**

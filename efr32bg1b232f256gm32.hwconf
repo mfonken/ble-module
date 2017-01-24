@@ -69,7 +69,8 @@
     <property object="PRS" propertyId="prs.channel3configuration.hiddenbysdk" value="On"/>
     <property object="RTCC" propertyId="ABPeripheral.included" value="true"/>
     <property object="RTCC" propertyId="rtcc.settings.hiddenbysdk" value="On"/>
-    <property object="TIMER0" propertyId="timer.clocksettings.hfperprescaler" value="Divide by 32"/>
+    <property object="TIMER0" propertyId="timer.settings.enable" value="Disable timer after initialization"/>
+    <property object="TIMER1" propertyId="timer.settings.enable" value="Disable timer after initialization"/>
     <property object="USART0" propertyId="ABPeripheral.included" value="true"/>
     <property object="USART0" propertyId="usart.outputsettings.clockselect" value="Disabled"/>
     <property object="USART1" propertyId="ABPeripheral.included" value="true"/>

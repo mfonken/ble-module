@@ -14,7 +14,11 @@
 
 #define SYSCLK_CHANNEL 	1
 
+#define	RTCC_MAX_COUNT		0xffffffff
+#define RTCC_OVER_FLOW_DIFF	0x10000000
+
 void	 SYSCLK_Init( void );
 uint32_t timestamp( void );
+double   seconds_since( uint32_t );
 
 #endif /* SYSTEM_UTILITIES_CLOCK_SP_H_ */

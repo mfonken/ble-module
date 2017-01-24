@@ -61,3 +61,4 @@ system/utilities/usart_sp.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks
 system/utilities/usart_sp.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\Device\SiliconLabs\EFR32BG1B\Include\efr32bg1b_af_pins.h
 system/utilities/usart_sp.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\stdbool.h
 system/utilities/usart_sp.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\emlib\inc\em_i2c.h
+system/utilities/usart_sp.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\utilities\usart_sp.h

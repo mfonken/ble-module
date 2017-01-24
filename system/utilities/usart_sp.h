@@ -35,7 +35,7 @@ void Print_Char( uint8_t c );
  *  \brief  Print character
  *  \param[in] c Character to print
  **************************************************************************************************/
-void Print_String( uint8_t *s, uint8_t len );
+void Print_String( char s[] );
 
 /***********************************************************************************************//**
  *  \brief  Print string

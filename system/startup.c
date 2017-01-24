@@ -35,11 +35,12 @@ void Sensors_Init( void )
 {
     if( system.imu )
     {
-        IMU_Init();
+    	LSM9DS1_t * this;
+        IMU_Init( this );
         Print_String( "IMU Initialized.\r\n" );
     }
     
-    if( systen.camera & )
+    if( system.camera )
     {
         Camera_Init();
         Print_String( "Camera Initialized.\r\n" );

@@ -42,10 +42,7 @@ void USART0_RX_IRQHandler(void)
 void TIMER0_IRQHandler(void)
 {
 	TIMER_IntClear( TIMER0, TIMER_IF_OF );      	// Clear overflow flag
-	//Print_String( "\tTimer 0.\r\n" );
-
 	disableTimer( SYNC_TIMER );
-	Kinetic_Update_Rotation( &kinetics );
 	app();
 	enableTimer( SYNC_TIMER );
 }
@@ -84,17 +81,26 @@ void app_init( void )
     Kinetic_Init( &kinetics );
 	Print_String( "Kinetic Initialized.\r\n" );
 
+	registerTimer( SYNC_TIMER, SYNC_TIMER_PERIOD );
+	//registerTimer( FORCE_TIMER, FORCE_TIMER_PERIOD );
+
 	mode._2d = _2D_MODE_DEFAULT;
 	mode._3d = _3D_MODE_DEFAULT;
 	mode._sl = _SLEEP_MODE_DEFAULT;
 	appModeSet( &mode );
-
-	registerTimer( SYNC_TIMER, SYNC_TIMER_PERIOD );
-	registerTimer( FORCE_TIMER, FORCE_TIMER_PERIOD );
 }
 
 void app( void )
 {
+//	Print_String( "\tTick - " );
+//	double t;
+//	t = (double)timestamp();
+//	t /= 1000;
+//	Print_Double_Ascii( t );
+//	Print_String( "s \r\n" );
+
+	Kinetic_Update_Rotation( &kinetics );
+
 	Print_Char('k');
 	Print_Char(',');
 	Print_Double_Ascii( kinetics.rotation[0] );

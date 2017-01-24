@@ -68,7 +68,7 @@ void Kalman_Init( kalman_t *k,
 void Kalman_Update( kalman_t *k,
                     double    value_new,
                     double    rate_new,
-                    double    delta_time );
+					double 	  delta_time );
 
 /** @} (end addtogroup kinetic) */
 /** @} (end addtogroup Application) */

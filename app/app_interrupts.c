@@ -32,7 +32,7 @@ void sensorSyncSet( sync_t * s )
 /* Interrupt Registers */
 void registerTimer( TIMER_TypeDef * timer, uint32_t period )
 {
-	//Print_String( "Starting timer.\r\n", 17 );
+	Print_String( "Starting timer.\r\n" );
 
 	/* Select timer parameters */
 	TIMER_Init_TypeDef timerInit =
@@ -50,11 +50,14 @@ void registerTimer( TIMER_TypeDef * timer, uint32_t period )
 		.sync       = false,
 	};
 
-	/* Set TIMER Top value */
-	TIMER_TopSet( timer, ( period * TICK_TO_MS ) );
-
 	/* Configure TIMER */
 	TIMER_Init( timer, &timerInit );
+
+	/* Set TIMER Top value */
+	uint32_t p;
+	p = TICK_TO_MS;
+	p *= period;
+	TIMER_TopSet( timer, p );
 
 	/* Enable timer interrupt vector in NVIC */
 	IRQn_Type iqrn;

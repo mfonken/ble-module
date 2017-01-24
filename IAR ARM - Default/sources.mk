@@ -37,5 +37,6 @@ sensors/camera \
 sensors/imu \
 sensors/touch \
 src \
+system \
 system/utilities \
 

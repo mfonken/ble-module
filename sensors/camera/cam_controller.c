@@ -46,20 +46,20 @@ void Camera_Print( uint8_t cmd )
 	char out[10];
 	int l = 0;
 	uint8_t n = num_tracked;
-	Print_String("Found ", 6);
+	Print_String("Found " );
 	l = sprintf(out, "%d",n);
-	Print_String( ( uint8_t * )out, l);
-	Print_String(" centroids.\r\n", 13);
+	Print_String( ( uint8_t * )out );
+	Print_String(" centroids.\r\n" );
 	for(int i = 0; i < n; i++)
 	{
 		l = sprintf(out, "%d",i);
-		Print_String( ( uint8_t * )out, l);
+		Print_String( ( uint8_t * )out );
 		Print_Char('>');
 		l = sprintf(out, "%d", beacons[i].centroid.x);
-		Print_String( ( uint8_t * )out, l);
+		Print_String( ( uint8_t * )out );
 		Print_Char('|');
 		l = sprintf(out, "%d", beacons[i].centroid.y);
-		Print_String( ( uint8_t * )out, l);
+		Print_String( ( uint8_t * )out );
 		Print_Char('\r');
 		Print_Char('\n');
 	}

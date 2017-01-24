@@ -8,8 +8,9 @@
 #ifndef SYSTEM_APP_INTERRUPTS_H_
 #define SYSTEM_APP_INTERRUPTS_H_
 
-#define TIMER_PRESCALE		timerPrescale1
-#define TICK_TO_MS			( 1 / ( 1 << TIMER_PRESCALE ) )
+#define TIMER_PRESCALE		timerPrescale1024
+#define TIMER_CLK_FRQ		SystemHFXOClockGet()
+#define TICK_TO_MS			TIMER_CLK_FRQ / ( ( 1 << (TIMER_PRESCALE + 4) ) * 1000 )
 
 #include "app_interrupts.h"
 

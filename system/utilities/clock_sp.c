@@ -9,6 +9,9 @@
 #include "clock_sp.h"
 
 /* Defines*/
+#define START_TIME      0x00235945      /* 23:59:45 */
+#define START_DATE      0x06160228      /* 2016 Feb 28 */
+
 #define LFRCO_FREQUENCY                 32768
 #define WAKEUP_INTERVAL_MS              500
 #define RTC_COUNT_BETWEEN_WAKEUP        (((LFRCO_FREQUENCY * WAKEUP_INTERVAL_MS) / 1000)-1)
@@ -42,44 +45,49 @@ void startLfrcoForRtc(void)
  *****************************************************************************/
 void SYSCLK_Init( void )
 {
-	  /* Configuring clocks in the Clock Management Unit (CMU) */
-	  startLfrcoForRtc();
+	/* Enable LFE domain for RTCC */
+	//CMU_ClockEnable(cmuClock_CORELE, true);
+	//CMU_ClockSelectSet(cmuClock_LFE, cmuSelect_HFXO);
 
-	#if defined(RTCC_PRESENT) && (RTCC_COUNT > 0)
-	  RTCC_Init_TypeDef rtccInit = RTCC_INIT_DEFAULT;
-	  RTCC_CCChConf_TypeDef rtccInitCompareChannel = RTCC_CH_INIT_COMPARE_DEFAULT;
+	/* Enable RTC clock */
+	CMU_ClockEnable(cmuClock_RTCC, true);
 
-	  rtccInit.cntWrapOnCCV1 = true;        /* Clear counter on compare match */
-	  rtccInit.presc = rtccCntPresc_1;
+	RTCC_Init_TypeDef rtccInit = RTCC_INIT_DEFAULT;
+	rtccInit.enable   = false;
+	//rtccInit.presc = rtccCntPresc_8192;
+	//rtccInit.cntMode = rtccCntModeNormal;
+	RTCC_Init(&rtccInit);
 
-	  /* Setting the compare value of the RTCC */
-	  RTCC_ChannelInit(SYSCLK_CHANNEL, &rtccInitCompareChannel);
-	  RTCC_ChannelCCVSet(SYSCLK_CHANNEL, RTC_COUNT_BETWEEN_WAKEUP);
 
-	  /* Enabling Interrupt from RTCC */
-	  RTCC_IntEnable(RTCC_IEN_CC1);
-	  NVIC_ClearPendingIRQ(RTCC_IRQn);
-	  NVIC_EnableIRQ(RTCC_IRQn);
+	/* Enable required interrupt */
+	//RTCC_IntEnable(RTCC_IEN_CNTTICK);// + RTCC_IEN_DAYTICK);
 
-	  /* Initialize the RTCC */
-	  RTCC_Init(&rtccInit);
-	#else
-	  RTC_Init_TypeDef rtcInit = RTC_INIT_DEFAULT;
+	/* Enable RTCC interrupt */
+	//NVIC_ClearPendingIRQ(RTCC_IRQn);
+	//NVIC_EnableIRQ(RTCC_IRQn);
 
-	  /* Setting the compare value of the RTC */
-	  RTC_CompareSet(0, RTC_COUNT_BETWEEN_WAKEUP);
-
-	  /* Enabling Interrupt from RTC */
-	  RTC_IntEnable(RTC_IEN_COMP0);
-	  NVIC_ClearPendingIRQ(RTC_IRQn);
-	  NVIC_EnableIRQ(RTC_IRQn);
-
-	  /* Initialize the RTC */
-	  RTC_Init(&rtcInit);
-	#endif
+	/* Start Counter */
+	RTCC_Enable(true);
 }
 
 uint32_t timestamp( void )
 {
-	return RTCC_TimeGet();
+	return RTCC_CounterGet();//RTCC_TimeGet();
+}
+
+double seconds_since( uint32_t time )
+{
+	uint32_t curr = timestamp();
+	uint32_t diff = curr - time;
+	double ret;
+	if( diff < RTCC_OVER_FLOW_DIFF )
+	{
+		ret = (double)diff / 1000;
+		return ret;
+	}
+	else
+	{
+		ret = (double)( RTCC_MAX_COUNT - time + curr )/ 1000;
+		return ret;
+	}
 }
