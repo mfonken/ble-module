@@ -72,6 +72,14 @@ typedef struct _vec3_t
     double    khat;             /**< \$f\hat{k}\$f value */
 } vec3_t;
 
+/*! Simple 2d Vector */
+typedef struct _vec2_t
+{
+    double    ihat;             /**< \$f\hat{i}\$f value */
+    double    jhat;             /**< \$f\hat{j}\$f value */
+} vec2_t;
+
+
 /** @} (end addtogroup kinetic) */
 /** @} (end addtogroup Application) */
 

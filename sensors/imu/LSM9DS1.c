@@ -39,7 +39,7 @@
 /***************************************************************************************************
  Local Variables
  **************************************************************************************************/
-//LSM9DS1_t this;
+LSM9DS1_t this;
 
 double magResolutions[4] = { 0.00014, 0.00029, 0.00043, 0.00058 };
 
@@ -82,19 +82,19 @@ void IMU_SetRegister( uint8_t reg, uint8_t val )
 void IMU_Init( LSM9DS1_t * imu )
 {
     this = *imu;
-	LSM9DS1_defaultInit( &this.settings );
+	LSM9DS1_defaultInit( &imu->settings );
 
-    this.imu.accel_bias[0] 	= ACCEL_BIAS_X;
-    this.imu.accel_bias[1] 	= ACCEL_BIAS_Y;
-    this.imu.accel_bias[2] 	= ACCEL_BIAS_Z;
+    imu->imu.accel_bias[0] 	= ACCEL_BIAS_X;
+    imu->imu.accel_bias[1] 	= ACCEL_BIAS_Y;
+    imu->imu.accel_bias[2] 	= ACCEL_BIAS_Z;
 
-    this.imu.gyro_bias[0] 	= GYRO_BIAS_X;
-	this.imu.gyro_bias[1] 	= GYRO_BIAS_Y;
-	this.imu.gyro_bias[2]	= GYRO_BIAS_Z;
+    imu->imu.gyro_bias[0] 	= GYRO_BIAS_X;
+	imu->imu.gyro_bias[1] 	= GYRO_BIAS_Y;
+	imu->imu.gyro_bias[2]	= GYRO_BIAS_Z;
 
-	this.imu.mag_bias[0] 	= MAG_BIAS_X;
-	this.imu.mag_bias[1] 	= MAG_BIAS_Y;
-	this.imu.mag_bias[2] 	= MAG_BIAS_Z;
+	imu->imu.mag_bias[0] 	= MAG_BIAS_X;
+	imu->imu.mag_bias[1] 	= MAG_BIAS_Y;
+	imu->imu.mag_bias[2] 	= MAG_BIAS_Z;
 
 	uint32_t accel_res;
 	switch ( XL_FS_DEFAULT )
@@ -147,9 +147,9 @@ void IMU_Init( LSM9DS1_t * imu )
 			break;
 	}
 
-	this.imu.accel_res      = accel_res / LSM9DS1_IMU_ADC_MAX;
-	this.imu.gyro_res 		= gyro_res  / LSM9DS1_IMU_ADC_MAX;
-	this.imu.mag_res 		= mag_res;
+	imu->imu.accel_res      = accel_res / LSM9DS1_IMU_ADC_MAX;
+	imu->imu.gyro_res 		= gyro_res  / LSM9DS1_IMU_ADC_MAX;
+	imu->imu.mag_res 		= mag_res;
 }
 
 /******************************************************************************
@@ -160,28 +160,28 @@ void IMU_Init( LSM9DS1_t * imu )
  * \brief Read IMU accel and gyro data
  * \param[in] read_data Array to store read data
  *****************************************************************************/
-void IMU_Update_All( void )
+void IMU_Update_All( LSM9DS1_t * imu )
 {
-    IMU_Update_Accel( this );
-    IMU_Update_Gyro( this );
-    IMU_Update_Mag( this );
+    IMU_Update_Accel( imu );
+    IMU_Update_Gyro( imu );
+    IMU_Update_Mag( imu );
     
-    IMU_Update_Roll( this );
-    IMU_Update_Pitch( this );
-    IMU_Update_Yaw( this );
+    IMU_Update_Roll( imu );
+    IMU_Update_Pitch( imu );
+    IMU_Update_Yaw( imu );
 }
 
-void IMU_Update_Angles( void )
+void IMU_Update_Angles( LSM9DS1_t * imu )
 {
-    IMU_Update_Accel( this );
-    IMU_Update_Mag( this );
+    IMU_Update_Accel( imu );
+    IMU_Update_Mag( imu );
     
-    IMU_Update_Roll( this );
-    IMU_Update_Pitch( this );
-    IMU_Update_Yaw( this );
+    IMU_Update_Roll( imu );
+    IMU_Update_Pitch( imu );
+    IMU_Update_Yaw( imu );
 }
 
-void IMU_Update_Accel( void )
+void IMU_Update_Accel( LSM9DS1_t * imu )
 {
     /* Combine low and high byte values */
     uint8_t                    i2c_read_data[6];
@@ -193,11 +193,11 @@ void IMU_Update_Accel( void )
     
     for( int i = 0; i < 3 ; i++ )
     {
-        this.imu.accel[i] = accel[i] * this.imu.accel_res - this.imu.accel_bias[i];
+        imu->imu.accel[i] = accel[i] * imu->imu.accel_res - imu->imu.accel_bias[i];
     }
 }
 
-void IMU_Update_Gyro( void )
+void IMU_Update_Gyro( LSM9DS1_t * imu )
 {
     /* Combine low and high byte values */
     uint8_t                    i2c_read_data[6];
@@ -209,11 +209,11 @@ void IMU_Update_Gyro( void )
     
     for( int i = 0; i < 3 ; i++ )
     {
-        this.imu.gyro[i]  = gyro[i]  * this.imu.gyro_res  - this.imu.gyro_bias[i];
+        imu->imu.gyro[i]  = gyro[i]  * imu->imu.gyro_res  - imu->imu.gyro_bias[i];
     }
 }
 
-void IMU_Update_Mag( void )
+void IMU_Update_Mag( LSM9DS1_t * imu )
 {
     /* Combine low and high byte values */
     uint8_t                    i2c_read_data[6];
@@ -225,7 +225,7 @@ void IMU_Update_Mag( void )
     
     for( int i = 0; i < 3 ; i++ )
     {
-        this.imu.mag[i]   = mag[i]   * this.imu.mag_res	  - this.imu.mag_bias[i];
+        imu->imu.mag[i]   = mag[i]   * imu->imu.mag_res	  - imu->imu.mag_bias[i];
     }
 }
 
@@ -240,61 +240,61 @@ void IMU_Update_Mag( void )
  * \brief Calculate roll angle (phi) from accelerometer data
  * \param[out] Return roll
  *****************************************************************************/
-void IMU_Update_Roll( void )
+void IMU_Update_Roll( LSM9DS1_t * imu )
 {
     /* AN4248: Eq. 13 */
-    this.imu.roll = atan2( this.imu.accel[0], this.imu.accel[2] );
+    imu->imu.roll = atan2( imu->imu.accel[0], imu->imu.accel[2] );
     
     /* AN3461: Eq. 37 */
-//    double den = sqrt( ( ( this.imu.accel[1] * this.imu.accel[1] ) + ( this.imu.accel[2] * this.imu.accel[2] ) ) );
-//    this.imu.roll = atan2( -this.imu.accel[0], den );
+//    double den = sqrt( ( ( imu->imu.accel[1] * imu->imu.accel[1] ) + ( imu->imu.accel[2] * imu->imu.accel[2] ) ) );
+//    imu->imu.roll = atan2( -imu->imu.accel[0], den );
 }
 
 /**************************************************************************//**
  * \brief Calculate pitch angle (theta) from accelerometer data
  * \param[out] Return pitch
  *****************************************************************************/
-void IMU_Update_Pitch( void )
+void IMU_Update_Pitch( LSM9DS1_t * imu )
 {
     /* AN4248: Eq. 14 */
-    double den = ( this.imu.accel[0] * sin( this.imu.roll ) ) + ( this.imu.accel[2] * cos ( this.imu.roll ) );
-    this.imu.pitch = atan2( -this.imu.accel[1], den );
+    double den = ( imu->imu.accel[0] * sin( imu->imu.roll ) ) + ( imu->imu.accel[2] * cos ( imu->imu.roll ) );
+    imu->imu.pitch = atan2( -imu->imu.accel[1], den );
     
     /* AN3461: Eq. 38 */
-//    double den = sign( this.imu.accel[2] ) * sqrt( ( ( this.imu.accel[2] * this.imu.accel[2] ) + ( MU * ( this.imu.accel[0] * this.imu.accel[0] ) ) ) );
-//    this.imu.pitch = atan2( this.imu.accel[1], den );
+//    double den = sign( imu->imu.accel[2] ) * sqrt( ( ( imu->imu.accel[2] * imu->imu.accel[2] ) + ( MU * ( imu->imu.accel[0] * imu->imu.accel[0] ) ) ) );
+//    imu->imu.pitch = atan2( imu->imu.accel[1], den );
 }
 
 /**************************************************************************//**
  * \brief Calculate yaw angle (psi) from magnetometer data, pitch, and roll
  * \param[out] Return yaw
  *****************************************************************************/
- void IMU_Update_Yaw( void )
+ void IMU_Update_Yaw( LSM9DS1_t * imu )
 {
-	double Bx = this.imu.mag[1];
-	double By = this.imu.mag[0];
-	double Bz = -this.imu.mag[2];
+	double Bx = imu->imu.mag[1];
+	double By = imu->imu.mag[0];
+	double Bz = -imu->imu.mag[2];
 
     /* AN4248: Eq. 22 */
-    double sin_phi   = sin( this.imu.roll );
-    double sin_theta = sin( this.imu.pitch );
-    double cos_phi   = cos( this.imu.roll );
-    double cos_theta = cos( this.imu.pitch );
+    double sin_phi   = sin( imu->imu.roll );
+    double sin_theta = sin( imu->imu.pitch );
+    double cos_phi   = cos( imu->imu.roll );
+    double cos_theta = cos( imu->imu.pitch );
     double num = ( Bz * sin_phi ) - ( By * cos_phi );
     double den = ( Bx * cos_theta ) + ( By * ( sin_theta * sin_phi ) ) + ( Bz * ( sin_theta * cos_phi ) );
-    this.imu.yaw = atan2( num, den );
+    imu->imu.yaw = atan2( num, den );
 }
 
 /**************************************************************************//**
  * \brief Calculate roll angle (phi) error from accelerometer data
  * \param[out] Return roll error
  *****************************************************************************/
-double IMU_Roll_Error_Get( void )
+double IMU_Roll_Error_Get( LSM9DS1_t * imu )
 {
-    double sin_phi   = sin( this.imu.roll );
-    double sin_theta = sin( this.imu.pitch );
-    double cos_phi   = cos( this.imu.roll );
-    double cos_theta = cos( this.imu.pitch );
+    double sin_phi   = sin( imu->imu.roll );
+    double sin_theta = sin( imu->imu.pitch );
+    double cos_phi   = cos( imu->imu.roll );
+    double cos_theta = cos( imu->imu.pitch );
     double cos_theta_cos_phi = cos_theta * cos_phi;
     double mu_sin_2_theta = MU * ( sin_theta * sin_theta );
     double factor = sqrt( ( cos_theta_cos_phi * cos_theta_cos_phi ) + mu_sin_2_theta );
@@ -308,23 +308,23 @@ double IMU_Roll_Error_Get( void )
  * \param[out] Return 3D vector of acceleration
  * \param[in] tba Tait-Bryan angles to transform by
  *****************************************************************************/
-vec3_t * IMU_Non_Grav_Get( void )
+vec3_t * IMU_Non_Grav_Get( LSM9DS1_t * imu )
 {
-    IMU_Update_All( this );
+    IMU_Update_All( imu );
     
     /* Create a vector of accelerometer values */
     vec3_t avec;
-    avec.ihat = this.imu.accel[0];
-    avec.jhat = this.imu.accel[1];
-    avec.khat = this.imu.accel[2];
+    avec.ihat = imu->imu.accel[0];
+    avec.jhat = imu->imu.accel[1];
+    avec.khat = imu->imu.accel[2];
 
     ang3_t tba;
-    tba.a = this.imu.roll;
-    tba.b = this.imu.pitch;
-    tba.c = this.imu.yaw;
+    tba.a = imu->imu.roll;
+    tba.b = imu->imu.pitch;
+    tba.c = imu->imu.yaw;
     
     /* Transform and normalize v vector by given angles to get unit vector from camera */
-    vec3_t * atru = zxyTransform( &avec, tba, 1 );
+    vec3_t * atru = zxyTransform( &avec, &tba, 1 );
 
     atru->khat += 1; // Negate gravity
     return atru;

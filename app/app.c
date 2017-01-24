@@ -79,9 +79,9 @@ void GPIO_ODD_IRQHandler(void)
 /* App Initialize */
 void app_init( void )
 {
-    IMU_Init( imu0 );
+    IMU_Init( &imu0 );
     Print_Line( "IMU Initialized." );
-    Kinetic_Init( &kinetics );
+    Kinetic_Init( &imu0, &kinetics );
 	Print_Line( "Kinetic Initialized." );
 
 	registerTimer( SYNC_TIMER, SYNC_TIMER_PERIOD );
@@ -102,7 +102,10 @@ void app( void )
 //	Print_Double_Ascii( t );
 //	Print_String( "s \r\n" );
 
-	Kinetic_Update_Rotation( &kinetics );
+	Kinetic_Update_Rotation( &imu0, &kinetics );
+
+	Beacon_Compose();
+	Kinetic_Update_Position( &imu0, &kinetics, sensors.synced.beacon );
 
 	Print_Char('k');
 	Print_Char(',');

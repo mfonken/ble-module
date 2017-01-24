@@ -21,6 +21,7 @@
 #include "rf_controller.h"
 
 /* Types */
+#include "sensor_data_types.h"
 #include "data_types.h"
 
 #define CAM_UART		USART0
@@ -29,7 +30,7 @@
 #define CAMERA_INIT		0xab
 #define CENTROID_HEAD	0xee
 
-#define MAX_CENTROIDS	6
+
 #define MAX_TRACK_COUNT	6
 
 #define MAX_TRACK_AGE	1000 // In milliseconds
@@ -37,24 +38,6 @@
 #define MAX_X_DIFF		10
 #define MAX_Y_DIFF		10
 
-typedef struct
-{
-	uint8_t 	x;
-	uint8_t 	y;
-} centroid_t;
-
-typedef struct
-{
-	centroid_t 	centroid[MAX_CENTROIDS];
-	uint8_t 	count;
-} centroids_t;
-
-typedef struct
-{
-	centroid_t	centroid;
-	uint8_t		persistence;
-	uint32_t 	timestamp;
-} beacon_t;
 
 extern uint32_t		beacon_vector[2];
 extern centroids_t	centroids;
@@ -74,6 +57,7 @@ void	Beacon_Check( 	void );
 bool 	Beacon_Compare( centroid_t *, centroid_t * );
 void	Beacon_Compose( void );
 void 	Beacon_Copy( 	centroid_t *, centroid_t * );
+void 	Beacon_Get( centroid_t vis[2] );
 void	Beacon_Perge( 	void );
 void 	Beacon_Sort( 	uint8_t );
 void 	Beacon_Update( 	uint8_t, centroid_t * );

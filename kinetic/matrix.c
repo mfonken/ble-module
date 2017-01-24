@@ -158,8 +158,8 @@ vec3_t * yxzTransform( vec3_t * x,
     &x_\hat{k} = x_\hat{k} - y_\hat{k}
  \f}
  **************************************************************************************************/
-void subtractvec3_ts( vec3_t * x,
-                    vec3_t * y )
+void subtractvec3_t( vec3_t * x,
+                     vec3_t * y )
 {
     x->ihat = x->ihat - y->ihat;
     x->jhat = x->jhat - y->jhat;

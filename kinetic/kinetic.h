@@ -19,9 +19,22 @@ extern "C" {
 #include <stdio.h>
 #include <stdint.h>
 #include <math.h>
-    
-#include "kinetic_types.h"
+
+/* Math headers */
+#include "kalman.h"
+#include "matrix.h"
+
+/* Utilities */
+#include "usart_sp.h"
 #include "clock_sp.h"
+
+/* Sensors headers */
+#include "LSM9DS1.h"
+
+/* Types */
+#include "sensor_data_types.h"
+#include "kinetic_types.h"
+
     
 /***********************************************************************************************//**
  * \defgroup Kinetic Motion Code
@@ -46,7 +59,8 @@ extern "C" {
 #define 	absl(x) x > 0 ? x:-x
 
 /** Half PI */
-#define     HALF_PI             3.141596 / 2
+#define     PI      			3.141596
+#define 	RAD_TO_DEG 			180 / PI
     
 /** Initial normal unit vector to beacon plane */
 #define     VISION_ZSTATE_IHAT  0
@@ -66,6 +80,7 @@ extern "C" {
 /** Vision camera center */
 #define     VISION_CENTER_X     VISION_WIDTH  / 2
 #define     VISION_CENTER_Y     VISION_HEIGHT / 2
+extern LSM9DS1_t this;
 
 /***************************************************************************************************
 Function Declarations
@@ -79,17 +94,17 @@ void Kinetic_Init( LSM9DS1_t *, kinetic_t * );
 /***********************************************************************************************//**
  *  \brief  Initialize Filters for Kinetic Data
  **************************************************************************************************/
-void Filters_Init( kinetic_t * );
+void Filters_Init( LSM9DS1_t * imu, kinetic_t * kinetics );
     
 /***********************************************************************************************//**
  *  \brief  Update rotation filter data
  **************************************************************************************************/
-void Kinetic_Update_Rotation( kinetic_t * );
+void Kinetic_Update_Rotation( LSM9DS1_t * imu, kinetic_t * kinetics );
     
 /***********************************************************************************************//**
  *  \brief  Update position filter data
  **************************************************************************************************/
-void Kinetic_Update_Position( kinetic_t *, cartesian2_t );
+void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, centroid_t vis[2] );
     
 /***********************************************************************************************//**
  *  \brief  Initialize Filters for Kinetic Data

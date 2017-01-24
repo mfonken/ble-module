@@ -9,16 +9,6 @@
 /* Own header */
 #include "kinetic.h"
 
-/* Sensors headers */
-#include "LSM9DS1.h"
-
-/* Math headers */
-#include "kalman.h"
-#include "matrix.h"
-
-/* Additional function headers */
-#include "usart_sp.h"
-
 /***************************************************************************************************
  Local Variables
  **************************************************************************************************/
@@ -27,45 +17,42 @@
 
 /** Local positional and rotational vectors */
 
-LSM9DS1_t this;
-
 /***********************************************************************************************//**
  *  \brief  Initialize Kinetic Sensors
  **************************************************************************************************/
 void Kinetic_Init( LSM9DS1_t * imu, kinetic_t * kinetics )
 {
-    this = *imu;
-	Filters_Init( kinetics );
+	Filters_Init( imu, kinetics );
 }
 
 /***********************************************************************************************//**
  *  \brief  Initialize Filters for Kinetic Data
  **************************************************************************************************/
-void Filters_Init( kinetic_t * kinetics )
+void Filters_Init( LSM9DS1_t * imu, kinetic_t * kinetics )
 {
-	IMU_Update_All( &this );
-    Kalman_Init( &kinetics->rotationFilter[0], this.imu.roll );
-    Kalman_Init( &kinetics->rotationFilter[1], this.imu.pitch );
-    Kalman_Init( &kinetics->rotationFilter[2], this.imu.yaw   );
+	IMU_Update_All( imu );
+    Kalman_Init( &kinetics->rotationFilter[0], imu->imu.roll );
+    Kalman_Init( &kinetics->rotationFilter[1], imu->imu.pitch );
+    Kalman_Init( &kinetics->rotationFilter[2], imu->imu.yaw   );
 }
 
 /***********************************************************************************************//**
  *  \brief  Update IMU data and filter
  **************************************************************************************************/
-void Kinetic_Update_Rotation( kinetic_t * kinetics )
+void Kinetic_Update_Rotation( LSM9DS1_t * imu, kinetic_t * kinetics )
 {
-    IMU_Update_All( &this );
+    IMU_Update_All( imu );
     
-    double phi      = this.imu.roll;
-    double theta    = this.imu.pitch;
-    double psi      = this.imu.yaw;
+    double phi      = imu->imu.roll  * RAD_TO_DEG;
+    double theta    = imu->imu.pitch * RAD_TO_DEG;
+    double psi      = imu->imu.yaw 	 * RAD_TO_DEG;
     
     double delta_time = 0;
     
     /* Restrict pitch */
     double v = kinetics->rotationFilter[0].value;
-    if( ( phi < -HALF_PI && v >  HALF_PI ) ||
-        ( phi >  HALF_PI && v < -HALF_PI ) )
+    if( ( phi < -90 && v >  90 ) ||
+        ( phi >  90 && v < -90 ) )
     {
         kinetics->rotationFilter[0].value  = phi;
         kinetics->rotation[0]              = phi;
@@ -74,23 +61,23 @@ void Kinetic_Update_Rotation( kinetic_t * kinetics )
     {
         /* Calculate the true pitch using a kalman_t filter */
         delta_time = seconds_since( kinetics->rotationFilter[0].timestamp );
-        Kalman_Update( &kinetics->rotationFilter[0], phi, this.imu.gyro[0], delta_time );
+        Kalman_Update( &kinetics->rotationFilter[0], phi, imu->imu.gyro[0], delta_time );
         kinetics->rotation[0] = kinetics->rotationFilter[0].value;
     }
     
-    if ( kinetics->rotation[0] > HALF_PI )
+    if ( kinetics->rotation[0] > 90 )
     {
         /* Invert rate, so it fits the restricted accelerometer reading */
-        this.imu.gyro[0] = -this.imu.gyro[0];
+        imu->imu.gyro[0] = -imu->imu.gyro[0];
     }
     /* Calculate the true roll using a kalman_t filter */
     delta_time = seconds_since( kinetics->rotationFilter[1].timestamp );
-    Kalman_Update( &kinetics->rotationFilter[1], theta, this.imu.gyro[1], delta_time );
+    Kalman_Update( &kinetics->rotationFilter[1], theta, imu->imu.gyro[1], delta_time );
     kinetics->rotation[1] = kinetics->rotationFilter[1].value;
     
     /* Calculate the true yaw using a kalman_t filter */
     seconds_since( kinetics->rotationFilter[2].timestamp );
-    Kalman_Update( &kinetics->rotationFilter[2], psi, this.imu.gyro[2], delta_time );
+    Kalman_Update( &kinetics->rotationFilter[2], psi, imu->imu.gyro[2], delta_time );
     kinetics->rotation[2] = kinetics->rotationFilter[2].value;
 }
 
@@ -170,7 +157,7 @@ vec3_t *dAugment( vec3_t *dvec,
    &\text{Update all position kalman_ts with } \mathbf{p_{true}}, \mathbf{v}, \text{ and } \Delta{t}
  \f}
  **************************************************************************************************/
-void Kinetic_Update_Position( kinetic_t *kinetics, cartesian2_t vis[2] )
+void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, vec2_t * d )
 {
     /* Tait-Bryan angles of vision */
     ang3_t tba;
@@ -180,8 +167,8 @@ void Kinetic_Update_Position( kinetic_t *kinetics, cartesian2_t vis[2] )
 
     /* vector from B1 in vision -TO-> B2 in vision */
     vec3_t dvec;
-    dvec.ihat = vis[1].x - vis[0].x;
-    dvec.jhat = vis[1].y - vis[0].y;
+    dvec.ihat = d.ihat;
+    dvec.jhat = d.ihat;
     dvec.khat = 0; // d is only on XY plane (surface of beacons)
 
     /* Create r vector (camera -TO-> vision center) from augment generated true d and vision d */
@@ -218,7 +205,7 @@ void Kinetic_Update_Position( kinetic_t *kinetics, cartesian2_t vis[2] )
     ang->b = kinetics->rotationFilter[1].value;
     ang->c = kinetics->rotationFilter[2].value;
     
-    vec3_t *ngacc = getNonGravAcceleration( &this, ang );
+    vec3_t *ngacc = IMU_Non_Grav_Get( imu );
     
     uint32_t delta_time = 0;
     

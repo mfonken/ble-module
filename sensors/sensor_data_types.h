@@ -8,6 +8,29 @@
 #ifndef SENSORS_SENSOR_DATA_TYPES_H_
 #define SENSORS_SENSOR_DATA_TYPES_H_
 
+#include "kinetic_types.h"
+
+#define MAX_CENTROIDS	6
+
+typedef struct
+{
+	uint8_t 	x;
+	uint8_t 	y;
+} centroid_t;
+
+typedef struct
+{
+	centroid_t 	centroid[MAX_CENTROIDS];
+	uint8_t 	count;
+} centroids_t;
+
+typedef struct
+{
+	centroid_t	centroid;
+	uint8_t		persistence;
+	uint32_t 	timestamp;
+} beacon_t;
+
 typedef struct
 {
 	uint8_t _2d:1;			/**< 2D Mode 				>*/
@@ -19,28 +42,28 @@ typedef struct
 /* 8 Bytes */
 typedef struct
 {
-	uint8_t 	accel[3];
-	uint8_t 	gyro[3];
-	uint8_t 	mag[3];
-	uint8_t 	beacon[2];
+	double 		angles[3];
+	vec2_t 		beacon;
 	uint32_t 	timestamp;
 } synced_sensor_data_t;
 
 typedef struct
 {
-	uint8_t 	accel[3];
-	uint8_t 	gyro[3];
-	uint8_t 	mag[3];
-	uint8_t 	accel_res;
-	uint8_t 	gyro_res;
-	uint8_t 	mag_res;
-	uint8_t 	accel_bias[3];
-	uint8_t 	gyro_bias[3];
-	uint8_t 	mag_bias[3];
+	double 	accel[3];
+	double 	gyro[3];
+	double 	mag[3];
 
-	double		roll;
-	double		pitch;
-	double		yaw;
+	double  accel_res;
+	double 	gyro_res;
+	double 	mag_res;
+
+	double 	accel_bias[3];
+	double 	gyro_bias[3];
+	double 	mag_bias[3];
+
+	double	roll;
+	double	pitch;
+	double	yaw;
 } imu_t;
 
 /* 6 Bytes */
@@ -77,5 +100,7 @@ typedef struct
 	force_t					force;
 	touch_t					touch;
 } sensor_data_t;
+
+
 
 #endif /* SENSORS_SENSOR_DATA_TYPES_H_ */

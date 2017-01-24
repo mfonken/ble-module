@@ -90,22 +90,22 @@ void IMU_Default( LSM9DS1_t * this );
  * \param[out] Initialization success
  *****************************************************************************/
 void IMU_Init( LSM9DS1_t * );
-void IMU_Update_All(    void );
-void IMU_Update_Angles( void );
-void IMU_Update_Accel(  void );
-void IMU_Update_Gyro(   void );
-void IMU_Update_Mag(    void );
-void IMU_Update_Roll(   void);
-void IMU_Update_Pitch(  void );
-void IMU_Update_Yaw(    void );
-double IMU_Roll_Error_Get( void );
+void IMU_Update_All(    LSM9DS1_t * );
+void IMU_Update_Angles( LSM9DS1_t * );
+void IMU_Update_Accel(  LSM9DS1_t * );
+void IMU_Update_Gyro(   LSM9DS1_t * );
+void IMU_Update_Mag(    LSM9DS1_t * );
+void IMU_Update_Roll(   LSM9DS1_t *);
+void IMU_Update_Pitch(  LSM9DS1_t * );
+void IMU_Update_Yaw(    LSM9DS1_t * );
+double IMU_Roll_Error_Get( LSM9DS1_t * );
 
 /**************************************************************************//**
  * \brief Get no gravitation acceleration from accelerometer data
  * \param[out] Return 3D vector of acceleration
  * \param[in] tba Tait-Bryan angles to transform by
  *****************************************************************************/
-vec3_t * IMU_Non_Grav_Get( void );
+vec3_t * IMU_Non_Grav_Get( LSM9DS1_t * );
 
 /**************************************************************************//**
  * \brief Read temperature from register

@@ -34,7 +34,8 @@
 #include "LSM9DS1.h"
 #include "CPT112S.h"
 
-/* Sensor type headers */
+/* Type headers */
+#include "kinetic_types.h"
 #include "sensor_data_types.h"
 
 #define SYNC_TIMER			TIMER0

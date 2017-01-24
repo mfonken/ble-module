@@ -153,12 +153,6 @@ void Beacon_Copy( centroid_t * a, centroid_t * b)
 	a->y = b->y;
 }
 
-void Beacon_Get( centroid_t vis[2] )
-{
-//    Beacon_Copy(
-//    vis[0].x beacons[map[index]]
-}
-
 void Beacon_Sort( uint8_t starting_index )
 {
 	/* Sudo resort by persistence */

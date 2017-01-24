@@ -82,12 +82,15 @@ double seconds_since( uint32_t time )
 	double ret;
 	if( diff < RTCC_OVER_FLOW_DIFF )
 	{
-		ret = (double)diff / 1000;
+		ret = (double)diff;
+		/* TODO: Consider bit shift? */
+		ret /= 1000;
 		return ret;
 	}
 	else
 	{
-		ret = (double)( RTCC_MAX_COUNT - time + curr )/ 1000;
+		ret = (double)( RTCC_MAX_COUNT - time + curr );
+		ret /= 1000;
 		return ret;
 	}
 }
