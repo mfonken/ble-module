@@ -21,6 +21,11 @@
 /* System utilities */
 #include "usart_sp.h"
 
+
+#define NUM_AVAILABLE_IRQ FPUEH_IRQn
+
+typedef void (callback_f)(void);
+
 typedef struct
 {
 	uint8_t accel:1;
@@ -32,6 +37,7 @@ typedef struct
 void sensorSyncSet( sync_t * );
 
 /* Interrupt Registers */
+void registerInterrupt( Interrupt_Handler * handler, enum callback_type )
 void registerTimer( TIMER_TypeDef * timer, uint32_t period );
 void enableTimer(   TIMER_TypeDef * timer );
 void disableTimer(  TIMER_TypeDef * timer );

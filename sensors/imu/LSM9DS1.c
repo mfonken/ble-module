@@ -84,17 +84,17 @@ void IMU_Init( LSM9DS1_t * imu )
     this = *imu;
 	LSM9DS1_defaultInit( &imu->settings );
 
-    imu->imu.accel_bias[0] 	= ACCEL_BIAS_X;
-    imu->imu.accel_bias[1] 	= ACCEL_BIAS_Y;
-    imu->imu.accel_bias[2] 	= ACCEL_BIAS_Z;
+    imu->data.accel_bias[0] 	= ACCEL_BIAS_X;
+    imu->data.accel_bias[1] 	= ACCEL_BIAS_Y;
+    imu->data.accel_bias[2] 	= ACCEL_BIAS_Z;
 
-    imu->imu.gyro_bias[0] 	= GYRO_BIAS_X;
-	imu->imu.gyro_bias[1] 	= GYRO_BIAS_Y;
-	imu->imu.gyro_bias[2]	= GYRO_BIAS_Z;
+    imu->data.gyro_bias[0] 	= GYRO_BIAS_X;
+	imu->data.gyro_bias[1] 	= GYRO_BIAS_Y;
+	imu->data.gyro_bias[2]	= GYRO_BIAS_Z;
 
-	imu->imu.mag_bias[0] 	= MAG_BIAS_X;
-	imu->imu.mag_bias[1] 	= MAG_BIAS_Y;
-	imu->imu.mag_bias[2] 	= MAG_BIAS_Z;
+	imu->data.mag_bias[0] 	= MAG_BIAS_X;
+	imu->data.mag_bias[1] 	= MAG_BIAS_Y;
+	imu->data.mag_bias[2] 	= MAG_BIAS_Z;
 
 	uint32_t accel_res;
 	switch ( XL_FS_DEFAULT )
@@ -147,9 +147,9 @@ void IMU_Init( LSM9DS1_t * imu )
 			break;
 	}
 
-	imu->imu.accel_res      = accel_res / LSM9DS1_IMU_ADC_MAX;
-	imu->imu.gyro_res 		= gyro_res  / LSM9DS1_IMU_ADC_MAX;
-	imu->imu.mag_res 		= mag_res;
+	imu->data.accel_res      = accel_res / LSM9DS1_IMU_ADC_MAX;
+	imu->data.gyro_res 		= gyro_res  / LSM9DS1_IMU_ADC_MAX;
+	imu->data.mag_res 		= mag_res;
 }
 
 /******************************************************************************
@@ -193,7 +193,7 @@ void IMU_Update_Accel( LSM9DS1_t * imu )
     
     for( int i = 0; i < 3 ; i++ )
     {
-        imu->imu.accel[i] = accel[i] * imu->imu.accel_res - imu->imu.accel_bias[i];
+        imu->data.accel[i] = accel[i] * imu->data.accel_res - imu->data.accel_bias[i];
     }
 }
 
@@ -209,7 +209,7 @@ void IMU_Update_Gyro( LSM9DS1_t * imu )
     
     for( int i = 0; i < 3 ; i++ )
     {
-        imu->imu.gyro[i]  = gyro[i]  * imu->imu.gyro_res  - imu->imu.gyro_bias[i];
+        imu->data.gyro[i]  = gyro[i]  * imu->data.gyro_res  - imu->data.gyro_bias[i];
     }
 }
 
@@ -225,7 +225,7 @@ void IMU_Update_Mag( LSM9DS1_t * imu )
     
     for( int i = 0; i < 3 ; i++ )
     {
-        imu->imu.mag[i]   = mag[i]   * imu->imu.mag_res	  - imu->imu.mag_bias[i];
+        imu->data.mag[i]   = mag[i]   * imu->data.mag_res	  - imu->data.mag_bias[i];
     }
 }
 
@@ -243,11 +243,11 @@ void IMU_Update_Mag( LSM9DS1_t * imu )
 void IMU_Update_Roll( LSM9DS1_t * imu )
 {
     /* AN4248: Eq. 13 */
-    imu->imu.roll = atan2( imu->imu.accel[0], imu->imu.accel[2] );
+    imu->data.roll = atan2( imu->data.accel[0], imu->data.accel[2] );
     
     /* AN3461: Eq. 37 */
-//    double den = sqrt( ( ( imu->imu.accel[1] * imu->imu.accel[1] ) + ( imu->imu.accel[2] * imu->imu.accel[2] ) ) );
-//    imu->imu.roll = atan2( -imu->imu.accel[0], den );
+//    double den = sqrt( ( ( imu->data.accel[1] * imu->data.accel[1] ) + ( imu->data.accel[2] * imu->data.accel[2] ) ) );
+//    imu->data.roll = atan2( -imu->data.accel[0], den );
 }
 
 /**************************************************************************//**
@@ -257,12 +257,12 @@ void IMU_Update_Roll( LSM9DS1_t * imu )
 void IMU_Update_Pitch( LSM9DS1_t * imu )
 {
     /* AN4248: Eq. 14 */
-    double den = ( imu->imu.accel[0] * sin( imu->imu.roll ) ) + ( imu->imu.accel[2] * cos ( imu->imu.roll ) );
-    imu->imu.pitch = atan2( -imu->imu.accel[1], den );
+    double den = ( imu->data.accel[0] * sin( imu->data.roll ) ) + ( imu->data.accel[2] * cos ( imu->data.roll ) );
+    imu->data.pitch = atan2( -imu->data.accel[1], den );
     
     /* AN3461: Eq. 38 */
-//    double den = sign( imu->imu.accel[2] ) * sqrt( ( ( imu->imu.accel[2] * imu->imu.accel[2] ) + ( MU * ( imu->imu.accel[0] * imu->imu.accel[0] ) ) ) );
-//    imu->imu.pitch = atan2( imu->imu.accel[1], den );
+//    double den = sign( imu->data.accel[2] ) * sqrt( ( ( imu->data.accel[2] * imu->data.accel[2] ) + ( MU * ( imu->data.accel[0] * imu->data.accel[0] ) ) ) );
+//    imu->data.pitch = atan2( imu->data.accel[1], den );
 }
 
 /**************************************************************************//**
@@ -271,18 +271,18 @@ void IMU_Update_Pitch( LSM9DS1_t * imu )
  *****************************************************************************/
  void IMU_Update_Yaw( LSM9DS1_t * imu )
 {
-	double Bx = imu->imu.mag[1];
-	double By = imu->imu.mag[0];
-	double Bz = -imu->imu.mag[2];
+	double Bx = imu->data.mag[1];
+	double By = imu->data.mag[0];
+	double Bz = -imu->data.mag[2];
 
     /* AN4248: Eq. 22 */
-    double sin_phi   = sin( imu->imu.roll );
-    double sin_theta = sin( imu->imu.pitch );
-    double cos_phi   = cos( imu->imu.roll );
-    double cos_theta = cos( imu->imu.pitch );
+    double sin_phi   = sin( imu->data.roll );
+    double sin_theta = sin( imu->data.pitch );
+    double cos_phi   = cos( imu->data.roll );
+    double cos_theta = cos( imu->data.pitch );
     double num = ( Bz * sin_phi ) - ( By * cos_phi );
     double den = ( Bx * cos_theta ) + ( By * ( sin_theta * sin_phi ) ) + ( Bz * ( sin_theta * cos_phi ) );
-    imu->imu.yaw = atan2( num, den );
+    imu->data.yaw = atan2( num, den );
 }
 
 /**************************************************************************//**
@@ -291,10 +291,10 @@ void IMU_Update_Pitch( LSM9DS1_t * imu )
  *****************************************************************************/
 double IMU_Roll_Error_Get( LSM9DS1_t * imu )
 {
-    double sin_phi   = sin( imu->imu.roll );
-    double sin_theta = sin( imu->imu.pitch );
-    double cos_phi   = cos( imu->imu.roll );
-    double cos_theta = cos( imu->imu.pitch );
+    double sin_phi   = sin( imu->data.roll );
+    double sin_theta = sin( imu->data.pitch );
+    double cos_phi   = cos( imu->data.roll );
+    double cos_theta = cos( imu->data.pitch );
     double cos_theta_cos_phi = cos_theta * cos_phi;
     double mu_sin_2_theta = MU * ( sin_theta * sin_theta );
     double factor = sqrt( ( cos_theta_cos_phi * cos_theta_cos_phi ) + mu_sin_2_theta );
@@ -314,14 +314,14 @@ vec3_t * IMU_Non_Grav_Get( LSM9DS1_t * imu )
     
     /* Create a vector of accelerometer values */
     vec3_t avec;
-    avec.ihat = imu->imu.accel[0];
-    avec.jhat = imu->imu.accel[1];
-    avec.khat = imu->imu.accel[2];
+    avec.ihat = imu->data.accel[0];
+    avec.jhat = imu->data.accel[1];
+    avec.khat = imu->data.accel[2];
 
     ang3_t tba;
-    tba.a = imu->imu.roll;
-    tba.b = imu->imu.pitch;
-    tba.c = imu->imu.yaw;
+    tba.a = imu->data.roll;
+    tba.b = imu->data.pitch;
+    tba.c = imu->data.yaw;
     
     /* Transform and normalize v vector by given angles to get unit vector from camera */
     vec3_t * atru = zxyTransform( &avec, &tba, 1 );

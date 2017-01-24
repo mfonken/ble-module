@@ -23,14 +23,39 @@
 #include "CPT112S.h"
 
 sync_t sync;
+callback_f callbacks[NUM_AVAILABLE_IRQ];
 
 void sensorSyncSet( sync_t * s )
 {
-	sync = *s;
+    sync = *s;
 }
 
+void USART0_RX_IRQHandler( void )
+{
+    USART_IntClear(CAM_UART, USART_IF_RXDATAV);
+    callbacks[USART0_RX_IRQn]();
+}
+
+void TIMER0_IRQHandler(void)
+{
+    TIMER_IntClear( TIMER0, TIMER_IF_OF );
+    callbacks[TIMER0_IQRn]();
+}
+
+void TIMER1_IRQHandler(void)
+{
+    TIMER_IntClear( TIMER1, TIMER_IF_OF );
+    callbacks[TIMER1_IQRn]();
+}
+
+void registerInterrupt( callback_f * callback, IRQn_Type irqn )
+{
+    callbacks[irqn] = callback;
+}
+
+
 /* Interrupt Registers */
-void registerTimer( TIMER_TypeDef * timer, uint32_t period )
+void registerTimer( callback_f * callback, TIMER_TypeDef * timer, uint32_t period )
 {
 	Print_Line( "Starting timer." );
 
@@ -61,9 +86,10 @@ void registerTimer( TIMER_TypeDef * timer, uint32_t period )
 
 	/* Enable timer interrupt vector in NVIC */
 	IRQn_Type iqrn;
-	if( timer == TIMER0) iqrn = TIMER0_IRQn;
-	else 				 iqrn = TIMER1_IRQn;
+    if( timer == TIMER0)    iqrn = TIMER0_IRQn;
+	else                    iqrn = TIMER1_IRQn;
 	NVIC_EnableIRQ( iqrn );
+    registerInterrupt( callback, iqrn );
 }
 
 void enableTimer( TIMER_TypeDef * timer )

@@ -139,12 +139,12 @@ bool Beacon_Compare( centroid_t * a, centroid_t * b ){
 }
 
 /* Call this on sync */
-void Beacon_Compose( void )
+void Beacon_Compose( cartesian2_t beacons[2] )
 {
-	beacon_vector[0] = beacons[map[1]].centroid.x - beacons[map[0]].centroid.x;
-	beacon_vector[1] = beacons[map[1]].centroid.y - beacons[map[0]].centroid.y;
-	sensors.synced.beacon[0] = beacon_vector[0];
-	sensors.synced.beacon[1] = beacon_vector[1];
+	beacons[0].x = beacons[map[0]].centroid.x;
+    beacons[0].y = beacons[map[0]].centroid.y;
+    beacons[1].x = beacons[map[1]].centroid.x;
+    beacons[1].y = beacons[map[1]].centroid.y;
 }
 
 void Beacon_Copy( centroid_t * a, centroid_t * b)

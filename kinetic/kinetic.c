@@ -157,7 +157,7 @@ vec3_t *dAugment( vec3_t *dvec,
    &\text{Update all position kalman_ts with } \mathbf{p_{true}}, \mathbf{v}, \text{ and } \Delta{t}
  \f}
  **************************************************************************************************/
-void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, vec2_t * d )
+void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_t beacons[2] )
 {
     /* Tait-Bryan angles of vision */
     ang3_t tba;
@@ -167,8 +167,8 @@ void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, vec2_t * d 
 
     /* vector from B1 in vision -TO-> B2 in vision */
     vec3_t dvec;
-    dvec.ihat = d.ihat;
-    dvec.jhat = d.ihat;
+    dvec.ihat = beacons[1].x - beacons[0].x;
+    dvec.jhat = beacons[1].y - beacons[0].y;
     dvec.khat = 0; // d is only on XY plane (surface of beacons)
 
     /* Create r vector (camera -TO-> vision center) from augment generated true d and vision d */
@@ -177,15 +177,15 @@ void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, vec2_t * d 
     /* vector between vision center -TO-> B1 
         (e is only on XY plane (surface of beacons) */
     vec3_t evec;
-    evec.ihat = VISION_CENTER_X - vis[0].x;
-    evec.jhat = VISION_CENTER_Y - vis[0].y;
+    evec.ihat = VISION_CENTER_X - beacons[0].x;
+    evec.jhat = VISION_CENTER_Y - beacons[0].y;
     evec.khat = 0;
 
     /* vector between vision center -TO-> B2 
         (f is only on XY plane (surface of beacons) */
 //    vec3_t fvec;
-//    fvec.ihat = VISION_CENTER_X - vis[1].x;
-//    fvec.jhat = VISION_CENTER_Y - vis[1].y;
+//    fvec.ihat = VISION_CENTER_X - beacons[1].x;
+//    fvec.jhat = VISION_CENTER_Y - beacons[1].y;
 //    fvec.khat = 0;
 
     /* Transform e vector (vision center -TO-> B1) 

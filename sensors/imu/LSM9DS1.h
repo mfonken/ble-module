@@ -56,7 +56,7 @@
 
 typedef struct
 {
-    imu_t               imu;
+    imu_t               data;
     LSM9DS1_cfg_t       settings;
 } LSM9DS1_t;
 
@@ -69,27 +69,27 @@ typedef struct
  * \param[out] Return value from register
  * \param[in] reg Register to access
  *****************************************************************************/
-uint8_t 	IMU_GetRegister( uint8_t reg );
+uint8_t IMU_GetRegister( uint8_t );
 
 /**************************************************************************//**
  * \brief Set IMU Register
  * \param[in] reg Register to access
  * \param[in] val Value to set
  *****************************************************************************/
-void 		IMU_SetRegister( uint8_t reg, uint8_t val );
+void IMU_SetRegister(   uint8_t, uint8_t );
 
 /**************************************************************************//**
  * \brief Reset Local Settings to Default
  ******************************************************************************
  * NOTE: This does not physically set on the IMU, just the local variable
  *****************************************************************************/
-void IMU_Default( LSM9DS1_t * this );
+void IMU_Default(       LSM9DS1_t * );
 
 /**************************************************************************//**
  * \brief Initialize IMU with local settings
  * \param[out] Initialization success
  *****************************************************************************/
-void IMU_Init( LSM9DS1_t * );
+void IMU_Init(          LSM9DS1_t * );
 void IMU_Update_All(    LSM9DS1_t * );
 void IMU_Update_Angles( LSM9DS1_t * );
 void IMU_Update_Accel(  LSM9DS1_t * );

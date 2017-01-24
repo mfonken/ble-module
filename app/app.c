@@ -12,7 +12,6 @@
 app_t 			mode;
 kinetic_t		kinetics;
 sensor_data_t 	sensors;
-LSM9DS1_t       imu0;
 
 /* Interrupt variables */
 uint8_t buffer_rx;
@@ -22,9 +21,9 @@ uint8_t buffer_rx;
  **************************************************************************************************/
 
 /* Camera USART */
-void USART0_RX_IRQHandler(void)
+//void USART0_RX_IRQHandler( void );
+void CameraHandler( void );
 {
-	USART_IntClear(CAM_UART, USART_IF_RXDATAV);
 	uint8_t in = USART_Rx( CAM_UART );
 
 	if( buffer_rx > 0)
@@ -40,23 +39,24 @@ void USART0_RX_IRQHandler(void)
 }
 
 /* Sensor sync timer */
-void TIMER0_IRQHandler(void)
+//void TIMER0_IRQHandler(void)
+void SyncTimerHandler( void )
 {
-	TIMER_IntClear( TIMER0, TIMER_IF_OF );      	// Clear overflow flag
 	disableTimer( SYNC_TIMER );
 	app();
 	enableTimer( SYNC_TIMER );
 }
 
 /* Force sensor Timer */
-void TIMER1_IRQHandler(void)
+//void TIMER1_IRQHandler(void)
+void ForceTimerHandler( void )
 {
-	TIMER_IntClear( TIMER1, TIMER_IF_OF );      	// Clear overflow flag
 	Print_Line( "\tTimer 1." );
 }
 
 /* Beacon RF timer */
-void CRYOTIMER_IRQHandler(void)
+//void CRYOTIMER_IRQHandler(void)
+void BeaconTimerHandler( void )
 {
 	CRYOTIMER_IntClear( TIMER_IF_OF );      	// Clear overflow flag
 
@@ -66,9 +66,9 @@ void CRYOTIMER_IRQHandler(void)
 }
 
 /* SYSCTL Interrupt Handler */
-void GPIO_ODD_IRQHandler(void)
+//void GPIO_ODD_IRQHandler(void)
+void SYSCTLInterruptHandler( void )
 {
-	GPIO_IntClear(GPIO_IntGet());
 	exitSleepMode();
 }
 
@@ -79,13 +79,15 @@ void GPIO_ODD_IRQHandler(void)
 /* App Initialize */
 void app_init( void )
 {
-    IMU_Init( &imu0 );
+    registerCallback( &CameraHandler, USART0_RX_IRQn );
+    
+    IMU_Init( &sensors.synced.imu );
     Print_Line( "IMU Initialized." );
-    Kinetic_Init( &imu0, &kinetics );
+    Kinetic_Init( &sensors.synced.imu, &kinetics );
 	Print_Line( "Kinetic Initialized." );
 
-	registerTimer( SYNC_TIMER, SYNC_TIMER_PERIOD );
-	//registerTimer( FORCE_TIMER, FORCE_TIMER_PERIOD );
+	registerTimer( &SyncTimerHandler, SYNC_TIMER, SYNC_TIMER_PERIOD );
+	//registerTimer( ForceTimerHandler, FORCE_TIMER, FORCE_TIMER_PERIOD );
 
 	mode._2d = _2D_MODE_DEFAULT;
 	mode._3d = _3D_MODE_DEFAULT;
@@ -102,10 +104,10 @@ void app( void )
 //	Print_Double_Ascii( t );
 //	Print_String( "s \r\n" );
 
-	Kinetic_Update_Rotation( &imu0, &kinetics );
+	Kinetic_Update_Rotation( &sensors.synced.imu, &kinetics );
 
-	Beacon_Compose();
-	Kinetic_Update_Position( &imu0, &kinetics, sensors.synced.beacon );
+	Beacon_Compose( &sensors.synced.beacons );
+	Kinetic_Update_Position( &sensors.synced.imu, &kinetics, &sensors.synced.beacons );
 
 	Print_Char('k');
 	Print_Char(',');

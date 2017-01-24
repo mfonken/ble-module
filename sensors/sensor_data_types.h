@@ -42,9 +42,9 @@ typedef struct
 /* 8 Bytes */
 typedef struct
 {
-	double 		angles[3];
-	vec2_t 		beacon;
-	uint32_t 	timestamp;
+	LSM9DS1_t       imu;
+	cartesian2_t 	beacons[2];
+	uint32_t        timestamp;
 } synced_sensor_data_t;
 
 typedef struct
