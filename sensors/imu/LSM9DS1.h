@@ -83,72 +83,47 @@ void 		IMU_SetRegister( uint8_t reg, uint8_t val );
  ******************************************************************************
  * NOTE: This does not physically set on the IMU, just the local variable
  *****************************************************************************/
-void 		IMU_Default( LSM9DS1_t * this );
+void IMU_Default( LSM9DS1_t * this );
 
 /**************************************************************************//**
  * \brief Initialize IMU with local settings
  * \param[out] Initialization success
  *****************************************************************************/
-void IMU_Init( LSM9DS1_t * this );
-
-/**************************************************************************//**
- * \brief Read IMU accel and gyro data
- * \param[in] read_data Array to store read data
- *****************************************************************************/
-void IMU_Update_All( LSM9DS1_t * this );
-void IMU_Update_Angles( LSM9DS1_t * this );
-void IMU_Update_Accel( LSM9DS1_t * this );
-void IMU_Update_Gyro( LSM9DS1_t * this );
-void IMU_Update_Mag( LSM9DS1_t * this );
-
-/**************************************************************************//**
- * \brief Calculate roll angle (phi) from accelerometer data
- * \param[out] Return roll
- *****************************************************************************/
-void 		IMU_Update_Roll( LSM9DS1_t * this );
-
-/**************************************************************************//**
- * \brief Calculate pitch angle (theta) from accelerometer data
- * \param[out] Return pitch
- *****************************************************************************/
-void 		IMU_Update_Pitch( LSM9DS1_t * this );
-
-/**************************************************************************//**
- * \brief Calculate yaw angle (psi) from magnetometer data, pitch, and roll
- * \param[out] Return yaw
- *****************************************************************************/
-void      	IMU_Update_Yaw( LSM9DS1_t * this );
-
-/**************************************************************************//**
- * \brief Calculate roll angle (phi) error from accelerometer data
- * \param[out] Return roll error
- *****************************************************************************/
-double      IMU_Update_Roll_Error( LSM9DS1_t * this );
+void IMU_Init( LSM9DS1_t * );
+void IMU_Update_All(    void );
+void IMU_Update_Angles( void );
+void IMU_Update_Accel(  void );
+void IMU_Update_Gyro(   void );
+void IMU_Update_Mag(    void );
+void IMU_Update_Roll(   void);
+void IMU_Update_Pitch(  void );
+void IMU_Update_Yaw(    void );
+double IMU_Roll_Error_Get( void );
 
 /**************************************************************************//**
  * \brief Get no gravitation acceleration from accelerometer data
  * \param[out] Return 3D vector of acceleration
  * \param[in] tba Tait-Bryan angles to transform by
  *****************************************************************************/
-vec3_t * 	getNonGravAcceleration( LSM9DS1_t * this, ang3_t * tba );
+vec3_t * IMU_Non_Grav_Get( void );
 
 /**************************************************************************//**
  * \brief Read temperature from register
  * \param[out] Return raw temperature data
  *****************************************************************************/
-uint16_t 	IMU_ReadTemp( void );
+uint16_t IMU_ReadTemp( void );
 
 /**************************************************************************//**
  * \brief Read temperature in Fahrenheit
  * \param[out] Return corrected temperature data as readable double
  *****************************************************************************/
-double 		getTempF( void );
+double getTempF( void );
 
 /**************************************************************************//**
  * \brief Read temperature in Celsius
  * \param[out] Return corrected temperature data as readable double
  *****************************************************************************/
-double 		getTempC( void );
+double getTempC( void );
 
 /** @} (end addtogroup imu) */
 /** @} (end addtogroup Application) */

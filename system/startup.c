@@ -29,15 +29,19 @@ void Utilities_Init( void )
         SYSCTL_Init();
         Print_String( "System Controller Initialized.\r\n" );
     }
+    if( system.rf_controller )
+    {
+        /* TODO: Enable RF controller hardware if necessary */
+        //Print_String( "RF Controller Initialized.\r\n" );
+    }
 }
 
 void Sensors_Init( void )
 {
     if( system.imu )
     {
-    	LSM9DS1_t * this;
-        IMU_Init( this );
-        Print_String( "IMU Initialized.\r\n" );
+    	/* TODO: Enable IMU Hardware */
+        //Print_String( "IMU Enabled.\r\n" );
     }
     
     if( system.camera )

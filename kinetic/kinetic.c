@@ -27,14 +27,14 @@
 
 /** Local positional and rotational vectors */
 
-
 LSM9DS1_t this;
 
 /***********************************************************************************************//**
  *  \brief  Initialize Kinetic Sensors
  **************************************************************************************************/
-void Kinetic_Init( kinetic_t * kinetics )
+void Kinetic_Init( LSM9DS1_t * imu, kinetic_t * kinetics )
 {
+    this = *imu;
 	Filters_Init( kinetics );
 }
 
@@ -72,8 +72,8 @@ void Kinetic_Update_Rotation( kinetic_t * kinetics )
     }
     else
     {
-        delta_time = seconds_since( kinetics->rotationFilter[0].timestamp );
         /* Calculate the true pitch using a kalman_t filter */
+        delta_time = seconds_since( kinetics->rotationFilter[0].timestamp );
         Kalman_Update( &kinetics->rotationFilter[0], phi, this.imu.gyro[0], delta_time );
         kinetics->rotation[0] = kinetics->rotationFilter[0].value;
     }

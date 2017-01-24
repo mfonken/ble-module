@@ -47,9 +47,9 @@ void Kalman_Init( kalman_t *k,
 /***********************************************************************************************//**
  *  \brief Update Kalman Filter
  *  \param[in] k Pointer to kalman filter type
- *  \param[in] value_new    New value
- *  \param[in] rate_new     New rate
- *  \param[in] delta_time   Time difference
+ *  \param[in] value_new    Measured value      - units
+ *  \param[in] rate_new     Measured rate       - units/time
+ *  \param[in] delta_time   Time since last     - time
  ***************************************************************************************************
  * FORMULA: 
  \f{eqnarray*}{
@@ -87,14 +87,13 @@ void Kalman_Update( kalman_t *k,
     
     /* Predict error covariance */
     double P_k_diag = delta_time * k->P_k[1][1];
-    k->P_k[0][0] +=   delta_time *
-    ( delta_time  * k->P_k[1][1] -
-     k->P_k[0][1] -
-     k->P_k[1][0]) +
-     VALUE_UNCERTAINTY;
-    k->P_k[0][1] -= P_k_diag;
-    k->P_k[1][0] -= P_k_diag;
-    k->P_k[1][1] += BIAS_UNCERTAINTY * delta_time;
+    k->P_k[0][0] +=   delta_time * ( ( delta_time * k->P_k[1][1] ) -
+                                     k->P_k[0][1] -
+                                     k->P_k[1][0] )
+                      + VALUE_UNCERTAINTY;
+    k->P_k[0][1] -=   P_k_diag;
+    k->P_k[1][0] -=   P_k_diag;
+    k->P_k[1][1] +=   BIAS_UNCERTAINTY * delta_time;
     
     /* =-----= UPDATE =-----= */
     /* Update values */

@@ -67,6 +67,13 @@ void Print_String( char s[] )
 	}
 }
 
+void Print_Line( char s[] )
+{
+    Print_String( s );
+    Print_Char('\r');
+    Print_Char('\n');
+}
+
 /***********************************************************************************************//**
  *  \brief  Print two byte integer
  *  \param[in] v integer to print

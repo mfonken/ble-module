@@ -12,6 +12,7 @@
 app_t 			mode;
 kinetic_t		kinetics;
 sensor_data_t 	sensors;
+LSM9DS1_t       imu0;
 
 /* Interrupt variables */
 uint8_t buffer_rx;
@@ -51,7 +52,7 @@ void TIMER0_IRQHandler(void)
 void TIMER1_IRQHandler(void)
 {
 	TIMER_IntClear( TIMER1, TIMER_IF_OF );      	// Clear overflow flag
-	Print_String( "\tTimer 1.\r\n" );
+	Print_Line( "\tTimer 1." );
 }
 
 /* Beacon RF timer */
@@ -61,7 +62,7 @@ void CRYOTIMER_IRQHandler(void)
 
 	/* TODO: Add beacon intensity check - RF_Step(up/down)*/
 	RF_Kick();
-	Print_String( "\tCryotimer 0.\r\n\0" );
+	Print_Line( "\tCryotimer 0." );
 }
 
 /* SYSCTL Interrupt Handler */
@@ -78,8 +79,10 @@ void GPIO_ODD_IRQHandler(void)
 /* App Initialize */
 void app_init( void )
 {
+    IMU_Init( imu0 );
+    Print_Line( "IMU Initialized." );
     Kinetic_Init( &kinetics );
-	Print_String( "Kinetic Initialized.\r\n" );
+	Print_Line( "Kinetic Initialized." );
 
 	registerTimer( SYNC_TIMER, SYNC_TIMER_PERIOD );
 	//registerTimer( FORCE_TIMER, FORCE_TIMER_PERIOD );
@@ -128,8 +131,8 @@ void appModeSet( app_t * m )
 	if( mode._3d ) 	enableSpatialSensors();
 	else			disableSpatialSensors();
 	sync_t sync;
-	sync.accel 	= mode._2d;
-	sync.gyro  	= mode._2d;
+    sync.accel 	= 1;//mode._2d; // Enabled for both 2D and 3D mode
+    sync.gyro  	= 1;//mode._2d;
 	sync.mag	= mode._3d;
 	sync.cam	= mode._3d;
 	enableSyncTimer( &sync );

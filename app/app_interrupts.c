@@ -32,7 +32,7 @@ void sensorSyncSet( sync_t * s )
 /* Interrupt Registers */
 void registerTimer( TIMER_TypeDef * timer, uint32_t period )
 {
-	Print_String( "Starting timer.\r\n" );
+	Print_Line( "Starting timer." );
 
 	/* Select timer parameters */
 	TIMER_Init_TypeDef timerInit =

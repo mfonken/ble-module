@@ -126,12 +126,12 @@ void main(void)
     /* Handle events */
     switch (BGLIB_MSG_ID(evt->header)) {
     	case gecko_evt_le_connection_opened_id:
-			Print_String("Connected.\r\n");
+			Print_Line("Connected.");
 			break;
 		/* This boot event is generated when the system boots up after reset.
 		 * Here the system is set to start advertising immediately after boot procedure. */
 		case gecko_evt_system_boot_id:
-			Print_String("Boot.\r\n");
+			Print_Line("Ready.");
 			/* Set advertising parameters. 100ms advertisement interval. All channels used.
 			 * The first two parameters are minimum and maximum advertising interval, both in
 			 * units of (milliseconds * 1.6). The third parameter '7' sets advertising on all channels. */
@@ -142,7 +142,7 @@ void main(void)
 			break;
 
 		case gecko_evt_le_connection_closed_id:
-			Print_String("Disconnected.\r\n");
+			Print_Line("Disconnected.");
 			/* Restart advertising after client has disconnected */
 			gecko_cmd_le_gap_set_mode(le_gap_general_discoverable, le_gap_undirected_connectable);
 			break;
@@ -154,7 +154,7 @@ void main(void)
 		/* Check if the user-type OTA Control Characteristic was written.
 		 * If ota_control was written, boot the device into Device Firmware Upgrade (DFU) mode. */
 		case gecko_evt_gatt_server_user_write_request_id:
-			Print_String("Write request.\r\n");
+			Print_Line("Write request.");
 			if(evt->data.evt_gatt_server_user_write_request.characteristic==gattdb_ota_control)
 			{
 			  gecko_cmd_system_reset(1);

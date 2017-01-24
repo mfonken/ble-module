@@ -53,6 +53,7 @@
 extern app_t 			mode;
 extern kinetic_t		kinetics;
 extern sensor_data_t 	sensors;
+extern LSM9DS1_t        imu0;
 
 /* App */
 void app_init( 				void );

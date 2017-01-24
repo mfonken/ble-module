@@ -74,29 +74,29 @@ Function Declarations
 /***********************************************************************************************//**
  *  \brief  Initialize Kinetic Sensors
  **************************************************************************************************/
-void Kinetic_Init( kinetic_t * kinetics );
+void Kinetic_Init( LSM9DS1_t *, kinetic_t * );
     
 /***********************************************************************************************//**
  *  \brief  Initialize Filters for Kinetic Data
  **************************************************************************************************/
-void Filters_Init( kinetic_t * kinetics );
+void Filters_Init( kinetic_t * );
     
 /***********************************************************************************************//**
  *  \brief  Update rotation filter data
  **************************************************************************************************/
-void Kinetic_Update_Rotation( kinetic_t * kinetics );
+void Kinetic_Update_Rotation( kinetic_t * );
     
 /***********************************************************************************************//**
  *  \brief  Update position filter data
  **************************************************************************************************/
-void Kinetic_Update_Position( kinetic_t *kinetics, cartesian2_t vis[2] );
+void Kinetic_Update_Position( kinetic_t *, cartesian2_t );
     
 /***********************************************************************************************//**
  *  \brief  Initialize Filters for Kinetic Data
  *  \param[in] dvec Beacon positional vector to augment
  *  \param[in] a Tait-Bryan angles to augement by
  **************************************************************************************************/
-vec3_t *dAugment( vec3_t *dvec, ang3_t *a);
+vec3_t *dAugment( vec3_t *, ang3_t * );
 
 /** @} (end addtogroup kinetic) */
 /** @} (end addtogroup Application) */
