@@ -70,5 +70,17 @@ kinetic/kinetic.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-mo
 kinetic/kinetic.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\kinetic\matrix.h
 kinetic/kinetic.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\utilities\usart_sp.h
 kinetic/kinetic.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\imu\LSM9DS1.h
-kinetic/kinetic.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\sensor_data_types.h
 kinetic/kinetic.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\imu\LSM9DS1_regs.h
+kinetic/kinetic.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\sensor_data_types.h
+kinetic/kinetic.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\camera\cam_controller.h
+kinetic/kinetic.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\app\app.h
+kinetic/kinetic.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\app\app_interrupts.h
+kinetic/kinetic.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\emlib\inc\em_timer.h
+kinetic/kinetic.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\emlib\inc\em_usart.h
+kinetic/kinetic.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\emlib\inc\em_emu.h
+kinetic/kinetic.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\emlib\inc\em_gpio.h
+kinetic/kinetic.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\utilities\PCA9534A.h
+kinetic/kinetic.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\touch\CPT112S.h
+kinetic/kinetic.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\utilities\rf_controller.h
+kinetic/kinetic.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\emlib\inc\em_cryotimer.h
+kinetic/kinetic.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\utilities\data_types.h

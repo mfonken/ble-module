@@ -35,6 +35,7 @@ extern "C" {
 #include "sensor_data_types.h"
 #include "kinetic_types.h"
 
+#include "cam_controller.h"
     
 /***********************************************************************************************//**
  * \defgroup Kinetic Motion Code
@@ -60,26 +61,20 @@ extern "C" {
 
 /** Half PI */
 #define     PI      			3.141596
-#define 	RAD_TO_DEG 			180 / PI
+#define 	HALF_PI				PI / 2
+#define 	DEG_TO_RAD 			PI / 180
     
 /** Initial normal unit vector to beacon plane */
-#define     VISION_ZSTATE_IHAT  0
-#define     VISION_ZSTATE_JHAT  0
-#define     VISION_ZSTATE_KHAT -1
+#define     VISION_ZSTATE_I  0
+#define     VISION_ZSTATE_J  0
+#define     VISION_ZSTATE_K -1
     
 /** Augmentation skew */
 #define     D_AUG               0
     
 /** Physical distance between beacons */
 #define     BEACON_DISTANCE     1
-    
-/** Vision camera dimensions */
-#define     VISION_WIDTH        640
-#define     VISION_HEIGHT       480
-    
-/** Vision camera center */
-#define     VISION_CENTER_X     VISION_WIDTH  / 2
-#define     VISION_CENTER_Y     VISION_HEIGHT / 2
+
 extern LSM9DS1_t this;
 
 /***************************************************************************************************
@@ -104,7 +99,7 @@ void Kinetic_Update_Rotation( LSM9DS1_t * imu, kinetic_t * kinetics );
 /***********************************************************************************************//**
  *  \brief  Update position filter data
  **************************************************************************************************/
-void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, centroid_t vis[2] );
+void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_t beacons[2] );
     
 /***********************************************************************************************//**
  *  \brief  Initialize Filters for Kinetic Data

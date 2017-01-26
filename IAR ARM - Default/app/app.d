@@ -76,8 +76,8 @@ app/app.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\plat
 app/app.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\kinetic\kinetic_types.h
 app/app.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\kinetic\matrix.h
 app/app.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\imu\LSM9DS1.h
-app/app.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\sensor_data_types.h
 app/app.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\imu\LSM9DS1_regs.h
+app/app.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\sensor_data_types.h
 app/app.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\camera\cam_controller.h
 app/app.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\utilities\rf_controller.h
 app/app.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v2.1.1.0\platform\emlib\inc\em_cryotimer.h

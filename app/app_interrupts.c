@@ -23,7 +23,8 @@
 #include "CPT112S.h"
 
 sync_t sync;
-callback_f callbacks[NUM_AVAILABLE_IRQ];
+//callback_f callbacks[NUM_AVAILABLE_IRQ];
+callback_f (*callbacks[NUM_AVAILABLE_IRQ]);
 
 void sensorSyncSet( sync_t * s )
 {
@@ -39,16 +40,16 @@ void USART0_RX_IRQHandler( void )
 void TIMER0_IRQHandler(void)
 {
     TIMER_IntClear( TIMER0, TIMER_IF_OF );
-    callbacks[TIMER0_IQRn]();
+    callbacks[TIMER0_IRQn]();
 }
 
 void TIMER1_IRQHandler(void)
 {
     TIMER_IntClear( TIMER1, TIMER_IF_OF );
-    callbacks[TIMER1_IQRn]();
+    callbacks[TIMER1_IRQn]();
 }
 
-void registerInterrupt( callback_f * callback, IRQn_Type irqn )
+void registerCallback( callback_f * callback, IRQn_Type irqn )
 {
     callbacks[irqn] = callback;
 }
@@ -89,7 +90,7 @@ void registerTimer( callback_f * callback, TIMER_TypeDef * timer, uint32_t perio
     if( timer == TIMER0)    iqrn = TIMER0_IRQn;
 	else                    iqrn = TIMER1_IRQn;
 	NVIC_EnableIRQ( iqrn );
-    registerInterrupt( callback, iqrn );
+	registerCallback( callback, iqrn );
 }
 
 void enableTimer( TIMER_TypeDef * timer )

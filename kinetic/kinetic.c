@@ -31,9 +31,9 @@ void Kinetic_Init( LSM9DS1_t * imu, kinetic_t * kinetics )
 void Filters_Init( LSM9DS1_t * imu, kinetic_t * kinetics )
 {
 	IMU_Update_All( imu );
-    Kalman_Init( &kinetics->rotationFilter[0], imu->imu.roll );
-    Kalman_Init( &kinetics->rotationFilter[1], imu->imu.pitch );
-    Kalman_Init( &kinetics->rotationFilter[2], imu->imu.yaw   );
+    Kalman_Init( &kinetics->rotationFilter[0], imu->data.roll );
+    Kalman_Init( &kinetics->rotationFilter[1], imu->data.pitch );
+    Kalman_Init( &kinetics->rotationFilter[2], imu->data.yaw   );
 }
 
 /***********************************************************************************************//**
@@ -43,16 +43,16 @@ void Kinetic_Update_Rotation( LSM9DS1_t * imu, kinetic_t * kinetics )
 {
     IMU_Update_All( imu );
     
-    double phi      = imu->imu.roll  * RAD_TO_DEG;
-    double theta    = imu->imu.pitch * RAD_TO_DEG;
-    double psi      = imu->imu.yaw 	 * RAD_TO_DEG;
+    double phi      = imu->data.roll;
+    double theta    = imu->data.pitch;
+    double psi      = imu->data.yaw;
     
     double delta_time = 0;
     
     /* Restrict pitch */
     double v = kinetics->rotationFilter[0].value;
-    if( ( phi < -90 && v >  90 ) ||
-        ( phi >  90 && v < -90 ) )
+    if( ( phi < -HALF_PI && v >  HALF_PI ) ||
+        ( phi >  HALF_PI && v < -HALF_PI ) )
     {
         kinetics->rotationFilter[0].value  = phi;
         kinetics->rotation[0]              = phi;
@@ -61,69 +61,24 @@ void Kinetic_Update_Rotation( LSM9DS1_t * imu, kinetic_t * kinetics )
     {
         /* Calculate the true pitch using a kalman_t filter */
         delta_time = seconds_since( kinetics->rotationFilter[0].timestamp );
-        Kalman_Update( &kinetics->rotationFilter[0], phi, imu->imu.gyro[0], delta_time );
+        Kalman_Update( &kinetics->rotationFilter[0], phi, imu->data.gyro[0] * DEG_TO_RAD, delta_time );
         kinetics->rotation[0] = kinetics->rotationFilter[0].value;
     }
     
     if ( kinetics->rotation[0] > 90 )
     {
         /* Invert rate, so it fits the restricted accelerometer reading */
-        imu->imu.gyro[0] = -imu->imu.gyro[0];
+        imu->data.gyro[0] = -imu->data.gyro[0];
     }
     /* Calculate the true roll using a kalman_t filter */
     delta_time = seconds_since( kinetics->rotationFilter[1].timestamp );
-    Kalman_Update( &kinetics->rotationFilter[1], theta, imu->imu.gyro[1], delta_time );
+    Kalman_Update( &kinetics->rotationFilter[1], theta, imu->data.gyro[1] * DEG_TO_RAD, delta_time );
     kinetics->rotation[1] = kinetics->rotationFilter[1].value;
     
     /* Calculate the true yaw using a kalman_t filter */
     seconds_since( kinetics->rotationFilter[2].timestamp );
-    Kalman_Update( &kinetics->rotationFilter[2], psi, imu->imu.gyro[2], delta_time );
+    Kalman_Update( &kinetics->rotationFilter[2], psi, imu->data.gyro[2] * DEG_TO_RAD, delta_time );
     kinetics->rotation[2] = kinetics->rotationFilter[2].value;
-}
-
-/***********************************************************************************************//**
- *  \brief  Initialize Filters for Kinetic Data
- *  \param[in] dvec Beacon positional vector to augment
- *  \param[in] a Tait-Bryan angles to augement by
-
- \f{eqnarray*}{
-    &\mathbf{v} =
-    \begin{cases}
-        &v_{\hat{i}} = VZ_{\hat{i}} \\
-        &v_{\hat{j}} = VZ_{\hat{j}} \\
-        &v_{\hat{k}} = VZ_{\hat{k}} \\
-    \end{cases} \\
-    &\mathbf{v_{true}} = \text{zxyTranform}(\mathbf{v}, \mathbf{a}, 1) \\
-    &\mathbf{d_{true}} = \text{zxyTranform}(\mathbf{d}, \mathbf{a}, 1) \\
-    &c_{augment} = \frac{D_{beacon}(1 + D_{augment})}{||\mathbf{d_{true}}||} \\
-    &\mathbf{v_{return}} =c_{augment}\mathbf{v_{true}}
- \f}
-**************************************************************************************************/
-vec3_t *dAugment( vec3_t *dvec,
-                  ang3_t *a)
-{
-    /* Create v (vision) vector for zero state - e.g. unit vector */
-    vec3_t vvec;
-    vvec.ihat = VISION_ZSTATE_IHAT;
-    vvec.jhat = VISION_ZSTATE_JHAT;
-    vvec.khat = VISION_ZSTATE_KHAT;
-    //normalizevec3_t(vvec); // normalize if vvec inital isn't of length 1
-    
-    /* Transform and normalize v vector by given angles to get unit vector from camera */
-    vec3_t *vtru = zxyTransform( &vvec, a, 0 );
-
-    /* Transform d vector by given angles to get true vector between beacons */
-    vec3_t *dtru = zxyTransform(  dvec, a, 0 );
-
-    /* Calculate estimated augmentation of v vector
-       by ratio of transformed true d estimation and real (BEACON_DISTANCE) */
-    double aug = ( BEACON_DISTANCE * ( 1 + D_AUG ) ) / lengthOfvec3_t( dtru ) ;
-
-    /* Apply augmentation and return */
-    vtru->ihat *= aug;
-    vtru->jhat *= aug;
-    vtru->khat *= aug;
-    return vtru;
 }
 
 /***********************************************************************************************//**
@@ -161,63 +116,47 @@ void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_
 {
     /* Tait-Bryan angles of vision */
     ang3_t tba;
-    tba.a = kinetics->rotationFilter[0].value;
-    tba.b = kinetics->rotationFilter[1].value;
-    tba.c = kinetics->rotationFilter[2].value;
+    tba.a = kinetics->rotationFilter[0].value; // phi'
+    tba.b = kinetics->rotationFilter[1].value; // theta'
+    tba.c = kinetics->rotationFilter[2].value; // psi'
 
-    /* vector from B1 in vision -TO-> B2 in vision */
-    vec3_t dvec;
-    dvec.ihat = beacons[1].x - beacons[0].x;
-    dvec.jhat = beacons[1].y - beacons[0].y;
-    dvec.khat = 0; // d is only on XY plane (surface of beacons)
+    /* Adjust for rotation detected by camera */
+    tba.a -= 0;
+    tba.b -= CAMERA_ALPHA_H * ( ( beacons[0].y / CAMERA_HEIGHT ) - 0.5 );
+    tba.c -= CAMERA_ALPHA_W * ( ( beacons[0].x / CAMERA_WIDTH  ) - 0.5 );
 
-    /* Create r vector (camera -TO-> vision center) from augment generated true d and vision d */
-    vec3_t rvec = *( dAugment( &dvec, &tba ) );
+    /* Create detected d vector */
+    vec2_t dvec;
+    dvec.i = ( beacons[1].x - beacons[0].x );
+    dvec.j = ( beacons[1].y - beacons[0].y );
 
-    /* vector between vision center -TO-> B1 
-        (e is only on XY plane (surface of beacons) */
-    vec3_t evec;
-    evec.ihat = VISION_CENTER_X - beacons[0].x;
-    evec.jhat = VISION_CENTER_Y - beacons[0].y;
-    evec.khat = 0;
+    /* Calculate angle between camera and beacon axis and adjust length */
+    double sigma = asin( cos( tba.b ) * cos( tba.c ) );
+    dvec.i /= sigma;
+    dvec.j /= sigma;
 
-    /* vector between vision center -TO-> B2 
-        (f is only on XY plane (surface of beacons) */
-//    vec3_t fvec;
-//    fvec.ihat = VISION_CENTER_X - beacons[1].x;
-//    fvec.jhat = VISION_CENTER_Y - beacons[1].y;
-//    fvec.khat = 0;
+    /* Calculate camera's distance to beacon */
+    double r = ( BEACON_DISTANCE * ( 1 + D_AUG ) ) / lengthOfvec2_t( &dvec );
 
-    /* Transform e vector (vision center -TO-> B1) 
-        to true e vector (transformed vision center -TO-> true B1) */
-    vec3_t etru = *( zxyTransform( &evec, &tba, 1 ) );
+    /* Rotate by rotation matric for final position vector */
+    vec3_t fvec;
+    fvec.i = r;
+    fvec.j = 0;
+    fvec.k = 0;
+    vec3_t tvec = *( zxyTransform( &fvec, &tba ) );
 
-    /* Subract true e vector from augmented r vector */
-    subtractvec3_t(&rvec, &etru);
+    vec3_t ngacc = *( IMU_Non_Grav_Get( imu ) );
+    double delta_time = 0;
 
-    kinetics->truePosition[0] = rvec.ihat;
-    kinetics->truePosition[1] = rvec.jhat;
-    kinetics->truePosition[2] = rvec.khat;
+    delta_time = seconds_since( kinetics->truePositionFilter[0].timestamp );
+    double x_vel = ngacc.i * delta_time;
+    Kalman_Update( &kinetics->truePositionFilter[0], tvec.i, x_vel, delta_time );
 
-    /* Filter calculated absolute position and with integrated acceleration (velocity) */
-    ang3_t * ang;
-    ang->a = kinetics->rotationFilter[0].value;
-    ang->b = kinetics->rotationFilter[1].value;
-    ang->c = kinetics->rotationFilter[2].value;
-    
-    vec3_t *ngacc = IMU_Non_Grav_Get( imu );
-    
-    uint32_t delta_time = 0;
-    
-    delta_time = timestamp() - kinetics->truePositionFilter[0].timestamp;
-    double x_vel = ngacc->ihat * delta_time;
-    Kalman_Update( &kinetics->truePositionFilter[0], kinetics->truePosition[0], x_vel, delta_time);
-    
-    delta_time = timestamp() - kinetics->truePositionFilter[1].timestamp;
-    double y_vel = ngacc->jhat * delta_time;
-    Kalman_Update( &kinetics->truePositionFilter[1], kinetics->truePosition[1], y_vel, delta_time);
-    
-    delta_time = timestamp() - kinetics->truePositionFilter[2].timestamp;
-    double z_vel = ngacc->khat * delta_time;
-    Kalman_Update( &kinetics->truePositionFilter[2], kinetics->truePosition[2], z_vel, delta_time);
+    delta_time = seconds_since( kinetics->truePositionFilter[1].timestamp );
+	double y_vel = ngacc.j * delta_time;
+	Kalman_Update( &kinetics->truePositionFilter[1], tvec.j, y_vel, delta_time );
+
+	delta_time = seconds_since( kinetics->truePositionFilter[2].timestamp );
+	double z_vel = ngacc.k * delta_time;
+	Kalman_Update( &kinetics->truePositionFilter[2], tvec.k, z_vel, delta_time );
 }

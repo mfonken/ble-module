@@ -72,6 +72,7 @@
     <property object="TIMER0" propertyId="timer.settings.enable" value="Disable timer after initialization"/>
     <property object="TIMER1" propertyId="timer.settings.enable" value="Disable timer after initialization"/>
     <property object="USART0" propertyId="ABPeripheral.included" value="true"/>
+    <property object="USART0" propertyId="usart.asynchronoussettings.baudrate" value="57600"/>
     <property object="USART0" propertyId="usart.outputsettings.clockselect" value="Disabled"/>
     <property object="USART1" propertyId="ABPeripheral.included" value="true"/>
     <property object="USART1" propertyId="usart.outputsettings.clockselect" value="Disabled"/>

@@ -25,7 +25,24 @@
 /***************************************************************************************************
  Function Declarations
  **************************************************************************************************/
+char* itoa(int val, int base)
+{
+	static char buf[32] = {0};
+	if( !val )
+	{
+		buf[1] = '0';
+		return &buf[1];
+	}
+	int i = 30;
+	for(; val && i ; --i, val /= base) buf[i] = "0123456789abcdef"[val % base];
+	return &buf[i+1];
+}
 
+//	for(int i = 30; i ; --i, c /= b)
+//	{
+//		s[i-1] = "0123456789abcdef"[c % b];
+//	}
+//}
 /***********************************************************************************************//**
  *  \brief  Print character
  *  \param[in] c Character to print
@@ -54,17 +71,9 @@ void Print_String( char s[] )
 {
     uint8_t l = 0;
     for(; l < MAX_STRING_LENGTH; l++)
-    {
-        if( s[l] == '\0' )
-        {
-            break;
-            l++;
-        }
-    }
+        if( s[l] == '\0' ) break;
 	for( int i = 0; i < l; i++ )
-	{
 		USART_Tx( USART0, s[i] );
-	}
 }
 
 void Print_Line( char s[] )
@@ -72,6 +81,19 @@ void Print_Line( char s[] )
     Print_String( s );
     Print_Char('\r');
     Print_Char('\n');
+}
+
+void Print_Hex( uint8_t c )
+{
+	Print_String( "0x" );
+	char * s = itoa(c, 16);
+	Print_String( s );
+}
+
+void Print_Int( uint8_t c )
+{
+	char * s = itoa(c, 10);
+	Print_String( s );
 }
 
 /***********************************************************************************************//**
@@ -82,38 +104,8 @@ void Print_Double_Ascii( double v )
 {
 	uint8_t output[9];
 	uint8_t len = sprintf( ( char * )output,"%.3f", v);
-	Print_String( output );
+	Print_String( (char *)output );
 }
-
-/***********************************************************************************************//**
- *  \brief  Print IMU Data
- *  \param[in] motion_data IMU data to print
- **************************************************************************************************/
-void Print_IMU( double motion_data[6], bool stripped )
-{
-	if( !stripped )
-		Print_String( "IMU: g(" );
-	Print_Char( '0' );
-	Print_Double_Ascii( motion_data[0] );
-	Print_Char( ',' );
-	Print_Double_Ascii( motion_data[1] );
-	Print_Char( ',' );
-	Print_Double_Ascii( motion_data[2] );
-	if( !stripped )
-		Print_String( ") | a(" );
-	else
-		Print_Char( ',' );
-	Print_Double_Ascii( motion_data[3] );
-	Print_Char( ',' );
-	Print_Double_Ascii( motion_data[4] );
-	Print_Char( ',' );
-	Print_Double_Ascii( motion_data[5] );
-	if( !stripped )
-		Print_Char( ')' );
-	Print_Char( '\n' );
-	Print_Char( 0x00 );
-}
-
 
 
 /** @} (end addtogroup sp) */

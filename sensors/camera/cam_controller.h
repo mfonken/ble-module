@@ -30,14 +30,17 @@
 #define CAMERA_INIT		0xab
 #define CENTROID_HEAD	0xee
 
+#define CAMERA_WIDTH	1280
+#define	CAMERA_HEIGHT	800
+#define CAMERA_ALPHA_W	128
+#define	CAMERA_ALPHA_H	80
 
 #define MAX_TRACK_COUNT	6
 
 #define MAX_TRACK_AGE	1000 // In milliseconds
 
-#define MAX_X_DIFF		10
-#define MAX_Y_DIFF		10
-
+#define MAX_X_DIFF		3
+#define MAX_Y_DIFF		3
 
 extern uint32_t		beacon_vector[2];
 extern centroids_t	centroids;
@@ -47,7 +50,7 @@ extern buffer_t 	camera_buffer;
 void 	Camera_Init(	void );
 void 	Camera_Read( 	void );
 uint8_t Camera_Check(  	uint8_t );
-void 	Camera_Buffer( 	uint8_t );
+uint8_t Camera_Buffer(  uint8_t );
 void	Camera_Enable(	void );
 void	Camera_Disable(	void );
 
@@ -55,7 +58,7 @@ void	Camera_Disable(	void );
 void	Beacon_Add( 	centroid_t * );
 void	Beacon_Check( 	void );
 bool 	Beacon_Compare( centroid_t *, centroid_t * );
-void	Beacon_Compose( cartesian2_t [2] );
+bool	Beacon_Compose( cartesian2_t [2] );
 void 	Beacon_Copy( 	centroid_t *, centroid_t * );
 void 	Beacon_Get(     centroid_t [2] );
 void	Beacon_Perge( 	void );

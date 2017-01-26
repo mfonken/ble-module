@@ -77,8 +77,8 @@ sensors/camera/cam_controller.o: C:\SiliconLabs\SimplicityStudio\v4\developer\st
 sensors/camera/cam_controller.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\kinetic\kinetic_types.h
 sensors/camera/cam_controller.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\kinetic\matrix.h
 sensors/camera/cam_controller.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\imu\LSM9DS1.h
-sensors/camera/cam_controller.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\sensor_data_types.h
 sensors/camera/cam_controller.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\imu\LSM9DS1_regs.h
+sensors/camera/cam_controller.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\sensor_data_types.h
 sensors/camera/cam_controller.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\utilities\PCA9534A.h
 sensors/camera/cam_controller.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\touch\CPT112S.h
 sensors/camera/cam_controller.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\utilities\rf_controller.h

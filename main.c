@@ -114,8 +114,6 @@ void main(void)
   /* Initialize App */
   app_init();
 
-  //IMU_Init();
-
   while (1) {
     /* Event pointer for handling events */
     struct gecko_cmd_packet* evt;
@@ -131,7 +129,7 @@ void main(void)
 		/* This boot event is generated when the system boots up after reset.
 		 * Here the system is set to start advertising immediately after boot procedure. */
 		case gecko_evt_system_boot_id:
-			Print_Line("Ready.");
+			//Print_Line("Ready.");
 			/* Set advertising parameters. 100ms advertisement interval. All channels used.
 			 * The first two parameters are minimum and maximum advertising interval, both in
 			 * units of (milliseconds * 1.6). The third parameter '7' sets advertising on all channels. */

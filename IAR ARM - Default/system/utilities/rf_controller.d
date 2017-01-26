@@ -77,8 +77,8 @@ system/utilities/rf_controller.o: C:\SiliconLabs\SimplicityStudio\v4\developer\s
 system/utilities/rf_controller.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\kinetic\kinetic_types.h
 system/utilities/rf_controller.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\kinetic\matrix.h
 system/utilities/rf_controller.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\imu\LSM9DS1.h
-system/utilities/rf_controller.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\sensor_data_types.h
 system/utilities/rf_controller.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\imu\LSM9DS1_regs.h
+system/utilities/rf_controller.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\sensor_data_types.h
 system/utilities/rf_controller.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\camera\cam_controller.h
 system/utilities/rf_controller.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\utilities\data_types.h
 system/utilities/rf_controller.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\utilities\PCA9534A.h

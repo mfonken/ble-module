@@ -61,7 +61,6 @@ sensors/imu/LSM9DS1.o: C:\SiliconLabs\SimplicityStudio\v4\developer\stacks\ble\v
 sensors/imu/LSM9DS1.o: c:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 7.5\arm\inc\c\stdbool.h
 sensors/imu/LSM9DS1.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\system\utilities\i2c_sp.h
 sensors/imu/LSM9DS1.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\imu\LSM9DS1.h
-sensors/imu/LSM9DS1.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\sensor_data_types.h
 sensors/imu/LSM9DS1.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\kinetic\kinetic_types.h
 sensors/imu/LSM9DS1.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\sensors\imu\LSM9DS1_regs.h
 sensors/imu/LSM9DS1.o: C:\Users\Matthew\ Fonken\SimplicityStudio\v4_workspace\ble-module\kinetic\matrix.h

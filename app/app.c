@@ -15,6 +15,7 @@ sensor_data_t 	sensors;
 
 /* Interrupt variables */
 uint8_t buffer_rx;
+uint8_t cam_index;
 
 /***********************************************************************************************//**
  * Interrupt Handlers
@@ -22,19 +23,15 @@ uint8_t buffer_rx;
 
 /* Camera USART */
 //void USART0_RX_IRQHandler( void );
-void CameraHandler( void );
+void CameraHandler( void )
 {
 	uint8_t in = USART_Rx( CAM_UART );
-
-	if( buffer_rx > 0)
+	uint8_t r = Camera_Buffer( in );
+	//USART_Tx( CAM_UART, in );
+	if( in == CENTROID_HEAD )
 	{
-		buffer_rx--;
-		Camera_Buffer( in );
-	}
-	else
-	{
-		int8_t c = Camera_Check( in );
-		if( c <= MAX_CENTROIDS ) buffer_rx = c;
+		/* Save latest centroid head index */
+		//cam_index = r - 1;
 	}
 }
 
@@ -43,7 +40,18 @@ void CameraHandler( void );
 void SyncTimerHandler( void )
 {
 	disableTimer( SYNC_TIMER );
-	app();
+	//Print_Line( "Tick. ");
+
+	Kinetic_Update_Rotation( &sensors.synced.imu, &kinetics );
+
+	uint8_t r = Camera_Check( cam_index );
+	if ( r != CAM_NULL_CMD )
+	{
+		Beacon_Compose( sensors.synced.beacons );
+		Kinetic_Update_Position( &sensors.synced.imu, &kinetics, sensors.synced.beacons );
+		app();
+	}
+	else cam_index++;
 	enableTimer( SYNC_TIMER );
 }
 
@@ -79,6 +87,7 @@ void SYSCTLInterruptHandler( void )
 /* App Initialize */
 void app_init( void )
 {
+	USART0->IEN = USART_IEN_RXDATAV;
     registerCallback( &CameraHandler, USART0_RX_IRQn );
     
     IMU_Init( &sensors.synced.imu );
@@ -104,23 +113,21 @@ void app( void )
 //	Print_Double_Ascii( t );
 //	Print_String( "s \r\n" );
 
-	Kinetic_Update_Rotation( &sensors.synced.imu, &kinetics );
+//	Print_Char('k');
+//	Print_Char(',');
+//	Print_Double_Ascii( kinetics.rotation[0] );
+//	Print_Char(',');
+//	Print_Double_Ascii( kinetics.rotation[1] );
+//	Print_Char(',');
+//	Print_Double_Ascii( kinetics.rotation[2] );
 
-	Beacon_Compose( &sensors.synced.beacons );
-	Kinetic_Update_Position( &sensors.synced.imu, &kinetics, &sensors.synced.beacons );
-
-	Print_Char('k');
+	Print_String("Coordinates - (");
+	Print_Double_Ascii( kinetics.truePositionFilter[0].value );
 	Print_Char(',');
-	Print_Double_Ascii( kinetics.rotation[0] );
+	Print_Double_Ascii( kinetics.truePositionFilter[1].value );
 	Print_Char(',');
-	Print_Double_Ascii( kinetics.rotation[1] );
-	Print_Char(',');
-	Print_Double_Ascii( kinetics.rotation[2] );
-
-	Print_Char('\r');
-	Print_Char('\0');
-	Print_Char('\n');
-	Print_Char('\0');
+	Print_Double_Ascii( kinetics.truePositionFilter[2].value );
+	Print_Line(").");
 }
 
 void appModeSet( app_t * m )
@@ -210,6 +217,6 @@ void exitSleepMode( void )
 
 	autoDetectMode();
 
-	registerTimer( SYNC_TIMER, SYNC_TIMER_PERIOD );
-	registerTimer( FORCE_TIMER, FORCE_TIMER_PERIOD );
+	enableTimer( SYNC_TIMER );
+	enableTimer( FORCE_TIMER );
 }

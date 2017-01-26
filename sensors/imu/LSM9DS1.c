@@ -314,9 +314,9 @@ vec3_t * IMU_Non_Grav_Get( LSM9DS1_t * imu )
     
     /* Create a vector of accelerometer values */
     vec3_t avec;
-    avec.ihat = imu->data.accel[0];
-    avec.jhat = imu->data.accel[1];
-    avec.khat = imu->data.accel[2];
+    avec.i = imu->data.accel[0];
+    avec.j = imu->data.accel[1];
+    avec.k = imu->data.accel[2];
 
     ang3_t tba;
     tba.a = imu->data.roll;
@@ -324,9 +324,9 @@ vec3_t * IMU_Non_Grav_Get( LSM9DS1_t * imu )
     tba.c = imu->data.yaw;
     
     /* Transform and normalize v vector by given angles to get unit vector from camera */
-    vec3_t * atru = zxyTransform( &avec, &tba, 1 );
+    vec3_t * atru = zxyTransform( &avec, &tba );
 
-    atru->khat += 1; // Negate gravity
+    atru->k += 1; // Negate gravity
     return atru;
 }
 

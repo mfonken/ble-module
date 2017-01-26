@@ -8,6 +8,7 @@
 #ifndef SENSORS_SENSOR_DATA_TYPES_H_
 #define SENSORS_SENSOR_DATA_TYPES_H_
 
+#include "LSM9DS1.h"
 #include "kinetic_types.h"
 
 #define MAX_CENTROIDS	6
@@ -47,24 +48,6 @@ typedef struct
 	uint32_t        timestamp;
 } synced_sensor_data_t;
 
-typedef struct
-{
-	double 	accel[3];
-	double 	gyro[3];
-	double 	mag[3];
-
-	double  accel_res;
-	double 	gyro_res;
-	double 	mag_res;
-
-	double 	accel_bias[3];
-	double 	gyro_bias[3];
-	double 	mag_bias[3];
-
-	double	roll;
-	double	pitch;
-	double	yaw;
-} imu_t;
 
 /* 6 Bytes */
 typedef struct

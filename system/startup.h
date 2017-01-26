@@ -31,7 +31,7 @@
 #define SYS_CTL_DEFAULT    ENABLED
 #define RF_CTL_DEFAULT     ENABLED
 #define IMU_DEFAULT        ENABLED
-#define CAMERA_DEFAULT     DISABLED
+#define CAMERA_DEFAULT     ENABLED
 #define TOUCH_CTL_DEFAULT  ENABLED
 
 #define SYSTEM_DEFAULT                (\

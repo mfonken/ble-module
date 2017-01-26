@@ -37,7 +37,8 @@ void Print_Char( uint8_t c );
  **************************************************************************************************/
 void Print_String( char s[] );
 void Print_Line( char s[] );
-
+void Print_Hex( uint8_t c );
+void Print_Int( uint8_t c );
 /***********************************************************************************************//**
  *  \brief  Print string
  *  \param[in] s String to print

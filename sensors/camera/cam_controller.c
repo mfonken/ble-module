@@ -7,6 +7,8 @@
 
 #include "cam_controller.h"
 
+#include "usart_sp.h"
+
 #define	diff( a, b ) ( a - b > 0 ) ? a - b : b - a
 
 beacon_t 	beacons[MAX_CENTROIDS];
@@ -16,6 +18,8 @@ buffer_t 	camera_buffer;
 centroids_t	centroids;
 
 uint32_t	beacon_vector[2];
+
+uint8_t		centroids_to_buffer;
 
 /****************************************************************//**
  * Camera Communication Functions
@@ -27,17 +31,20 @@ void Camera_Init( void )
 	Print_Char( CAMERA_INIT );
 	uint8_t n = Read_Char();
 	num_tracked = 0;
+	centroids_to_buffer = 0;
 }
 
 void Camera_Enable( void )
 {
 	SYSCTL_Enable_Camera();
+	NVIC_EnableIRQ(USART0_RX_IRQn);
 	//RF_Session_Init( DEFAULT_BEACON_INTENSITY, DEFAULT_BEACON_DURATION );
 }
 
 void Camera_Disable( void )
 {
 	SYSCTL_Disable_Camera();
+	NVIC_DisableIRQ(USART0_RX_IRQn);
 	//RF_Session_End();
 }
 
@@ -65,34 +72,49 @@ void Camera_Print( uint8_t cmd )
 	}
 }
 
-void Camera_Buffer( uint8_t in )
+uint8_t Camera_Buffer( uint8_t in )
 {
-	/* Add new value and check if the packet is full */
-	uint8_t index = bufferAdd( &camera_buffer, in );
-	if( index == ( centroids.count * 2 ) )
-	{
-		for( int i = 0; i < centroids.count; i++ )
-		{
-			centroids.centroid[i].x = bufferRead( &camera_buffer, i * 2 );
-			centroids.centroid[i].y = bufferRead( &camera_buffer, i * 2 + 1 );
-		}
-		camera_buffer.index = 0;
-	}
+	//Print_Hex( in );
+	return bufferAdd( &camera_buffer, in );
 }
 
-uint8_t Camera_Check( uint8_t in )
+uint8_t Camera_Check( uint8_t index )
 {
-	switch( in )
+	disableUARTInterrupt();
+	uint8_t end = ( index - 1 ) & BUFF_SIZE_MASK;
+	while( index != end )
 	{
-		case CENTROID_HEAD:
-			/* Allow UART rx data to come here */
-			disableUARTInterrupt();
-			centroids.count = Read_Char();
+		if( bufferRead( &camera_buffer, index ) == CENTROID_HEAD )
+		{
+			uint8_t n = bufferRead( &camera_buffer, index + 1 );
+			if( n < 2 ) break;
+
+			centroids.count = n;
+			//n <<= 1;
+			for( uint8_t i = 0 ; i < n; i ++ )
+			{
+				uint8_t read_index = index + ( i * 2 ) + 2;
+				if ( read_index == camera_buffer.index || ( read_index + 1 ) == camera_buffer.index)
+				{
+					centroids.count = 0;
+					enableUARTInterrupt();
+					return CAM_NULL_CMD;
+				}
+				centroids.centroid[i].x = bufferRead( &camera_buffer, read_index );
+				centroids.centroid[i].y = bufferRead( &camera_buffer, read_index + 1 );
+			}
+			Beacon_Check();
+			Print_String("Centroids - ");
+			Print_Int( centroids.count );
+			Print_Line(".");
 			enableUARTInterrupt();
 			return centroids.count;
-		default:
-			return CAM_NULL_CMD;
+		}
+		index++;
+		index &= BUFF_SIZE_MASK;
 	}
+	enableUARTInterrupt();
+	return CAM_NULL_CMD;
 }
 
 /********************************************************************
@@ -101,11 +123,11 @@ uint8_t Camera_Check( uint8_t in )
 
 void Beacon_Add( centroid_t * a )
 {
-	num_tracked++;
 	Beacon_Copy( &beacons[num_tracked].centroid, a );
 	beacons[num_tracked].persistence = 1;
 	beacons[num_tracked].timestamp = timestamp();
 	map[num_tracked] = num_tracked;
+	num_tracked++;
 }
 
 void Beacon_Check( void )
@@ -130,8 +152,10 @@ void Beacon_Check( void )
 
 bool Beacon_Compare( centroid_t * a, centroid_t * b ){
 	/*TODO: Complete this compare check */
-	if( diff( a->x, b->x ) <= MAX_X_DIFF &&
-		diff( a->y, b->y ) <= MAX_Y_DIFF  )
+	uint8_t c = diff( a->x, b->x ) ;
+	uint8_t d = diff( a->y, b->y ) ;
+	if( c <= MAX_X_DIFF &&
+		d <= MAX_Y_DIFF  )
 	{
 		return true;
 	}
@@ -139,12 +163,18 @@ bool Beacon_Compare( centroid_t * a, centroid_t * b ){
 }
 
 /* Call this on sync */
-void Beacon_Compose( cartesian2_t beacons[2] )
+bool Beacon_Compose( cartesian2_t vis[2] )
 {
-	beacons[0].x = beacons[map[0]].centroid.x;
-    beacons[0].y = beacons[map[0]].centroid.y;
-    beacons[1].x = beacons[map[1]].centroid.x;
-    beacons[1].y = beacons[map[1]].centroid.y;
+	if( centroids.count >= 2 )
+	{
+		vis[0].x = beacons[map[0]].centroid.x;
+		vis[0].y = beacons[map[0]].centroid.y;
+		vis[1].x = beacons[map[1]].centroid.x;
+		vis[1].y = beacons[map[1]].centroid.y;
+		centroids.count = 0;
+		return true;
+	}
+	return false;
 }
 
 void Beacon_Copy( centroid_t * a, centroid_t * b)

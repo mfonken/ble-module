@@ -39,7 +39,7 @@
  ***************************************************************************************************
  * NOTE: Reversing angles does not invert transformation matrix!
  **************************************************************************************************/
-vec3_t * zxyTransform(  vec3_t *x, ang3_t *rot, bool reverse);
+vec3_t * zxyTransform(  vec3_t *x, ang3_t *rot );
 
 /***********************************************************************************************//**
  *  \brief  Tait-Bryan Y > X' > Z" matrix transformation
@@ -65,6 +65,7 @@ void subtractvec3_t( vec3_t * x, vec3_t * y );
  *  \param[in] x Vector measured
  **************************************************************************************************/
 double lengthOfvec3_t( vec3_t * vec );
+double lengthOfvec2_t( vec2_t * vec );
 
 /***********************************************************************************************//**
  *  \brief  Normalize a 3D Vector

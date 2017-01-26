@@ -80,17 +80,7 @@ double seconds_since( uint32_t time )
 	uint32_t curr = timestamp();
 	uint32_t diff = curr - time;
 	double ret;
-	if( diff < RTCC_OVER_FLOW_DIFF )
-	{
-		ret = (double)diff;
-		/* TODO: Consider bit shift? */
-		ret /= 1000;
-		return ret;
-	}
-	else
-	{
-		ret = (double)( RTCC_MAX_COUNT - time + curr );
-		ret /= 1000;
-		return ret;
-	}
+	if( diff < RTCC_OVER_FLOW_DIFF ) ret = (double)diff; /* TODO: Consider bit shift? */
+	else 							 ret = (double)( RTCC_MAX_COUNT - time + curr );
+	return ret / 1000;
 }

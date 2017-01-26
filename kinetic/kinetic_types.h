@@ -67,16 +67,16 @@ typedef struct _ang3_t
 /*! Simple 3d Vector */
 typedef struct _vec3_t
 {
-    double    ihat;             /**< \$f\hat{i}\$f value */
-    double    jhat;             /**< \$f\hat{j}\$f value */
-    double    khat;             /**< \$f\hat{k}\$f value */
+    double    i;             /**< \$f\hat{i}\$f value */
+    double    j;             /**< \$f\hat{j}\$f value */
+    double    k;             /**< \$f\hat{k}\$f value */
 } vec3_t;
 
 /*! Simple 2d Vector */
 typedef struct _vec2_t
 {
-    double    ihat;             /**< \$f\hat{i}\$f value */
-    double    jhat;             /**< \$f\hat{j}\$f value */
+    double    i;             /**< \$f\hat{i}\$f value */
+    double    j;             /**< \$f\hat{j}\$f value */
 } vec2_t;
 
 

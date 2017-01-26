@@ -37,8 +37,8 @@ typedef struct
 void sensorSyncSet( sync_t * );
 
 /* Interrupt Registers */
-void registerInterrupt( Interrupt_Handler * handler, enum callback_type )
-void registerTimer( TIMER_TypeDef * timer, uint32_t period );
+void registerCallback( callback_f * handler, IRQn_Type callback_type );
+void registerTimer( callback_f * callback, TIMER_TypeDef * timer, uint32_t period );
 void enableTimer(   TIMER_TypeDef * timer );
 void disableTimer(  TIMER_TypeDef * timer );
 void resetTimer(  	TIMER_TypeDef * timer );

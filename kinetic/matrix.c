@@ -44,19 +44,12 @@
  \f}
  **************************************************************************************************/
 vec3_t * zxyTransform(  vec3_t *x,
-                        ang3_t *rot,
-                        bool reverse)
+                        ang3_t *rot)
 {
     /* Extract angles */
     double a = rot->a;
     double b = rot->b;
     double c = rot->c;
-    if( reverse )
-    {
-        a *= -1;
-        b *= -1;
-        c *= -1;
-    }
 
     /* Transformation Matrix */
     double A[3][3];
@@ -74,13 +67,13 @@ vec3_t * zxyTransform(  vec3_t *x,
     double y[3];
     for( uint8_t i = 0; i < 3; i++ )
     {
-        y[i] = ( A[i][0] * x->ihat ) + ( A[i][1] * x->jhat ) + ( A[i][2] * x->khat );
+        y[i] = ( A[i][0] * x->i ) + ( A[i][1] * x->j ) + ( A[i][2] * x->k );
     }
-    vec3_t *yvec;
-    yvec->ihat = y[0];
-    yvec->jhat = y[1];
-    yvec->khat = y[2];
-    return yvec;
+    vec3_t yvec;
+    yvec.i = y[0];
+    yvec.j = y[1];
+    yvec.k = y[2];
+    return &yvec;
 }
 
 
@@ -136,12 +129,12 @@ vec3_t * yxzTransform( vec3_t * x,
     double y[3];
     for( uint8_t i = 0; i < 3; i++ )
     {
-        y[i] = ( A[i][0] * x->ihat ) + ( A[i][1] * x->jhat ) + ( A[i][2] * x->khat );
+        y[i] = ( A[i][0] * x->i ) + ( A[i][1] * x->j ) + ( A[i][2] * x->k );
     }
     vec3_t *yvec;
-    yvec->ihat = y[0];
-    yvec->jhat = y[1];
-    yvec->khat = y[2];
+    yvec->i = y[0];
+    yvec->j = y[1];
+    yvec->k = y[2];
     return yvec;
 }
 
@@ -161,9 +154,9 @@ vec3_t * yxzTransform( vec3_t * x,
 void subtractvec3_t( vec3_t * x,
                      vec3_t * y )
 {
-    x->ihat = x->ihat - y->ihat;
-    x->jhat = x->jhat - y->jhat;
-    x->khat = x->khat - y->khat;
+    x->i = x->i - y->i;
+    x->j = x->j - y->j;
+    x->k = x->k - y->k;
 }
 /***********************************************************************************************//**
  *  \brief  Return length of 3D vector
@@ -177,10 +170,17 @@ void subtractvec3_t( vec3_t * x,
  **************************************************************************************************/
 double lengthOfvec3_t( vec3_t * vec )
 {
-    double i_2 = vec->ihat * vec->ihat;
-    double j_2 = vec->jhat * vec->jhat;
-    double k_2 = vec->khat * vec->khat;
+    double i_2 = vec->i * vec->i;
+    double j_2 = vec->j * vec->j;
+    double k_2 = vec->k * vec->k;
     return sqrt( i_2 + j_2 + k_2 );
+}
+
+double lengthOfvec2_t( vec2_t * vec )
+{
+    double i_2 = vec->i * vec->i;
+    double j_2 = vec->j * vec->j;
+    return sqrt( i_2 + j_2 );
 }
 
 /***********************************************************************************************//**
@@ -195,9 +195,9 @@ double lengthOfvec3_t( vec3_t * vec )
 void normalizevec3_t( vec3_t * vec )
 {
     double length = lengthOfvec3_t( vec );
-    vec->ihat /= length;
-    vec->jhat /= length;
-    vec->khat /= length;
+    vec->i /= length;
+    vec->j /= length;
+    vec->k /= length;
 }
 /***********************************************************************************************//**
  *  \brief  Distance between two 2D coordinates
