@@ -158,24 +158,32 @@ void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_
     /* Calculate Rp - Rotation of device relative to reference */
     multiplyVec3x3( z_p, y_p, r_p );
     multiplyVec3x3( r_p, x_p, r_p );
+    
     /* Calculate Rb - Rotation of beacons relative camera */
     multiplyVec3x3( z_b, x_b, r_b );
+    
     /* Calculate Ra - Rotation of beacons relative to reference */
     multiplyVec3x3( r_p, r_c, r_a );
     multiplyVec3x3( r_a, r_b, r_a );
+    
     /* Mu - Angle between d' to X-axis of reference */
     double mu = acos( r_a[2][2] );
+    
     /* Sigma - Angle between beacons */
     double sigma = acos( r_b[1][1] );
+    
     /* r_l - Distance to beacons */
     double r_l = cos( mu - alpha ) / sin( alpha ) * D_FIXED;
-    /* r_vec - Vector length r on X-axis */
-    double r[3] = {r, 0, 0};
-    multiplyVec3x1( r_a, r, r );
     
+    /* r_vec - Vector length r on X-axis */
+    double r[3] = {r_l, 0, 0};
+    multiplyVec3x1( r_a, r_l, r_l );
+    
+    /* Get non-gravitational acceleration */
     vec3_t ngacc = *( IMU_Non_Grav_Get( imu ) );
     double delta_time = 0;
 
+    /* Filter calculated r_vec with acceleration > velocity */
     delta_time = seconds_since( kinetics->truePositionFilter[0].timestamp );
     double x_vel = ngacc.i * delta_time;
     Kalman_Update( &kinetics->truePositionFilter[0], r[0], x_vel, delta_time );
