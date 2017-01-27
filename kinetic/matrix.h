@@ -84,4 +84,10 @@ double get2dDistance( cartesian2_t *a, cartesian2_t *b );
 /** @} (end addtogroup kinetic) */
 /** @} (end addtogroup Application) */
 
+void multiplyVec3x1( double a[3][3], double b[3], double c[3] );
+void multiplyVec3x3( double a[3][3], double b[3][3], double c[3][3] );
+void getRotationX( double v[3][3], double angle );
+void getRotationY( double v[3][3], double angle );
+void getRotationZ( double v[3][3], double angle );
+
 #endif /* matrix_h */

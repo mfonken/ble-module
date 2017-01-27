@@ -15,6 +15,12 @@
 /** Local change in time */
 //static double         delta_t;
 
+double  z_c[3][3],
+        y_c[3][3],
+        x_c[3][3],
+        r_c[3][3];
+double  cos_precalc, sin_precalc;
+
 /** Local positional and rotational vectors */
 
 /***********************************************************************************************//**
@@ -22,6 +28,7 @@
  **************************************************************************************************/
 void Kinetic_Init( LSM9DS1_t * imu, kinetic_t * kinetics )
 {
+    Camera_Rotation_Init();
 	Filters_Init( imu, kinetics );
 }
 
@@ -114,49 +121,81 @@ void Kinetic_Update_Rotation( LSM9DS1_t * imu, kinetic_t * kinetics )
  **************************************************************************************************/
 void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_t beacons[2] )
 {
+    double  z_p[3][3],
+            y_p[3][3],
+            x_p[3][3],
+            z_b[3][3],
+            x_b[3][3];
+    
     /* Tait-Bryan angles of vision */
-    ang3_t tba;
-    tba.a = kinetics->rotationFilter[0].value; // phi'
-    tba.b = kinetics->rotationFilter[1].value; // theta'
-    tba.c = kinetics->rotationFilter[2].value; // psi'
+    double p_a[3];
+    p_a[0] = kinetics->rotationFilter[0].value; // phi'
+    p_a[1] = kinetics->rotationFilter[1].value; // theta'
+    p_a[2] = kinetics->rotationFilter[2].value; // psi'
+    
+    /* Calculate beacon angles */
+    double b_a[3];
+    b_a[1]  = 0;
+    b_a[0]  = CAMERA_ALPHA_H * ( ( beacons[0].y / CAMERA_HEIGHT ) - 0.5 );
+    b_a[2]  = CAMERA_ALPHA_W * ( ( beacons[0].x / CAMERA_WIDTH  ) - 0.5 );
+    b_a[0] += CAMERA_ALPHA_H * ( ( beacons[1].y / CAMERA_HEIGHT ) - 0.5 );
+    b_a[2] += CAMERA_ALPHA_W * ( ( beacons[1].x / CAMERA_WIDTH  ) - 0.5 );
 
-    /* Adjust for rotation detected by camera */
-    tba.a -= 0;
-    tba.b -= CAMERA_ALPHA_H * ( ( beacons[0].y / CAMERA_HEIGHT ) - 0.5 );
-    tba.c -= CAMERA_ALPHA_W * ( ( beacons[0].x / CAMERA_WIDTH  ) - 0.5 );
+    /* Create rotation matrices for device */
+    getRotationZ( z_p, p_a[2] );
+    getRotationY( y_p, p_a[1] );
+    getRotationX( x_p, p_a[0] );
 
-    /* Create detected d vector */
-    vec2_t dvec;
-    dvec.i = ( beacons[1].x - beacons[0].x );
-    dvec.j = ( beacons[1].y - beacons[0].y );
-
-    /* Calculate angle between camera and beacon axis and adjust length */
-    double sigma = asin( cos( tba.b ) * cos( tba.c ) );
-    dvec.i /= sigma;
-    dvec.j /= sigma;
-
-    /* Calculate camera's distance to beacon */
-    double r = ( BEACON_DISTANCE * ( 1 + D_AUG ) ) / lengthOfvec2_t( &dvec );
-
-    /* Rotate by rotation matric for final position vector */
-    vec3_t fvec;
-    fvec.i = r;
-    fvec.j = 0;
-    fvec.k = 0;
-    vec3_t tvec = *( zxyTransform( &fvec, &tba ) );
-
+    /* Create rotation matrices for beacon */
+    getRotationZ( z_b, b_a[2] );
+    getRotationX( x_b, b_a[0] );
+    
+    double  r_p[3][3],
+            r_c[3][3],
+            r_b[3][3],
+            r_a[3][3];
+    
+    /* Calculate Rp - Rotation of device relative to reference */
+    multiplyVec3x3( z_p, y_p, r_p );
+    multiplyVec3x3( r_p, x_p, r_p );
+    /* Calculate Rb - Rotation of beacons relative camera */
+    multiplyVec3x3( z_b, x_b, r_b );
+    /* Calculate Ra - Rotation of beacons relative to reference */
+    multiplyVec3x3( r_p, r_c, r_a );
+    multiplyVec3x3( r_a, r_b, r_a );
+    /* Mu - Angle between d' to X-axis of reference */
+    double mu = acos( r_a[2][2] );
+    /* Sigma - Angle between beacons */
+    double sigma = acos( r_b[1][1] );
+    /* r_l - Distance to beacons */
+    double r_l = cos( mu - alpha ) / sin( alpha ) * D_FIXED;
+    /* r_vec - Vector length r on X-axis */
+    double r[3] = {r, 0, 0};
+    multiplyVec3x1( r_a, r, r );
+    
     vec3_t ngacc = *( IMU_Non_Grav_Get( imu ) );
     double delta_time = 0;
 
     delta_time = seconds_since( kinetics->truePositionFilter[0].timestamp );
     double x_vel = ngacc.i * delta_time;
-    Kalman_Update( &kinetics->truePositionFilter[0], tvec.i, x_vel, delta_time );
+    Kalman_Update( &kinetics->truePositionFilter[0], r[0], x_vel, delta_time );
 
     delta_time = seconds_since( kinetics->truePositionFilter[1].timestamp );
 	double y_vel = ngacc.j * delta_time;
-	Kalman_Update( &kinetics->truePositionFilter[1], tvec.j, y_vel, delta_time );
+	Kalman_Update( &kinetics->truePositionFilter[1], r[1], y_vel, delta_time );
 
 	delta_time = seconds_since( kinetics->truePositionFilter[2].timestamp );
 	double z_vel = ngacc.k * delta_time;
-	Kalman_Update( &kinetics->truePositionFilter[2], tvec.k, z_vel, delta_time );
+	Kalman_Update( &kinetics->truePositionFilter[2], r[2], z_vel, delta_time );
+}
+
+void Camera_Rotation_Init( void )
+{
+    /* Calculate Rc - Rotation of camera relative device */
+    getRotationZ( z_c, CAMERA_OFFSET_ANGLE_X );
+    getRotationY( y_c, CAMERA_OFFSET_ANGLE_Y );
+    getRotationX( x_c, CAMERA_OFFSET_ANGLE_Z );
+    /* Create rotation matrix for camera */
+    multiplyVec3x3( z_c, y_c, r_c );
+    multiplyVec3x3( r_c, x_c, r_c );
 }

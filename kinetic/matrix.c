@@ -220,5 +220,97 @@ double get2dDistance( cartesian2_t *a, cartesian2_t *b )
     return sqrt( ( ( b_x * b_x ) - ( a_x * a_x ) ) + ( ( b_y * b_y ) - ( a_y * a_y ) ) );
 }
 
+void multiplyVec3x1( double a[3][3], double b[3], double c[3] )
+{
+    double r[3] = {0,0,0};
+    for( int i = 0; i < 3; i++ )
+    {
+        r[i] = a[i][0] * b[0] + a[i][1] * b[1] + a[i][2] * b[2];
+    }
+    for( int i = 0; i < 3; i++ )
+    {
+        c[i] = r[i];
+    }
+}
+
+void multiplyVec3x3( double a[3][3], double b[3][3], double c[3][3] )
+{
+    double r[3][3] = {{0,0,0},{0,0,0},{0,0,0}};
+    for( int i = 0; i < 3; i++ )
+    {
+        for( int j = 0; j < 3; j++ )
+        {
+            for( int k = 0; k < 3; k++ )
+            {
+                r[i][j] += a[i][k] * b[k][j];
+            }
+        }
+    }
+    for( int i = 0; i < 3; i++ )
+    {
+        for( int j = 0; j < 3; j++ )
+        {
+            c[i][j] = r[i][j];
+        }
+    }
+}
+
+void getRotationX( double v[3][3], double angle )
+{
+    double c = cos( angle );
+    double s = sin( angle );
+    double r[3][3] =
+    {
+        {  1,  0,  0 },
+        {  0,  c, -s },
+        {  0,  s,  c }
+    };
+    for( int i = 0; i < 3; i++ )
+    {
+        for( int j = 0; j < 3; j++ )
+        {
+            v[i][j] = r[i][j];
+        }
+    }
+}
+
+void getRotationY( double v[3][3], double angle )
+{
+    double c = cos( angle );
+    double s = sin( angle );
+    double r[3][3] =
+    {
+        {  c,  0,  s },
+        {  0,  1,  0 },
+        { -s,  0,  c }
+    };
+    for( int i = 0; i < 3; i++ )
+    {
+        for( int j = 0; j < 3; j++ )
+        {
+            v[i][j] = r[i][j];
+        }
+    }
+}
+
+void getRotationZ( double v[3][3], double angle )
+{
+    double c = cos( angle );
+    double s = sin( angle );
+    double r[3][3] =
+    {
+        {  c, -s,  0 },
+        {  s,  c,  0 },
+        {  0,  0,  1 }
+    };
+    for( int i = 0; i < 3; i++ )
+    {
+        for( int j = 0; j < 3; j++ )
+        {
+            v[i][j] = r[i][j];
+        }
+    }
+}
+
 /** @} (end addtogroup kinetic) */
 /** @} (end addtogroup Application) */

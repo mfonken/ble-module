@@ -100,13 +100,7 @@ void Kinetic_Update_Rotation( LSM9DS1_t * imu, kinetic_t * kinetics );
  *  \brief  Update position filter data
  **************************************************************************************************/
 void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_t beacons[2] );
-    
-/***********************************************************************************************//**
- *  \brief  Initialize Filters for Kinetic Data
- *  \param[in] dvec Beacon positional vector to augment
- *  \param[in] a Tait-Bryan angles to augement by
- **************************************************************************************************/
-vec3_t *dAugment( vec3_t *, ang3_t * );
+void Camera_Rotation_Init( void );
 
 /** @} (end addtogroup kinetic) */
 /** @} (end addtogroup Application) */
