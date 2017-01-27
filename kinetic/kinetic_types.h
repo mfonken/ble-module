@@ -79,6 +79,14 @@ typedef struct _vec2_t
     double    j;             /**< \$f\hat{j}\$f value */
 } vec2_t;
 
+/*! Quaternion hypercomplex type */
+typedef struct
+{
+    double x;
+    double y;
+    double z;
+    double w;
+} quaternion_t;
 
 /** @} (end addtogroup kinetic) */
 /** @} (end addtogroup Application) */

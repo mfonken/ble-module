@@ -22,121 +22,6 @@
  Static Function Definitions
  **************************************************************************************************/
 
-/***********************************************************************************************//**
- *  \brief  Tait-Bryan Z > X' > Y" matrix transformation
- *  \param[out] Transformed matrix
- *  \param[in] x Matrix to transform
- *  \param[in] rot Tait-Bryan angles
- *  \param[in] reverse invert angles
- ***************************************************************************************************
- * NOTE: Reversing angles does not invert transformation matrix!
- ***************************************************************************************************
- * FORMULA:
- \f{eqnarray*}{
-     &\mathbf{A} = \left[
-         \begin{matrix}
-         \cos(a)\cos(c) - \sin(a)\sin(b)\sin(c) & -\cos(b)\sin(a) & \cos(a)\sin(c) + \cos(c)\sin(a)\sin(b)\\
-         \cos(c)sin(a) + cos(a)\sin(b)\sin(c) & \cos(a)\cos(b) & \sin(a)\sin(c) - \cos(a)\cos(c)\sin(b) \\
-         -\cos(b)\sin(c) & \sin(b) & \cos(b)\cos(c)\\
-         \end{matrix}
-         \right] \\
-     &\mathbf{y} = \mathbf{A}\mathbf{x}
- \f}
- **************************************************************************************************/
-vec3_t * zxyTransform(  vec3_t *x,
-                        ang3_t *rot)
-{
-    /* Extract angles */
-    double a = rot->a;
-    double b = rot->b;
-    double c = rot->c;
-
-    /* Transformation Matrix */
-    double A[3][3];
-    A[0][0] = ( cos( a ) * cos( c ) ) - ( sin( a ) * sin( b ) * sin( c ) );
-    A[0][1] = - cos( b ) * sin( a );
-    A[0][2] = ( cos( a ) * sin( c ) ) + ( cos( c ) * sin( a ) * sin( b ) );
-    A[1][0] = ( cos( c ) * sin( a ) ) + ( cos( a ) * sin( b ) * sin( c ) );
-    A[1][1] =   cos( a ) * cos( b );
-    A[1][2] = ( sin( a ) * sin( c ) ) - ( cos( a ) * cos( c ) * sin( b ) );
-    A[2][0] = - cos( b ) * sin( c );
-    A[2][1] =   sin( b );
-    A[2][2] =   cos( b ) * cos( c );
-
-    /* Transformed Vector */
-    double y[3];
-    for( uint8_t i = 0; i < 3; i++ )
-    {
-        y[i] = ( A[i][0] * x->i ) + ( A[i][1] * x->j ) + ( A[i][2] * x->k );
-    }
-    vec3_t yvec;
-    yvec.i = y[0];
-    yvec.j = y[1];
-    yvec.k = y[2];
-    return &yvec;
-}
-
-
-/***********************************************************************************************//**
- *  \brief  Tait-Bryan Z > X' > Y" matrix transformation
- *  \param[out] Transformed matrix
- *  \param[in] x Matrix to transform
- *  \param[in] rot Tait-Bryan angles
- *  \param[in] reverse invert angles
- ***************************************************************************************************
- * NOTE: Reversing angles does not invert transformation matrix!
- ***************************************************************************************************
- * FORMULA:
- \f{eqnarray*}{
-    &\mathbf{A} = \left[
-     \begin{matrix}
-        \cos(a)\cos(c) + \sin(a)\sin(b)\sin(c) & \cos(c)\sin(a)\sin(b) - \cos(a)\sin(c) & \cos(b)\sin(a) \\
-        \cos(b)\sin(c) & \cos(b)\cos(c) & -\sin(b) \\
-        \cos(a)sin(b)sin(c) - \cos(c)\sin(a) & \cos(a)\cos(c)\cos(b) + \sin(a)\sin(c) & \cos(a)\cos(b) \\
-     \end{matrix}
-    \right] \\
-    &\mathbf{y} = \mathbf{A}\mathbf{x}
- \f}
- ***************************************************************************************************/
-vec3_t * yxzTransform( vec3_t * x,
-                       ang3_t * rot,
-                       bool reverse)
-{
-    /* Extract angles */
-    double a = rot->a;
-    double b = rot->b;
-    double c = rot->c;
-    if( reverse )
-    {
-        a *= -1;
-        b *= -1;
-        c *= -1;
-    }
-
-    /* Transformation Matrix */
-    double A[3][3];
-    A[0][0] = ( cos( a ) * cos( c ) ) + ( sin( a ) * sin( b ) * sin( c ) );
-    A[0][1] = ( cos( c ) * sin( a ) * sin( b ) ) - ( cos( a ) * sin( c ) );
-    A[0][2] =   cos( b ) * sin( a );
-    A[1][0] =   cos( b ) * sin( c );
-    A[1][1] =   cos( b ) * cos( c );
-    A[1][2] = - sin( b );
-    A[2][0] = ( cos( a ) * sin( b ) * sin( c ) ) - ( cos( c ) * sin( a ) );
-    A[2][1] = ( cos( a ) * cos( c ) * cos( b ) ) + ( sin( a ) * sin( c ) );
-    A[2][2] =   cos( a ) * cos( b );
-
-    /* Transformed Vector */
-    double y[3];
-    for( uint8_t i = 0; i < 3; i++ )
-    {
-        y[i] = ( A[i][0] * x->i ) + ( A[i][1] * x->j ) + ( A[i][2] * x->k );
-    }
-    vec3_t *yvec;
-    yvec->i = y[0];
-    yvec->j = y[1];
-    yvec->k = y[2];
-    return yvec;
-}
 
 /***********************************************************************************************//**
  *  \brief  Subract two 3D vectors
@@ -233,83 +118,80 @@ void multiplyVec3x1( double a[3][3], double b[3], double c[3] )
     }
 }
 
-void multiplyVec3x3( double a[3][3], double b[3][3], double c[3][3] )
+/* See - http://www.gamasutra.com/view/feature/131686/rotating_objects_using_quaternions.php */
+
+void Euler_To_Quaternion( quaternion_t * quat, double a[3] )
 {
-    double r[3][3] = {{0,0,0},{0,0,0},{0,0,0}};
-    for( int i = 0; i < 3; i++ )
-    {
-        for( int j = 0; j < 3; j++ )
-        {
-            for( int k = 0; k < 3; k++ )
-            {
-                r[i][j] += a[i][k] * b[k][j];
-            }
-        }
-    }
-    for( int i = 0; i < 3; i++ )
-    {
-        for( int j = 0; j < 3; j++ )
-        {
-            c[i][j] = r[i][j];
-        }
-    }
+    double half_roll, half_pitch, half_yaw;
+    half_roll   = a[0] / 2;
+    half_pitch  = a[1] / 2;
+    half_yaw    = a[2] / 2;
+    double cr, cp, cy, sr, sp, sy, cpcy, spsy;
+    cr = cos( half_roll  );
+    cp = cos( half_pitch );
+    cy = cos( half_yaw   );
+    sr = sin( half_roll  );
+    sp = sin( half_pitch );
+    sy = sin( half_yaw   );
+    cpcy = cp * cy;
+    spsy = sp * sy;
+    quat->w = cr * cpcy + sr * spsy;
+    quat->x = sr * cpcy - cr * spsy;
+    quat->y = cr * sp * cy + sr * cp * sy;
+    quat->z = cr * cp * sy - sr * sp * cy;
 }
 
-void getRotationX( double v[3][3], double angle )
+void Quaternion_To_Matrix(quaternion_t * quat, double m[3][3])
 {
-    double c = cos( angle );
-    double s = sin( angle );
-    double r[3][3] =
-    {
-        {  1,  0,  0 },
-        {  0,  c, -s },
-        {  0,  s,  c }
-    };
-    for( int i = 0; i < 3; i++ )
-    {
-        for( int j = 0; j < 3; j++ )
-        {
-            v[i][j] = r[i][j];
-        }
-    }
+    double wx, wy, wz, xx, yy, yz, xy, xz, zz, x2, y2, z2;
+    
+    x2 = quat->x + quat->x; y2 = quat->y + quat->y;
+    z2 = quat->z + quat->z;
+    xx = quat->x * x2; xy = quat->x * y2; xz = quat->x * z2;
+    yy = quat->y * y2; yz = quat->y * z2; zz = quat->z * z2;
+    wx = quat->w * x2; wy = quat->w * y2; wz = quat->w * z2;
+    
+    m[0][0] = 1.0 - (yy + zz);
+    m[1][0] = xy - wz;
+    m[2][0] = xz + wy;
+    
+    m[0][1] = xy + wz;
+    m[1][1] = 1.0 - (xx + zz);
+    m[2][1] = yz - wx;
+    
+    m[0][2] = xz - wy;
+    m[1][2] = yz + wx;
+    m[2][2] = 1.0 - (xx + yy);
 }
 
-void getRotationY( double v[3][3], double angle )
+void Quaternion_Combine(quaternion_t * a, quaternion_t * b, quaternion_t * c, quaternion_t * d)
 {
-    double c = cos( angle );
-    double s = sin( angle );
-    double r[3][3] =
-    {
-        {  c,  0,  s },
-        {  0,  1,  0 },
-        { -s,  0,  c }
-    };
-    for( int i = 0; i < 3; i++ )
-    {
-        for( int j = 0; j < 3; j++ )
-        {
-            v[i][j] = r[i][j];
-        }
-    }
-}
-
-void getRotationZ( double v[3][3], double angle )
-{
-    double c = cos( angle );
-    double s = sin( angle );
-    double r[3][3] =
-    {
-        {  c, -s,  0 },
-        {  s,  c,  0 },
-        {  0,  0,  1 }
-    };
-    for( int i = 0; i < 3; i++ )
-    {
-        for( int j = 0; j < 3; j++ )
-        {
-            v[i][j] = r[i][j];
-        }
-    }
+    double A, B, C, D, E, F, G, H;
+    A = ( a->w + a->x ) * ( b->w + b->x );
+    B = ( a->z - a->y ) * ( b->y - b->z );
+    C = ( a->w - a->x ) * ( b->y + b->z );
+    D = ( a->y + a->z ) * ( b->w - b->x );
+    E = ( a->x + a->z ) * ( b->x + b->y );
+    F = ( a->x - a->z ) * ( b->x - b->y );
+    G = ( a->w + a->y ) * ( b->w - b->z );
+    H = ( a->w - a->y ) * ( b->w + b->z );
+    d->w = B + ( -E - F + G + H ) / 2;
+    d->x = A - (  E + F + G + H ) / 2;
+    d->y = C + (  E - F + G - H ) / 2;
+    d->z = D + (  E - F - G + H ) / 2;
+    
+    A = ( d->w + d->x ) * ( c->w + c->x );
+    B = ( d->z - d->y ) * ( c->y - c->z );
+    C = ( d->w - d->x ) * ( c->y + c->z );
+    D = ( d->y + d->z ) * ( c->w - c->x );
+    E = ( d->x + d->z ) * ( c->x + c->y );
+    F = ( d->x - d->z ) * ( c->x - c->y );
+    G = ( d->w + d->y ) * ( c->w - c->z );
+    H = ( d->w - d->y ) * ( c->w + c->z );
+    d->w = B + ( -E - F + G + H ) / 2;
+    d->x = A - (  E + F + G + H ) / 2;
+    d->y = C + (  E - F + G - H ) / 2;
+    d->z = D + (  E - F - G + H ) / 2;
 }
 
 /** @} (end addtogroup kinetic) */

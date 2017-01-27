@@ -15,10 +15,7 @@
 /** Local change in time */
 //static double         delta_t;
 
-double  z_c[3][3],
-        y_c[3][3],
-        x_c[3][3],
-        r_c[3][3];
+quaternion_t qp, qc, qb, qa;
 double  cos_precalc, sin_precalc;
 
 /** Local positional and rotational vectors */
@@ -121,12 +118,6 @@ void Kinetic_Update_Rotation( LSM9DS1_t * imu, kinetic_t * kinetics )
  **************************************************************************************************/
 void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_t beacons[2] )
 {
-    double  z_p[3][3],
-            y_p[3][3],
-            x_p[3][3],
-            z_b[3][3],
-            x_b[3][3];
-    
     /* Tait-Bryan angles of vision */
     double p_a[3];
     p_a[0] = kinetics->rotationFilter[0].value; // phi'
@@ -141,36 +132,18 @@ void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_
     b_a[0] += CAMERA_ALPHA_H * ( ( beacons[1].y / CAMERA_HEIGHT ) - 0.5 );
     b_a[2] += CAMERA_ALPHA_W * ( ( beacons[1].x / CAMERA_WIDTH  ) - 0.5 );
 
-    /* Create rotation matrices for device */
-    getRotationZ( z_p, p_a[2] );
-    getRotationY( y_p, p_a[1] );
-    getRotationX( x_p, p_a[0] );
-
-    /* Create rotation matrices for beacon */
-    getRotationZ( z_b, b_a[2] );
-    getRotationX( x_b, b_a[0] );
+    Euler_To_Quaternion( &qp, &p_a );
+    Euler_To_Quaternion( &qb, &b_a );
     
-    double  r_p[3][3],
-            r_c[3][3],
-            r_b[3][3],
-            r_a[3][3];
+    Quaternion_Combine( &qp, &qc, &qb, &qa );
     
-    /* Calculate Rp - Rotation of device relative to reference */
-    multiplyVec3x3( z_p, y_p, r_p );
-    multiplyVec3x3( r_p, x_p, r_p );
-    
-    /* Calculate Rb - Rotation of beacons relative camera */
-    multiplyVec3x3( z_b, x_b, r_b );
-    
-    /* Calculate Ra - Rotation of beacons relative to reference */
-    multiplyVec3x3( r_p, r_c, r_a );
-    multiplyVec3x3( r_a, r_b, r_a );
-    
+    double r_a[3][3];
+    Quaternion_To_Matrix( &qa, r_a );
     /* Mu - Angle between d' to X-axis of reference */
     double mu = acos( r_a[2][2] );
     
     /* Sigma - Angle between beacons */
-    double sigma = acos( r_b[1][1] );
+    double sigma = acos( cos( b_a[0] ) * cos( b_a[2] ) );
     
     /* r_l - Distance to beacons */
     double r_l = cos( mu - alpha ) / sin( alpha ) * D_FIXED;
@@ -199,11 +172,9 @@ void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_
 
 void Camera_Rotation_Init( void )
 {
-    /* Calculate Rc - Rotation of camera relative device */
-    getRotationZ( z_c, CAMERA_OFFSET_ANGLE_X );
-    getRotationY( y_c, CAMERA_OFFSET_ANGLE_Y );
-    getRotationX( x_c, CAMERA_OFFSET_ANGLE_Z );
-    /* Create rotation matrix for camera */
-    multiplyVec3x3( z_c, y_c, r_c );
-    multiplyVec3x3( r_c, x_c, r_c );
+    double c_a[3];
+    c_a[0] = CAMERA_OFFSET_ANGLE_X;
+    c_a[1] = CAMERA_OFFSET_ANGLE_Y;
+    c_a[2] = CAMERA_OFFSET_ANGLE_Z;
+    Euler_To_Quaternion( &qc, &c_a );
 }

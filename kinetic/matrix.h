@@ -31,28 +31,6 @@
  **************************************************************************************************/
 
 /***********************************************************************************************//**
- *  \brief  Tait-Bryan Z > X' > Y" matrix transformation
- *  \param[out] Transformed matrix
- *  \param[in] x Matrix to transform
- *  \param[in] rot Tait-Bryan angles
- *  \param[in] reverse invert angles
- ***************************************************************************************************
- * NOTE: Reversing angles does not invert transformation matrix!
- **************************************************************************************************/
-vec3_t * zxyTransform(  vec3_t *x, ang3_t *rot );
-
-/***********************************************************************************************//**
- *  \brief  Tait-Bryan Y > X' > Z" matrix transformation
- *  \param[out] Transformed matrix
- *  \param[in] x Matrix to transform
- *  \param[in] rot Tait-Bryan angles
- *  \param[in] reverse invert angles
- ***************************************************************************************************
- * NOTE: Reversing angles does not invert transformation matrix!
- **************************************************************************************************/
-vec3_t * yxzTransform( vec3_t * x, ang3_t * rot, bool reverse);
-
-/***********************************************************************************************//**
  *  \brief  Subract two 3D vectors
  *  \param[in] x Subracted from and returned
  *  \param[in] y Values to subract
@@ -85,9 +63,8 @@ double get2dDistance( cartesian2_t *a, cartesian2_t *b );
 /** @} (end addtogroup Application) */
 
 void multiplyVec3x1( double a[3][3], double b[3], double c[3] );
-void multiplyVec3x3( double a[3][3], double b[3][3], double c[3][3] );
-void getRotationX( double v[3][3], double angle );
-void getRotationY( double v[3][3], double angle );
-void getRotationZ( double v[3][3], double angle );
+void Euler_To_Quaternion( quaternion_t * quat, double roll, double pitch, double yaw );
+void Quaternion_To_Matrix( quaternion_t * quat, double m[3][3] );
+void Quaternion_Combine(quaternion_t * a, quaternion_t * b, quaternion_t * c, quaternion_t * d );
 
 #endif /* matrix_h */
