@@ -139,6 +139,7 @@ void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_
     
     double r_a[3][3];
     Quaternion_To_Matrix( &qa, r_a );
+    
     /* Mu - Angle between d' to X-axis of reference */
     double mu = acos( r_a[2][2] );
     
@@ -146,7 +147,7 @@ void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_
     double sigma = acos( cos( b_a[0] ) * cos( b_a[2] ) );
     
     /* r_l - Distance to beacons */
-    double r_l = cos( mu - alpha ) / sin( alpha ) * D_FIXED;
+    double r_l = cos( mu - sigma ) / sin( sigma ) * D_FIXED;
     
     /* r_vec - Vector length r on X-axis */
     double r[3] = {r_l, 0, 0};
