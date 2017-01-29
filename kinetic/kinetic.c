@@ -118,7 +118,7 @@ void Kinetic_Update_Rotation( LSM9DS1_t * imu, kinetic_t * kinetics )
  **************************************************************************************************/
 void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_t beacons[2] )
 {
-    /* Tait-Bryan angles of vision */
+    /* Tait-Bryan (intrinsic) angles of device */
     double p_a[3];
     p_a[0] = kinetics->rotationFilter[0].value; // phi'
     p_a[1] = kinetics->rotationFilter[1].value; // theta'
@@ -140,7 +140,7 @@ void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_
     Euler_To_Quaternion( &b_a, &qb );
     Quaternion_Combine( &qp, &qc, &qb, &qa );
     
-    /* Mu - Angle between d' to X-axis of reference */
+    /* Mu - Angle between d' to X-axis of reference ( mu = acos(X.x) ) */
     /* NOTE: This uses the homogenized orthogonal rotation matrix */
     double mu = acos( ( qa.w * qa.w ) - ( qa.x * qa.x ) - ( qa.y * qa.y ) + ( qa.z * qa.z ) );
     
