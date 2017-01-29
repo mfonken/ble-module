@@ -119,14 +119,14 @@ void multiplyVec3x1( double a[3][3], double b[3], double c[3] )
 }
 
 /* See - http://www.gamasutra.com/view/feature/131686/rotating_objects_using_quaternions.php */
-
-void Euler_To_Quaternion( quaternion_t * quat, double a[3] )
+/* Generic intrinsic euler angles to quaternion conversion */
+void Euler_To_Quaternion( double a[3], quaternion_t * quat )
 {
     double half_roll, half_pitch, half_yaw;
     half_roll   = a[0] / 2;
     half_pitch  = a[1] / 2;
     half_yaw    = a[2] / 2;
-    double cr, cp, cy, sr, sp, sy, cpcy, spsy;
+    double cr, cp, cy, sr, sp, sy, cpcy, spsy, spcy, cpsy;
     cr = cos( half_roll  );
     cp = cos( half_pitch );
     cy = cos( half_yaw   );
@@ -135,12 +135,15 @@ void Euler_To_Quaternion( quaternion_t * quat, double a[3] )
     sy = sin( half_yaw   );
     cpcy = cp * cy;
     spsy = sp * sy;
+    spcy = sp * cy;
+    cpsy = cp * sy;
     quat->w = cr * cpcy + sr * spsy;
     quat->x = sr * cpcy - cr * spsy;
-    quat->y = cr * sp * cy + sr * cp * sy;
-    quat->z = cr * cp * sy - sr * sp * cy;
+    quat->y = cr * spcy + sr * cpsy;
+    quat->z = cr * cpsy - sr * spcy;
 }
 
+/* See - https://blog.molecular-matters.com/2013/05/24/a-faster-quaternion-vector-multiplication/ */
 void Rotate_Vector_By_Quaternion(double v[3], quaternion_t * q, double r[3])
 {
     double u[3];
@@ -155,6 +158,7 @@ void Rotate_Vector_By_Quaternion(double v[3], quaternion_t * q, double r[3])
     add33( v, a, b, r );
 }
 
+/* Double quaternion Hamilton multiplication (Generic) */
 void Quaternion_Combine(quaternion_t * a, quaternion_t * b, quaternion_t * c, quaternion_t * d)
 {
     double A, B, C, D, E, F, G, H;
@@ -185,6 +189,7 @@ void Quaternion_Combine(quaternion_t * a, quaternion_t * b, quaternion_t * c, qu
     d->z = D + (  E - F - G + H ) / 2;
 }
 
+/* Generic vector3 manipulations */
 void cross3( double u[3], double v[3], double r[3] )
 {
     r[0] = u[1]*v[2] - u[2]*v[1];
@@ -198,7 +203,7 @@ void mul3( int m, double v[3], double r[3] )
     r[1] = m * v[1];
     r[2] = m * v[2];
 }
-
+/* Add three vectors */
 void add33( double u[3], double v[3], double w[3], double r[3])
 {
     r[0] = u[0] + v[0] + w[0];

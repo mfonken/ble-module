@@ -125,23 +125,27 @@ void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_
     p_a[2] = kinetics->rotationFilter[2].value; // psi'
     
     /* Calculate beacon angles */
-    double b_a[3];
-    b_a[1]  = 0;
-    b_a[0]  = CAMERA_ALPHA_H * ( ( beacons[0].y / CAMERA_HEIGHT ) - 0.5 );
-    b_a[2]  = CAMERA_ALPHA_W * ( ( beacons[0].x / CAMERA_WIDTH  ) - 0.5 );
-    b_a[0] += CAMERA_ALPHA_H * ( ( beacons[1].y / CAMERA_HEIGHT ) - 0.5 );
-    b_a[2] += CAMERA_ALPHA_W * ( ( beacons[1].x / CAMERA_WIDTH  ) - 0.5 );
-
-    Euler_To_Quaternion( &qp, &p_a );
-    Euler_To_Quaternion( &qb, &b_a );
+    double b_a[3], b[2];
+    /* Get first beacon angles */
+    b_a[1] = 0;
+    b_a[0] = CAMERA_ALPHA_H * ( ( beacons[0].y / CAMERA_HEIGHT ) - 0.5 );
+    b_a[2] = CAMERA_ALPHA_W * ( ( beacons[0].x / CAMERA_WIDTH  ) - 0.5 );
     
+    /* Get angles between beacons */
+    b[0]   = b_a[0] + CAMERA_ALPHA_H * ( ( beacons[1].y / CAMERA_HEIGHT ) - 0.5 );
+    b[1]   = b_a[1] + CAMERA_ALPHA_W * ( ( beacons[1].x / CAMERA_WIDTH  ) - 0.5 );
+
+    /* Create quaternions (qc is precalculated in init) */
+    Euler_To_Quaternion( &p_a, &qp );
+    Euler_To_Quaternion( &b_a, &qb );
     Quaternion_Combine( &qp, &qc, &qb, &qa );
     
     /* Mu - Angle between d' to X-axis of reference */
+    /* NOTE: This uses the homogenized orthogonal rotation matrix */
     double mu = acos( ( qa.w * qa.w ) - ( qa.x * qa.x ) - ( qa.y * qa.y ) + ( qa.z * qa.z ) );
     
     /* Sigma - Angle between beacons */
-    double sigma = acos( cos( b_a[0] ) * cos( b_a[2] ) );
+    double sigma = acos( cos( b[0] ) * cos( b[2] ) );
     
     /* r_l - Distance to beacons */
     double r_l = cos( mu - sigma ) / sin( sigma ) * D_FIXED;
@@ -175,5 +179,5 @@ void Camera_Rotation_Init( void )
     c_a[0] = CAMERA_OFFSET_ANGLE_X;
     c_a[1] = CAMERA_OFFSET_ANGLE_Y;
     c_a[2] = CAMERA_OFFSET_ANGLE_Z;
-    Euler_To_Quaternion( &qc, &c_a );
+    Euler_To_Quaternion( &c_a, &qc );
 }
