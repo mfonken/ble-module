@@ -141,27 +141,18 @@ void Euler_To_Quaternion( quaternion_t * quat, double a[3] )
     quat->z = cr * cp * sy - sr * sp * cy;
 }
 
-void Quaternion_To_Matrix(quaternion_t * quat, double m[3][3])
+void Rotate_Vector_By_Quaternion(double v[3], quaternion_t * q, double r[3])
 {
-    double wx, wy, wz, xx, yy, yz, xy, xz, zz, x2, y2, z2;
-    
-    x2 = quat->x + quat->x; y2 = quat->y + quat->y;
-    z2 = quat->z + quat->z;
-    xx = quat->x * x2; xy = quat->x * y2; xz = quat->x * z2;
-    yy = quat->y * y2; yz = quat->y * z2; zz = quat->z * z2;
-    wx = quat->w * x2; wy = quat->w * y2; wz = quat->w * z2;
-    
-    m[0][0] = 1.0 - (yy + zz);
-    m[1][0] = xy - wz;
-    m[2][0] = xz + wy;
-    
-    m[0][1] = xy + wz;
-    m[1][1] = 1.0 - (xx + zz);
-    m[2][1] = yz - wx;
-    
-    m[0][2] = xz - wy;
-    m[1][2] = yz + wx;
-    m[2][2] = 1.0 - (xx + yy);
+    double u[3];
+    u[0] = q->x;
+    u[1] = q->y;
+    u[2] = q->z;
+    double s = q->w;
+    double a[3], b[3], c[3], uv[3];
+    cross3( u, v, uv );
+    mul3( 2, uv, a );
+    mul3( s, u, b );
+    add33( v, a, b, r );
 }
 
 void Quaternion_Combine(quaternion_t * a, quaternion_t * b, quaternion_t * c, quaternion_t * d)
@@ -192,6 +183,27 @@ void Quaternion_Combine(quaternion_t * a, quaternion_t * b, quaternion_t * c, qu
     d->x = A - (  E + F + G + H ) / 2;
     d->y = C + (  E - F + G - H ) / 2;
     d->z = D + (  E - F - G + H ) / 2;
+}
+
+void cross3( double u[3], double v[3], double r[3] )
+{
+    r[0] = u[1]*v[2] - u[2]*v[1];
+    r[1] = u[2]*v[0] - u[0]*v[2];
+    r[2] = u[0]*v[1] - u[1]*v[0];
+}
+
+void mul3( int m, double v[3], double r[3] )
+{
+    r[0] = m * v[0];
+    r[1] = m * v[1];
+    r[2] = m * v[2];
+}
+
+void add33( double u[3], double v[3], double w[3], double r[3])
+{
+    r[0] = u[0] + v[0] + w[0];
+    r[1] = u[1] + v[1] + w[1];
+    r[2] = u[2] + v[2] + w[2];
 }
 
 /** @} (end addtogroup kinetic) */

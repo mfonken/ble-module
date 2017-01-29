@@ -137,11 +137,8 @@ void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_
     
     Quaternion_Combine( &qp, &qc, &qb, &qa );
     
-    double r_a[3][3];
-    Quaternion_To_Matrix( &qa, r_a );
-    
     /* Mu - Angle between d' to X-axis of reference */
-    double mu = acos( r_a[2][2] );
+    double mu = acos( ( qa.w * qa.w ) - ( qa.x * qa.x ) - ( qa.y * qa.y ) + ( qa.z * qa.z ) );
     
     /* Sigma - Angle between beacons */
     double sigma = acos( cos( b_a[0] ) * cos( b_a[2] ) );
@@ -151,7 +148,8 @@ void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_
     
     /* r_vec - Vector length r on X-axis */
     double r[3] = {r_l, 0, 0};
-    multiplyVec3x1( r_a, r_l, r_l );
+    double r_f[3];
+    Rotate_Vector_By_Quaternion( r, &qa, r_f );
     
     /* Get non-gravitational acceleration */
     vec3_t ngacc = *( IMU_Non_Grav_Get( imu ) );
@@ -160,15 +158,15 @@ void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_
     /* Filter calculated r_vec with acceleration > velocity */
     delta_time = seconds_since( kinetics->truePositionFilter[0].timestamp );
     double x_vel = ngacc.i * delta_time;
-    Kalman_Update( &kinetics->truePositionFilter[0], r[0], x_vel, delta_time );
+    Kalman_Update( &kinetics->truePositionFilter[0], r_f[0], x_vel, delta_time );
 
     delta_time = seconds_since( kinetics->truePositionFilter[1].timestamp );
 	double y_vel = ngacc.j * delta_time;
-	Kalman_Update( &kinetics->truePositionFilter[1], r[1], y_vel, delta_time );
+	Kalman_Update( &kinetics->truePositionFilter[1], r_f[1], y_vel, delta_time );
 
 	delta_time = seconds_since( kinetics->truePositionFilter[2].timestamp );
 	double z_vel = ngacc.k * delta_time;
-	Kalman_Update( &kinetics->truePositionFilter[2], r[2], z_vel, delta_time );
+	Kalman_Update( &kinetics->truePositionFilter[2], r_f[2], z_vel, delta_time );
 }
 
 void Camera_Rotation_Init( void )
