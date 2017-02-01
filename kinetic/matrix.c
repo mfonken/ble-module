@@ -105,7 +105,7 @@ double get2dDistance( cartesian2_t *a, cartesian2_t *b )
     return sqrt( ( ( b_x * b_x ) - ( a_x * a_x ) ) + ( ( b_y * b_y ) - ( a_y * a_y ) ) );
 }
 
-void multiplyVec3x1( double a[3][3], double b[3], double c[3] )
+void Multiply_Vec_3x1( double a[3][3], double b[3], double c[3] )
 {
     double r[3] = {0,0,0};
     for( int i = 0; i < 3; i++ )
@@ -116,6 +116,29 @@ void multiplyVec3x1( double a[3][3], double b[3], double c[3] )
     {
         c[i] = r[i];
     }
+}
+
+void Quaternion_To_Matrix(quaternion_t * quat, double m[3][3])
+{
+    double wx, wy, wz, xx, yy, yz, xy, xz, zz, x2, y2, z2;
+    
+    x2 = quat->x + quat->x; y2 = quat->y + quat->y;
+    z2 = quat->z + quat->z;
+    xx = quat->x * x2; xy = quat->x * y2; xz = quat->x * z2;
+    yy = quat->y * y2; yz = quat->y * z2; zz = quat->z * z2;
+    wx = quat->w * x2; wy = quat->w * y2; wz = quat->w * z2;
+    
+    m[0][0] = 1.0 - (yy + zz);
+    m[1][0] = xy - wz;
+    m[2][0] = xz + wy;
+    
+    m[0][1] = xy + wz;
+    m[1][1] = 1.0 - (xx + zz);
+    m[2][1] = yz - wx;
+    
+    m[0][2] = xz - wy;
+    m[1][2] = yz + wx;
+    m[2][2] = 1.0 - (xx + yy);
 }
 
 /* See - http://www.gamasutra.com/view/feature/131686/rotating_objects_using_quaternions.php */

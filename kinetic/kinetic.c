@@ -142,7 +142,7 @@ void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_
     
     /* Mu - Angle between d' to X-axis of reference ( mu = acos(X.x) ) */
     /* NOTE: This uses the homogenized orthogonal rotation matrix */
-    double mu = acos( 1 - 2 * ( qa.y * qa.y + qa.z * qa.z ) );
+    double mu = acos( 1 - 2 * ( qa.y * qa.y + qa.z * qa.z )Non );
     
     /* Sigma - Angle between beacons */
     double alpha = acos( cos( b[0] ) * cos( b[1] ) );
@@ -153,7 +153,9 @@ void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_
     /* r_vec - Vector length r on X-axis */
     double r[3] = {sigma, 0, 0};
     double r_f[3];
-    Rotate_Vector_By_Quaternion( r, &qa, r_f );
+    double m[3][3];
+    Quaternion_To_Matrix( &qa, m );
+    Multiply_Vec_3x1( m, r, r_f );
     
     Print_Char('p');
 	Print_Double_Ascii( r_f[0] );
