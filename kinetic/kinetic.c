@@ -127,13 +127,13 @@ void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_
     /* Calculate beacon angles */
     double b_a[3], b[2];
     /* Get first beacon angles */
-    b_a[1] = 0;
-    b_a[0] = CAMERA_ALPHA_H * ( ( beacons[0].y / CAMERA_HEIGHT ) - 0.5 );
+    b_a[0] = 0;
+    b_a[1] = CAMERA_ALPHA_H * ( ( beacons[0].y / CAMERA_HEIGHT ) - 0.5 );
     b_a[2] = CAMERA_ALPHA_W * ( ( beacons[0].x / CAMERA_WIDTH  ) - 0.5 );
     
     /* Get angles between beacons */
-    b[0]   = b_a[0] + CAMERA_ALPHA_H * ( ( beacons[1].y / CAMERA_HEIGHT ) - 0.5 );
-    b[1]   = b_a[1] + CAMERA_ALPHA_W * ( ( beacons[1].x / CAMERA_WIDTH  ) - 0.5 );
+    b[0]   = CAMERA_ALPHA_H * ( ( beacons[1].y / CAMERA_HEIGHT ) - 0.5 ) - b_a[1];
+    b[1]   = CAMERA_ALPHA_W * ( ( beacons[1].x / CAMERA_WIDTH  ) - 0.5 ) - b_a[2];
 
     /* Create quaternions (qc is precalculated in init) */
     Euler_To_Quaternion( &p_a, &qp );
@@ -142,16 +142,16 @@ void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_
     
     /* Mu - Angle between d' to X-axis of reference ( mu = acos(X.x) ) */
     /* NOTE: This uses the homogenized orthogonal rotation matrix */
-    double mu = acos( ( qa.w * qa.w ) - ( qa.x * qa.x ) - ( qa.y * qa.y ) + ( qa.z * qa.z ) );
+    double mu = acos( 1 - 2 * ( qa.y * qa.y + qa.z * qa.z ) );
     
     /* Sigma - Angle between beacons */
-    double sigma = acos( cos( b[0] ) * cos( b[2] ) );
+    double alpha = acos( cos( b[0] ) * cos( b[1] ) );
     
     /* r_l - Distance to beacons */
-    double r_l = cos( mu - sigma ) / sin( sigma ) * D_FIXED;
+    double sigma = cos( alpha - mu ) / sin( alpha ) * D_FIXED;
     
     /* r_vec - Vector length r on X-axis */
-    double r[3] = {r_l, 0, 0};
+    double r[3] = {sigma, 0, 0};
     double r_f[3];
     Rotate_Vector_By_Quaternion( r, &qa, r_f );
     
