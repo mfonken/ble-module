@@ -308,26 +308,24 @@ double IMU_Roll_Error_Get( LSM9DS1_t * imu )
  * \param[out] Return 3D vector of acceleration
  * \param[in] tba Tait-Bryan angles to transform by
  *****************************************************************************/
-vec3_t * IMU_Non_Grav_Get( LSM9DS1_t * imu )
+vec3_t * IMU_Non_Grav_Get( LSM9DS1_t * imu, quaternion_t * q )
 {
     IMU_Update_All( imu );
     
     /* Create a vector of accelerometer values */
-    vec3_t avec;
-    avec.i = imu->data.accel[0];
-    avec.j = imu->data.accel[1];
-    avec.k = imu->data.accel[2];
+    double avec[3];
+    avec[0] = imu->data.accel[0];
+    avec[1] = imu->data.accel[1];
+    avec[2] = imu->data.accel[2];
 
-    ang3_t tba;
-    tba.a = imu->data.roll;
-    tba.b = imu->data.pitch;
-    tba.c = imu->data.yaw;
-    
-    /* Transform and normalize v vector by given angles to get unit vector from camera */
-    vec3_t * atru = zxyTransform( &avec, &tba );
+	double nvec[3];
+	Rotate_Vector_By_Quaternion( avec, q, nvec );
 
-    atru->k += 1; // Negate gravity
-    return atru;
+	vec3_t ngacc;
+	ngacc.i = nvec[0];
+	ngacc.j = nvec[1];
+	ngacc.k = nvec[2] + 1; // Negate gravity
+    return &ngacc;
 }
 
 /******************************************************************************

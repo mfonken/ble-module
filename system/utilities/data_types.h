@@ -15,7 +15,7 @@
 #endif
 
 /* Size should be a power of 2 */
-#define BUFF_SIZE 32
+#define BUFF_SIZE 16
 #define BUFF_SIZE_MASK ( BUFF_SIZE - 1 )
 
 typedef struct

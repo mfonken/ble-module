@@ -39,7 +39,7 @@
 #include "sensor_data_types.h"
 
 #define SYNC_TIMER			TIMER0
-#define SYNC_TIMER_PERIOD 	500
+#define SYNC_TIMER_PERIOD 	30
 
 #define FORCE_TIMER			TIMER1
 #define FORCE_TIMER_PERIOD 	100

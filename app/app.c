@@ -27,12 +27,15 @@ void CameraHandler( void )
 {
 	uint8_t in = USART_Rx( CAM_UART );
 	uint8_t r = Camera_Buffer( in );
-	//USART_Tx( CAM_UART, in );
+
 	if( in == CENTROID_HEAD )
 	{
+		//Print_Line(" ");
 		/* Save latest centroid head index */
 		//cam_index = r - 1;
 	}
+	//Print_Hex( in );
+	//Print_Char(',');
 }
 
 /* Sensor sync timer */
@@ -42,14 +45,13 @@ void SyncTimerHandler( void )
 	disableTimer( SYNC_TIMER );
 	//Print_Line( "Tick. ");
 
-	Kinetic_Update_Rotation( &sensors.synced.imu, &kinetics );
-
 	uint8_t r = Camera_Check( cam_index );
 	if ( r != CAM_NULL_CMD )
 	{
 		Beacon_Compose( sensors.synced.beacons );
+		Kinetic_Update_Rotation( &sensors.synced.imu, &kinetics );
 		Kinetic_Update_Position( &sensors.synced.imu, &kinetics, sensors.synced.beacons );
-		app();
+		//app();
 	}
 	else cam_index++;
 	enableTimer( SYNC_TIMER );
@@ -113,21 +115,21 @@ void app( void )
 //	Print_Double_Ascii( t );
 //	Print_String( "s \r\n" );
 
-//	Print_Char('k');
+//	Print_Char('f');
 //	Print_Char(',');
 //	Print_Double_Ascii( kinetics.rotation[0] );
 //	Print_Char(',');
 //	Print_Double_Ascii( kinetics.rotation[1] );
 //	Print_Char(',');
 //	Print_Double_Ascii( kinetics.rotation[2] );
-
-	Print_String("Coordinates - (");
-	Print_Double_Ascii( kinetics.truePositionFilter[0].value );
-	Print_Char(',');
-	Print_Double_Ascii( kinetics.truePositionFilter[1].value );
-	Print_Char(',');
-	Print_Double_Ascii( kinetics.truePositionFilter[2].value );
-	Print_Line(").");
+//	Print_Line("");
+//	Print_String("Coordinates - (");
+//	Print_Double_Ascii( kinetics.truePositionFilter[0].value );
+//	Print_Char(',');
+//	Print_Double_Ascii( kinetics.truePositionFilter[1].value );
+//	Print_Char(',');
+//	Print_Double_Ascii( kinetics.truePositionFilter[2].value );
+//	Print_Line(").");
 }
 
 void appModeSet( app_t * m )

@@ -73,7 +73,7 @@ extern "C" {
 #define     D_AUG               0
     
 /** Physical distance between beacons */
-#define     BEACON_DISTANCE     1
+#define     D_FIXED     		1
 
 extern LSM9DS1_t this;
 

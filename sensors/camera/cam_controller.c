@@ -48,30 +48,6 @@ void Camera_Disable( void )
 	//RF_Session_End();
 }
 
-void Camera_Print( uint8_t cmd )
-{
-	char out[10];
-	int l = 0;
-	uint8_t n = num_tracked;
-	Print_String("Found " );
-	l = sprintf(out, "%d",n);
-	Print_String( ( uint8_t * )out );
-	Print_String(" centroids.\r\n" );
-	for(int i = 0; i < n; i++)
-	{
-		l = sprintf(out, "%d",i);
-		Print_String( ( uint8_t * )out );
-		Print_Char('>');
-		l = sprintf(out, "%d", beacons[i].centroid.x);
-		Print_String( ( uint8_t * )out );
-		Print_Char('|');
-		l = sprintf(out, "%d", beacons[i].centroid.y);
-		Print_String( ( uint8_t * )out );
-		Print_Char('\r');
-		Print_Char('\n');
-	}
-}
-
 uint8_t Camera_Buffer( uint8_t in )
 {
 	//Print_Hex( in );
@@ -90,7 +66,6 @@ uint8_t Camera_Check( uint8_t index )
 			if( n < 2 ) break;
 
 			centroids.count = n;
-			//n <<= 1;
 			for( uint8_t i = 0 ; i < n; i ++ )
 			{
 				uint8_t read_index = index + ( i * 2 ) + 2;
@@ -104,9 +79,9 @@ uint8_t Camera_Check( uint8_t index )
 				centroids.centroid[i].y = bufferRead( &camera_buffer, read_index + 1 );
 			}
 			Beacon_Check();
-			Print_String("Centroids - ");
-			Print_Int( centroids.count );
-			Print_Line(".");
+//			Print_String("Centroids - ");
+//			Print_Int( centroids.count );
+//			Print_Line(".");
 			enableUARTInterrupt();
 			return centroids.count;
 		}

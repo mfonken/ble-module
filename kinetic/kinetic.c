@@ -136,8 +136,8 @@ void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_
     b[1]   = CAMERA_ALPHA_W * ( ( beacons[1].x / CAMERA_WIDTH  ) - 0.5 ) - b_a[2];
 
     /* Create quaternions (qc is precalculated in init) */
-    Euler_To_Quaternion( &p_a, &qp );
-    Euler_To_Quaternion( &b_a, &qb );
+    Euler_To_Quaternion( p_a, &qp );
+    Euler_To_Quaternion( b_a, &qb );
     Quaternion_Combine( &qp, &qc, &qb, &qa );
     
     /* Mu - Angle between d' to X-axis of reference ( mu = acos(X.x) ) */
@@ -155,8 +155,17 @@ void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_
     double r_f[3];
     Rotate_Vector_By_Quaternion( r, &qa, r_f );
     
+    Print_Char('p');
+	Print_Double_Ascii( r_f[0] );
+	Print_Char(',');
+	Print_Double_Ascii( r_f[1] );
+	Print_Char(',');
+	Print_Double_Ascii( r_f[2] );
+	Print_Line("");
+    return;
+
     /* Get non-gravitational acceleration */
-    vec3_t ngacc = *( IMU_Non_Grav_Get( imu ) );
+    vec3_t ngacc = *( IMU_Non_Grav_Get( imu, &qa ) );
     double delta_time = 0;
 
     /* Filter calculated r_vec with acceleration > velocity */
@@ -179,5 +188,5 @@ void Camera_Rotation_Init( void )
     c_a[0] = CAMERA_OFFSET_ANGLE_X;
     c_a[1] = CAMERA_OFFSET_ANGLE_Y;
     c_a[2] = CAMERA_OFFSET_ANGLE_Z;
-    Euler_To_Quaternion( &c_a, &qc );
+    Euler_To_Quaternion( c_a, &qc );
 }

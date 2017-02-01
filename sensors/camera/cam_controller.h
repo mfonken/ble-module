@@ -34,13 +34,16 @@
 #define	CAMERA_HEIGHT	800
 #define CAMERA_ALPHA_W	128
 #define	CAMERA_ALPHA_H	80
+#define CAMERA_OFFSET_ANGLE_X 0
+#define CAMERA_OFFSET_ANGLE_Y 0
+#define CAMERA_OFFSET_ANGLE_Z 0
 
 #define MAX_TRACK_COUNT	6
 
 #define MAX_TRACK_AGE	1000 // In milliseconds
 
-#define MAX_X_DIFF		3
-#define MAX_Y_DIFF		3
+#define MAX_X_DIFF		4
+#define MAX_Y_DIFF		4
 
 extern uint32_t		beacon_vector[2];
 extern centroids_t	centroids;

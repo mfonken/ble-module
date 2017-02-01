@@ -123,7 +123,7 @@ double IMU_Roll_Error_Get( LSM9DS1_t * );
  * \param[out] Return 3D vector of acceleration
  * \param[in] tba Tait-Bryan angles to transform by
  *****************************************************************************/
-vec3_t * IMU_Non_Grav_Get( LSM9DS1_t * );
+vec3_t * IMU_Non_Grav_Get( LSM9DS1_t * imu, quaternion_t * q );
 
 /**************************************************************************//**
  * \brief Read temperature from register
