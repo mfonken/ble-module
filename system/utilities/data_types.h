@@ -10,8 +10,8 @@
 
 #include <stdint.h>
 
-#ifndef NULL
-#define NULL 0xff
+#ifndef B_NULL
+#define B_NULL 0xff
 #endif
 
 /* Size should be a power of 2 */
@@ -26,5 +26,6 @@ typedef struct
 
 uint8_t bufferAdd(  buffer_t * b, uint8_t v );
 uint8_t bufferRead( buffer_t * b, uint8_t i );
+void    bufferReset( buffer_t * b );
 
 #endif /* SYSTEM_UTILITIES_DATA_TYPES_H_ */

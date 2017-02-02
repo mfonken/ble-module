@@ -21,6 +21,8 @@ uint32_t	beacon_vector[2];
 
 uint8_t		centroids_to_buffer;
 
+uint8_t     last_index;
+
 /****************************************************************//**
  * Camera Communication Functions
  *******************************************************************/
@@ -28,24 +30,25 @@ uint8_t		centroids_to_buffer;
 void Camera_Init( void )
 {
     /* TODO: Needs to be HW enabled and probably init every use */
-	Print_Char( CAMERA_INIT );
-	uint8_t n = Read_Char();
-	num_tracked = 0;
-	centroids_to_buffer = 0;
+    Print_Char( CAMERA_INIT );
+    uint8_t n = Read_Char();
+    num_tracked = 0;
+    centroids_to_buffer = 0;
+    bufferReset( &camera_buffer );
 }
 
 void Camera_Enable( void )
 {
-	SYSCTL_Enable_Camera();
-	NVIC_EnableIRQ(USART0_RX_IRQn);
-	//RF_Session_Init( DEFAULT_BEACON_INTENSITY, DEFAULT_BEACON_DURATION );
+    SYSCTL_Enable_Camera();
+    NVIC_EnableIRQ(USART0_RX_IRQn);
+    //RF_Session_Init( DEFAULT_BEACON_INTENSITY, DEFAULT_BEACON_DURATION );
 }
 
 void Camera_Disable( void )
 {
-	SYSCTL_Disable_Camera();
-	NVIC_DisableIRQ(USART0_RX_IRQn);
-	//RF_Session_End();
+    SYSCTL_Disable_Camera();
+    NVIC_DisableIRQ(USART0_RX_IRQn);
+    //RF_Session_End();
 }
 
 uint8_t Camera_Buffer( uint8_t in )
@@ -54,24 +57,34 @@ uint8_t Camera_Buffer( uint8_t in )
 	return bufferAdd( &camera_buffer, in );
 }
 
-uint8_t Camera_Check( uint8_t index )
+uint8_t Camera_Check( void )
 {
 	disableUARTInterrupt();
-	uint8_t end = ( index - 1 ) & BUFF_SIZE_MASK;
+    uint8_t index = last_index;
+    uint8_t end = camera_buffer,index;
 	while( index != end )
 	{
 		if( bufferRead( &camera_buffer, index ) == CENTROID_HEAD )
 		{
 			uint8_t n = bufferRead( &camera_buffer, index + 1 );
-			if( n < 2 ) break;
-
+            if( n < 2 )
+            {
+                last_index = index + 1;
+                goto invalid;
+            }
+            if( n == B_NULL ) goto null;
 			centroids.count = n;
 			for( uint8_t i = 0 ; i < n; i ++ )
 			{
-				uint8_t read_index = index + ( i * 2 ) + 2;
-				if ( read_index == camera_buffer.index || ( read_index + 1 ) == camera_buffer.index)
-				{
+                uint8_t index1,index2;
+                index1 = index + ( i * 2 ) + 2;
+                index2 = index1 + 1;
+                index1 &= BUFF_SIZE_MASK;
+                index2 &= BUFF_SIZE_MASK;
+                if ( index1 == camera_buffer.index || index2 == camera_buffer.index)
+                {
 					centroids.count = 0;
+                    last_index = index;
 					enableUARTInterrupt();
 					return CAM_NULL_CMD;
 				}
@@ -79,14 +92,15 @@ uint8_t Camera_Check( uint8_t index )
 				centroids.centroid[i].y = bufferRead( &camera_buffer, read_index + 1 );
 			}
 			Beacon_Check();
-//			Print_String("Centroids - ");
-//			Print_Int( centroids.count );
-//			Print_Line(".");
+            bufferReset( &camera_buffer );
 			enableUARTInterrupt();
 			return centroids.count;
 		}
+null:
         index++;
+        index &= BUFF_SIZE_MASK;
 	}
+invalid:
 	enableUARTInterrupt();
 	return CAM_NULL_CMD;
 }
@@ -115,6 +129,7 @@ void Beacon_Check( void )
 			{
 				claimed = true;
 				Beacon_Update( j, &centroids.centroid[i]);
+                j++;
 			}
 		}
 		if( !claimed )
@@ -157,10 +172,10 @@ void Beacon_Copy( centroid_t * a, centroid_t * b)
 	a->y = b->y;
 }
 
-void Beacon_Sort( uint8_t index )
+void Beacon_Sort( void )
 {
 	/* Sudo resort by persistence */
-    for( int i = index; i < num_tracked; i++ )
+    for( int i = 0; i < ( num_tracked - 1 ); i++ )
     {
         if( beacons[map[i]].persistence < beacons[map[i+1]].persistence )
         {
@@ -193,5 +208,5 @@ void Beacon_Update( uint8_t index, centroid_t * b )
 	beacons[map[index]].persistence++;
 
 	Beacon_Perge();
-	Beacon_Sort( index );
+	Beacon_Sort();
 }

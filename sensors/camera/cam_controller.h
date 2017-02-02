@@ -52,7 +52,7 @@ extern buffer_t 	camera_buffer;
 
 void 	Camera_Init(	void );
 void 	Camera_Read( 	void );
-uint8_t Camera_Check(  	uint8_t );
+uint8_t Camera_Check(  	void );
 uint8_t Camera_Buffer(  uint8_t );
 void	Camera_Enable(	void );
 void	Camera_Disable(	void );
@@ -65,7 +65,7 @@ bool	Beacon_Compose( cartesian2_t [2] );
 void 	Beacon_Copy( 	centroid_t *, centroid_t * );
 void 	Beacon_Get(     centroid_t [2] );
 void	Beacon_Perge( 	void );
-void 	Beacon_Sort( 	uint8_t );
+void 	Beacon_Sort( 	void );
 void 	Beacon_Update( 	uint8_t, centroid_t * );
 
 #endif /* SENSORS_CAMERA_CAM_CONTROLLER_H_ */
