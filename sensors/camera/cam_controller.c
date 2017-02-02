@@ -85,8 +85,7 @@ uint8_t Camera_Check( uint8_t index )
 			enableUARTInterrupt();
 			return centroids.count;
 		}
-		index++;
-		index &= BUFF_SIZE_MASK;
+        index++;
 	}
 	enableUARTInterrupt();
 	return CAM_NULL_CMD;
@@ -158,22 +157,19 @@ void Beacon_Copy( centroid_t * a, centroid_t * b)
 	a->y = b->y;
 }
 
-void Beacon_Sort( uint8_t starting_index )
+void Beacon_Sort( uint8_t index )
 {
 	/* Sudo resort by persistence */
-	if( starting_index > 1 )
-		{
-			for( int i = starting_index; i < num_tracked; i++ )
-			{
-				if( beacons[map[i]].persistence < beacons[map[i+1]].persistence )
-				{
-					/* Swap index in map */
-					uint8_t temp = map[i];
-					map[i] = map[i+1];
-					map[i+1] = temp;
-				}
-			}
-		}
+    for( int i = index; i < num_tracked; i++ )
+    {
+        if( beacons[map[i]].persistence < beacons[map[i+1]].persistence )
+        {
+            /* Swap index in map */
+            uint8_t temp = map[i];
+            map[i] = map[i+1];
+            map[i+1] = temp;
+        }
+    }
 }
 
 void Beacon_Perge( void )

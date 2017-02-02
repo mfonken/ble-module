@@ -142,7 +142,7 @@ void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_
     
     /* Mu - Angle between d' to X-axis of reference ( mu = acos(X.x) ) */
     /* NOTE: This uses the homogenized orthogonal rotation matrix */
-    double mu = acos( 1 - 2 * ( qa.y * qa.y + qa.z * qa.z )Non );
+    double mu = acos( 1 - 2 * ( qa.y * qa.y + qa.z * qa.z ) );
     
     /* Sigma - Angle between beacons */
     double alpha = acos( cos( b[0] ) * cos( b[1] ) );
