@@ -42,8 +42,8 @@
 
 #define MAX_TRACK_AGE	1000 // In milliseconds
 
-#define MAX_X_DIFF		4
-#define MAX_Y_DIFF		4
+#define MAX_X_DIFF		2
+#define MAX_Y_DIFF		2
 
 extern uint32_t		beacon_vector[2];
 extern centroids_t	centroids;

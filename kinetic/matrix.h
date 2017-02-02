@@ -62,7 +62,7 @@ double get2dDistance( cartesian2_t *a, cartesian2_t *b );
 /** @} (end addtogroup kinetic) */
 /** @} (end addtogroup Application) */
 
-void multiplyVec3x1( double a[3][3], double b[3], double c[3] );
+void Multiply_Vec_3x1( double a[3][3], double b[3], double c[3] );
 void Quaternion_To_Matrix(quaternion_t * quat, double m[3][3]);
 void Euler_To_Quaternion( double a[3], quaternion_t * quat );
 void Quaternion_Combine(quaternion_t * a, quaternion_t * b, quaternion_t * c, quaternion_t * d );

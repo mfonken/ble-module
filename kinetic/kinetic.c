@@ -120,20 +120,37 @@ void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_
 {
     /* Tait-Bryan (intrinsic) angles of device */
     double p_a[3];
-    p_a[0] = kinetics->rotationFilter[0].value; // phi'
-    p_a[1] = kinetics->rotationFilter[1].value; // theta'
-    p_a[2] = kinetics->rotationFilter[2].value; // psi'
+    p_a[1] = kinetics->rotationFilter[0].value; // phi'
+    p_a[0] = kinetics->rotationFilter[1].value; // theta'
+    p_a[2] = kinetics->rotationFilter[2].value + PI; // psi'
     
+    Print_Char('a');
+	Print_Double_Ascii( p_a[0] );
+	Print_Char(',');
+	Print_Double_Ascii( p_a[1] );
+	Print_Char(',');
+	Print_Double_Ascii( p_a[2] );
+	Print_Char(',');
     /* Calculate beacon angles */
     double b_a[3], b[2];
     /* Get first beacon angles */
     b_a[0] = 0;
-    b_a[1] = CAMERA_ALPHA_H * ( ( beacons[0].y / CAMERA_HEIGHT ) - 0.5 );
-    b_a[2] = CAMERA_ALPHA_W * ( ( beacons[0].x / CAMERA_WIDTH  ) - 0.5 );
+    b_a[1] = CAMERA_ALPHA_H * DEG_TO_RAD * ( ( beacons[0].y / CAMERA_HEIGHT ) - 0.5 );
+    b_a[2] = CAMERA_ALPHA_W * DEG_TO_RAD * ( ( beacons[0].x / CAMERA_WIDTH  ) - 0.5 );
     
     /* Get angles between beacons */
     b[0]   = CAMERA_ALPHA_H * ( ( beacons[1].y / CAMERA_HEIGHT ) - 0.5 ) - b_a[1];
     b[1]   = CAMERA_ALPHA_W * ( ( beacons[1].x / CAMERA_WIDTH  ) - 0.5 ) - b_a[2];
+
+    Print_String("b, (");
+   	Print_Double_Ascii( beacons[0].x );
+   	Print_Char(',');
+   	Print_Double_Ascii( beacons[0].y );
+   	Print_String(") (");
+   	Print_Double_Ascii( beacons[1].x );
+	Print_Char(',');
+	Print_Double_Ascii( beacons[1].y );
+	Print_Line(")");
 
     /* Create quaternions (qc is precalculated in init) */
     Euler_To_Quaternion( p_a, &qp );
@@ -158,6 +175,7 @@ void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_
     Multiply_Vec_3x1( m, r, r_f );
     
     Print_Char('p');
+    Print_Char(',');
 	Print_Double_Ascii( r_f[0] );
 	Print_Char(',');
 	Print_Double_Ascii( r_f[1] );

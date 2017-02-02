@@ -119,7 +119,7 @@ void main(void)
     struct gecko_cmd_packet* evt;
 
     /* Check for stack event. */
-    evt = gecko_wait_event();
+    evt = gecko_peek_event();
 
     /* Handle events */
     switch (BGLIB_MSG_ID(evt->header)) {

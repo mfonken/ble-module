@@ -53,8 +53,8 @@ void Camera_Disable( void )
 
 uint8_t Camera_Buffer( uint8_t in )
 {
-	//Print_Hex( in );
-	return bufferAdd( &camera_buffer, in );
+	uint8_t r = bufferAdd( &camera_buffer, in );
+	return r;
 }
 
 uint8_t Camera_Check( void )
@@ -185,6 +185,21 @@ void Beacon_Sort( void )
             map[i+1] = temp;
         }
     }
+=======
+	if( starting_index > 1 )
+	{
+		for( int i = starting_index; i < num_tracked; i++ )
+		{
+			if( beacons[map[i]].persistence < beacons[map[i+1]].persistence )
+			{
+				/* Swap index in map */
+				uint8_t temp = map[i];
+				map[i] = map[i+1];
+				map[i+1] = temp;
+			}
+		}
+	}
+>>>>>>> Stashed changes
 }
 
 void Beacon_Perge( void )
@@ -192,7 +207,9 @@ void Beacon_Perge( void )
 	uint8_t perged = 0;
 	for( int i = 0; i < num_tracked; i++ )
 	{
-		if( ( timestamp() - beacons[map[i]].timestamp ) > MAX_TRACK_AGE )
+		uint32_t t = timestamp();
+		uint32_t diff = t - beacons[map[i]].timestamp;
+		if( diff > MAX_TRACK_AGE )
 		{
 			map[i] = map[i + 1 + perged];
 			perged++;

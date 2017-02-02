@@ -27,15 +27,7 @@ void CameraHandler( void )
 {
 	uint8_t in = USART_Rx( CAM_UART );
 	uint8_t r = Camera_Buffer( in );
-
-	if( in == CENTROID_HEAD )
-	{
-		//Print_Line(" ");
-		/* Save latest centroid head index */
-		//cam_index = r - 1;
-	}
 	//Print_Hex( in );
-	//Print_Char(',');
 }
 
 /* Sensor sync timer */
@@ -43,7 +35,9 @@ void CameraHandler( void )
 void SyncTimerHandler( void )
 {
 	disableTimer( SYNC_TIMER );
-	//Print_Line( "Tick. ");
+//	Kinetic_Update_Rotation( &sensors.synced.imu, &kinetics );
+//	app();
+//	Print_Char('.');
 
 	uint8_t r = Camera_Check( cam_index );
 	if ( r != CAM_NULL_CMD )
@@ -91,14 +85,14 @@ void app_init( void )
 {
 	USART0->IEN = USART_IEN_RXDATAV;
     registerCallback( &CameraHandler, USART0_RX_IRQn );
-    
+
     IMU_Init( &sensors.synced.imu );
     Print_Line( "IMU Initialized." );
     Kinetic_Init( &sensors.synced.imu, &kinetics );
 	Print_Line( "Kinetic Initialized." );
 
 	registerTimer( &SyncTimerHandler, SYNC_TIMER, SYNC_TIMER_PERIOD );
-	//registerTimer( ForceTimerHandler, FORCE_TIMER, FORCE_TIMER_PERIOD );
+//	registerTimer( &ForceTimerHandler, FORCE_TIMER, FORCE_TIMER_PERIOD );
 
 	mode._2d = _2D_MODE_DEFAULT;
 	mode._3d = _3D_MODE_DEFAULT;
@@ -115,14 +109,14 @@ void app( void )
 //	Print_Double_Ascii( t );
 //	Print_String( "s \r\n" );
 
-//	Print_Char('f');
-//	Print_Char(',');
-//	Print_Double_Ascii( kinetics.rotation[0] );
-//	Print_Char(',');
-//	Print_Double_Ascii( kinetics.rotation[1] );
-//	Print_Char(',');
-//	Print_Double_Ascii( kinetics.rotation[2] );
-//	Print_Line("");
+	Print_Char('f');
+	Print_Char(',');
+	Print_Double_Ascii( kinetics.rotation[0] );
+	Print_Char(',');
+	Print_Double_Ascii( kinetics.rotation[1] );
+	Print_Char(',');
+	Print_Double_Ascii( kinetics.rotation[2] );
+	Print_Line("");
 //	Print_String("Coordinates - (");
 //	Print_Double_Ascii( kinetics.truePositionFilter[0].value );
 //	Print_Char(',');

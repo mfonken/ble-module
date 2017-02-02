@@ -23,7 +23,6 @@
 #include "CPT112S.h"
 
 sync_t sync;
-//callback_f callbacks[NUM_AVAILABLE_IRQ];
 callback_f (*callbacks[NUM_AVAILABLE_IRQ]);
 
 void sensorSyncSet( sync_t * s )
@@ -80,9 +79,7 @@ void registerTimer( callback_f * callback, TIMER_TypeDef * timer, uint32_t perio
 	TIMER_Init( timer, &timerInit );
 
 	/* Set TIMER Top value */
-	uint32_t p;
-	p = TICK_TO_MS;
-	p *= period;
+	uint32_t p = TICK_TO_MS * period;
 	TIMER_TopSet( timer, p );
 
 	/* Enable timer interrupt vector in NVIC */
