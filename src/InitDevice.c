@@ -299,7 +299,7 @@ extern void USART0_enter_DefaultMode_from_RESET(void) {
 	USART_InitAsync_TypeDef initasync = USART_INITASYNC_DEFAULT;
 
 	initasync.enable = usartDisable;
-	initasync.baudrate = 57600;
+	initasync.baudrate = 460800;
 	initasync.databits = usartDatabits8;
 	initasync.parity = usartNoParity;
 	initasync.stopbits = usartStopbits1;

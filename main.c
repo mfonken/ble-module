@@ -107,7 +107,7 @@ void main(void)
 
   /* Initialize stack */
   gecko_init(&config);
-    
+
   /* Initialize system hardware */
   startup();
 

@@ -40,16 +40,19 @@
 
 #define MAX_TRACK_COUNT	6
 
-#define MAX_TRACK_AGE	1000 // In milliseconds
+#define MAX_TRACK_AGE	500 // In milliseconds ?
 
-#define MAX_X_DIFF		2
-#define MAX_Y_DIFF		2
+#define MIN_CENTROID_MASS 200
+
+#define MAX_X_DIFF		30
+#define MAX_Y_DIFF		30
+#define MAX_M_DIFF      50
 
 extern uint32_t		beacon_vector[2];
 extern centroids_t	centroids;
 extern beacon_t 	beacons[MAX_CENTROIDS];
 extern buffer_t 	camera_buffer;
-
+void Print_Beacons( void );
 void 	Camera_Init(	void );
 void 	Camera_Read( 	void );
 uint8_t Camera_Check(  	void );

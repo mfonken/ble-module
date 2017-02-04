@@ -314,12 +314,19 @@ vec3_t * IMU_Non_Grav_Get( LSM9DS1_t * imu, quaternion_t * q )
     
     /* Create a vector of accelerometer values */
     double avec[3];
-    avec[0] = imu->data.accel[0];
-    avec[1] = imu->data.accel[1];
-    avec[2] = imu->data.accel[2];
+    avec[0] = -imu->data.accel[0];
+    avec[1] = -imu->data.accel[1];
+    avec[2] = -imu->data.accel[2];
 
 	double nvec[3];
-	Rotate_Vector_By_Quaternion( avec, q, nvec );
+	double m[3][3];
+	Quaternion_To_Matrix( q, m );
+	Multiply_Vec_3x1( m, avec, nvec );
+
+	double a[3];
+	a[0] = atan2(2*(q->w*q->x+q->y*q->z),1-2*(q->x*q->x+q->y*q->y)) * 57.295779; //yaw
+	a[1] = asin(2*((q->w*q->y) - (q->z*q->x))) * 57.295779;// roll
+	a[2] = atan2(2*(q->w*q->z+q->x*q->y),1-2*(q->y*q->y+q->z*q->z)) * 57.295779; // pitch
 
 	vec3_t ngacc;
 	ngacc.i = nvec[0];

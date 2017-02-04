@@ -122,15 +122,27 @@ void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_
     double p_a[3];
     p_a[1] = kinetics->rotationFilter[0].value; // phi'
     p_a[0] = kinetics->rotationFilter[1].value; // theta'
-    p_a[2] = kinetics->rotationFilter[2].value + PI; // psi'
+    p_a[2] = kinetics->rotationFilter[2].value; // psi'
     
-    Print_Char('a');
+    Print_String("angles - (");
 	Print_Double_Ascii( p_a[0] );
 	Print_Char(',');
 	Print_Double_Ascii( p_a[1] );
 	Print_Char(',');
 	Print_Double_Ascii( p_a[2] );
-	Print_Char(',');
+	Print_Line(")");
+	return;
+
+//	Print_String("beacons - (");
+//	Print_Double_Ascii( beacons[0].x );
+//	Print_Char(',');
+//	Print_Double_Ascii( beacons[0].y );
+//	Print_String(") (");
+//	Print_Double_Ascii( beacons[1].x );
+//	Print_Char(',');
+//	Print_Double_Ascii( beacons[1].y );
+//	Print_Line(")");
+
     /* Calculate beacon angles */
     double b_a[3], b[2];
     /* Get first beacon angles */
@@ -139,23 +151,21 @@ void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_
     b_a[2] = CAMERA_ALPHA_W * DEG_TO_RAD * ( ( beacons[0].x / CAMERA_WIDTH  ) - 0.5 );
     
     /* Get angles between beacons */
-    b[0]   = CAMERA_ALPHA_H * ( ( beacons[1].y / CAMERA_HEIGHT ) - 0.5 ) - b_a[1];
-    b[1]   = CAMERA_ALPHA_W * ( ( beacons[1].x / CAMERA_WIDTH  ) - 0.5 ) - b_a[2];
+    b[0]   = CAMERA_ALPHA_H * DEG_TO_RAD * ( ( beacons[1].y / CAMERA_HEIGHT ) - 0.5 ) - b_a[1];
+    b[1]   = CAMERA_ALPHA_W * DEG_TO_RAD * ( ( beacons[1].x / CAMERA_WIDTH  ) - 0.5 ) - b_a[2];
 
-    Print_String("b, (");
-   	Print_Double_Ascii( beacons[0].x );
-   	Print_Char(',');
-   	Print_Double_Ascii( beacons[0].y );
-   	Print_String(") (");
-   	Print_Double_Ascii( beacons[1].x );
-	Print_Char(',');
-	Print_Double_Ascii( beacons[1].y );
-	Print_Line(")");
+//    Print_String("beacons - (");
+//	Print_Double_Ascii( b_a[0] );
+//	Print_Char(',');
+//	Print_Double_Ascii( b_a[1] );
+//	Print_Char(',');
+//	Print_Double_Ascii( b_a[2] );
+//	Print_Line(")");
 
     /* Create quaternions (qc is precalculated in init) */
     Euler_To_Quaternion( p_a, &qp );
     Euler_To_Quaternion( b_a, &qb );
-    Quaternion_Combine( &qp, &qc, &qb, &qa );
+    //Quaternion_Combine( &qp, &qc, &qb, &qa );
     
     /* Mu - Angle between d' to X-axis of reference ( mu = acos(X.x) ) */
     /* NOTE: This uses the homogenized orthogonal rotation matrix */
@@ -171,7 +181,7 @@ void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_
     double r[3] = {sigma, 0, 0};
     double r_f[3];
     double m[3][3];
-    Quaternion_To_Matrix( &qa, m );
+    Quaternion_To_Matrix( &qp, m );
     Multiply_Vec_3x1( m, r, r_f );
     
     Print_Char('p');
@@ -185,18 +195,25 @@ void Kinetic_Update_Position( LSM9DS1_t * imu, kinetic_t * kinetics, cartesian2_
     return;
 
     /* Get non-gravitational acceleration */
-    vec3_t ngacc = *( IMU_Non_Grav_Get( imu, &qa ) );
+    vec3_t ngacc = *( IMU_Non_Grav_Get( imu, &qp ) );
     double delta_time = 0;
-
+    kinetics->truePositionFilter[0].value = ngacc.i;
+    kinetics->truePositionFilter[1].value = ngacc.j;
+    kinetics->truePositionFilter[2].value = ngacc.k;
+    return;
     /* Filter calculated r_vec with acceleration > velocity */
+    float n;
+    n = kinetics->truePositionFilter[0].value;
     delta_time = seconds_since( kinetics->truePositionFilter[0].timestamp );
     double x_vel = ngacc.i * delta_time;
     Kalman_Update( &kinetics->truePositionFilter[0], r_f[0], x_vel, delta_time );
 
+    n = kinetics->truePositionFilter[1].value;
     delta_time = seconds_since( kinetics->truePositionFilter[1].timestamp );
 	double y_vel = ngacc.j * delta_time;
 	Kalman_Update( &kinetics->truePositionFilter[1], r_f[1], y_vel, delta_time );
 
+	n = kinetics->truePositionFilter[2].value;
 	delta_time = seconds_since( kinetics->truePositionFilter[2].timestamp );
 	double z_vel = ngacc.k * delta_time;
 	Kalman_Update( &kinetics->truePositionFilter[2], r_f[2], z_vel, delta_time );

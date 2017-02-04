@@ -11,12 +11,13 @@
 #include "LSM9DS1.h"
 #include "kinetic_types.h"
 
-#define MAX_CENTROIDS	6
+#define MAX_CENTROIDS	32
 
 typedef struct
 {
-	uint8_t 	x;
-	uint8_t 	y;
+	uint16_t 	x;
+	uint16_t 	y;
+	uint16_t    m;
 } centroid_t;
 
 typedef struct

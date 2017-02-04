@@ -71,7 +71,6 @@
 								<option id="iar.arm.toolchain.compiler.option.cpuMode.v5.4.0.1329574544" name="Processor mode:" superClass="iar.arm.toolchain.compiler.option.cpuMode.v5.4.0" value="iar.arm.toolchain.compiler.option.cpuMode.thumb.v5.4.0" valueType="enumerated"/>
 								<option id="iar.arm.toolchain.compiler.option.incPaths.v5.4.0.1916666948" name="Additional include directories" superClass="iar.arm.toolchain.compiler.option.incPaths.v5.4.0" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/sensors/camera}&quot;"/>
-									<listOptionValue builtIn="false" value="C:/Users/Matthew%2525252525252525252525252525252525252525252525252525252525252525252525252525252525252520Fonken/SimplicityStudio/v4_workspace/ble-module/src"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/app}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/hardware/kit/common/bsp&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/kinetic}&quot;"/>
@@ -91,22 +90,23 @@
 									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/ustimer/config&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/ble}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/dmadrv/config&quot;"/>
+									<listOptionValue builtIn="false" value="C:/Users/Matthew%25252525252525252525252525252525252525252525252525252525252525252525252525252525252520Fonken/SimplicityStudio/v4_workspace/ble-module"/>
 									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/tempdrv/config&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/sensors/imu}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/uartdrv/config&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/system/utilities}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/sensors}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/tempdrv/inc&quot;"/>
+									<listOptionValue builtIn="false" value="C:/Users/Matthew%25252525252525252525252525252525252525252525252525252525252525252525252525252525252520Fonken/SimplicityStudio/v4_workspace/ble-module/src"/>
+									<listOptionValue builtIn="false" value="C:/Users/Matthew%252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252520Fonken/SimplicityStudio/v4_workspace/ble-module"/>
 									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/nvm/config&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/sleep/inc&quot;"/>
+									<listOptionValue builtIn="false" value="C:/Users/Matthew%252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252520Fonken/SimplicityStudio/v4_workspace/ble-module/src"/>
 									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/Device/SiliconLabs/EFR32BG1B/Include&quot;"/>
-									<listOptionValue builtIn="false" value="C:/Users/Matthew%252525252525252525252525252525252525252525252525252525252525252525252525252520Fonken/SimplicityStudio/v4_workspace/ble-module"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/system}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/nvm/inc&quot;"/>
-									<listOptionValue builtIn="false" value="C:/Users/Matthew%2525252525252525252525252525252525252525252525252525252525252525252525252525252525252520Fonken/SimplicityStudio/v4_workspace/ble-module"/>
 									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/common/inc&quot;"/>
-									<listOptionValue builtIn="false" value="C:/Users/Matthew%252525252525252525252525252525252525252525252525252525252525252525252525252520Fonken/SimplicityStudio/v4_workspace/ble-module/src"/>
 									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/protocol/bluetooth_2.1/ble_stack/inc/common&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/protocol/bluetooth_2.1/ble_stack/inc/soc&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emlib/inc&quot;"/>
@@ -157,7 +157,6 @@
 								<option defaultValue="true" id="iar.arm.toolchain.assembler.option.debugInfo.v5.4.0.577691118" name="Generate debug information" superClass="iar.arm.toolchain.assembler.option.debugInfo.v5.4.0" valueType="boolean"/>
 								<option id="iar.arm.toolchain.assembler.option.includePaths.v5.4.0.1563421176" name="Additional include directories:" superClass="iar.arm.toolchain.assembler.option.includePaths.v5.4.0" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/sensors/camera}&quot;"/>
-									<listOptionValue builtIn="false" value="C:/Users/Matthew%2525252525252525252525252525252525252525252525252525252525252525252525252525252525252520Fonken/SimplicityStudio/v4_workspace/ble-module/src"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/app}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/hardware/kit/common/bsp&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/kinetic}&quot;"/>
@@ -177,22 +176,23 @@
 									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/ustimer/config&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/ble}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/dmadrv/config&quot;"/>
+									<listOptionValue builtIn="false" value="C:/Users/Matthew%25252525252525252525252525252525252525252525252525252525252525252525252525252525252520Fonken/SimplicityStudio/v4_workspace/ble-module"/>
 									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/tempdrv/config&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/sensors/imu}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/uartdrv/config&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/system/utilities}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/sensors}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/tempdrv/inc&quot;"/>
+									<listOptionValue builtIn="false" value="C:/Users/Matthew%25252525252525252525252525252525252525252525252525252525252525252525252525252525252520Fonken/SimplicityStudio/v4_workspace/ble-module/src"/>
+									<listOptionValue builtIn="false" value="C:/Users/Matthew%252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252520Fonken/SimplicityStudio/v4_workspace/ble-module"/>
 									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/nvm/config&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/sleep/inc&quot;"/>
+									<listOptionValue builtIn="false" value="C:/Users/Matthew%252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252520Fonken/SimplicityStudio/v4_workspace/ble-module/src"/>
 									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/Device/SiliconLabs/EFR32BG1B/Include&quot;"/>
-									<listOptionValue builtIn="false" value="C:/Users/Matthew%252525252525252525252525252525252525252525252525252525252525252525252525252520Fonken/SimplicityStudio/v4_workspace/ble-module"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/system}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/nvm/inc&quot;"/>
-									<listOptionValue builtIn="false" value="C:/Users/Matthew%2525252525252525252525252525252525252525252525252525252525252525252525252525252525252520Fonken/SimplicityStudio/v4_workspace/ble-module"/>
 									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emdrv/common/inc&quot;"/>
-									<listOptionValue builtIn="false" value="C:/Users/Matthew%252525252525252525252525252525252525252525252525252525252525252525252525252520Fonken/SimplicityStudio/v4_workspace/ble-module/src"/>
 									<listOptionValue builtIn="false" value="&quot;${StudioSdkPath}/platform/emlib/inc&quot;"/>
 								</option>
 								<option id="iar.arm.toolchain.assembler.option.quoteCharacters.v5.4.0.866449664" name="Macro quote characters:" superClass="iar.arm.toolchain.assembler.option.quoteCharacters.v5.4.0"/>

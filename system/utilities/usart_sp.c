@@ -90,7 +90,7 @@ void Print_Hex( uint8_t c )
 	Print_String( s );
 }
 
-void Print_Int( uint8_t c )
+void Print_Int( int c )
 {
 	char * s = itoa(c, 10);
 	Print_String( s );

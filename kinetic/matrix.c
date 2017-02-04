@@ -107,14 +107,9 @@ double get2dDistance( cartesian2_t *a, cartesian2_t *b )
 
 void Multiply_Vec_3x1( double a[3][3], double b[3], double c[3] )
 {
-    double r[3] = {0,0,0};
     for( int i = 0; i < 3; i++ )
     {
-        r[i] = a[i][0] * b[0] + a[i][1] * b[1] + a[i][2] * b[2];
-    }
-    for( int i = 0; i < 3; i++ )
-    {
-        c[i] = r[i];
+        c[i] = a[i][0] * b[0] + a[i][1] * b[1] + a[i][2] * b[2];
     }
 }
 

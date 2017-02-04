@@ -27,7 +27,6 @@ void CameraHandler( void )
 {
 	uint8_t in = USART_Rx( CAM_UART );
 	uint8_t r = Camera_Buffer( in );
-	//Print_Hex( in );
 }
 
 /* Sensor sync timer */
@@ -39,15 +38,17 @@ void SyncTimerHandler( void )
 //	app();
 //	Print_Char('.');
 
-	uint8_t r = Camera_Check( cam_index );
+	uint8_t r = Camera_Check();
+
+	Print_Beacons();
 	if ( r != CAM_NULL_CMD )
 	{
-		Beacon_Compose( sensors.synced.beacons );
-		Kinetic_Update_Rotation( &sensors.synced.imu, &kinetics );
-		Kinetic_Update_Position( &sensors.synced.imu, &kinetics, sensors.synced.beacons );
-		//app();
+//		Beacon_Compose( sensors.synced.beacons );
+//		Kinetic_Update_Rotation( &sensors.synced.imu, &kinetics );
+//		Kinetic_Update_Position( &sensors.synced.imu, &kinetics, sensors.synced.beacons );
+
+//		app();
 	}
-	else cam_index++;
 	enableTimer( SYNC_TIMER );
 }
 
@@ -102,6 +103,7 @@ void app_init( void )
 
 void app( void )
 {
+//	Print_Beacons();
 //	Print_String( "\tTick - " );
 //	double t;
 //	t = (double)timestamp();
@@ -109,21 +111,21 @@ void app( void )
 //	Print_Double_Ascii( t );
 //	Print_String( "s \r\n" );
 
-	Print_Char('f');
-	Print_Char(',');
-	Print_Double_Ascii( kinetics.rotation[0] );
-	Print_Char(',');
-	Print_Double_Ascii( kinetics.rotation[1] );
-	Print_Char(',');
-	Print_Double_Ascii( kinetics.rotation[2] );
-	Print_Line("");
-//	Print_String("Coordinates - (");
-//	Print_Double_Ascii( kinetics.truePositionFilter[0].value );
+//	Print_Char('f');
 //	Print_Char(',');
-//	Print_Double_Ascii( kinetics.truePositionFilter[1].value );
+//	Print_Double_Ascii( kinetics.rotation[0] * 57.295779 );
 //	Print_Char(',');
-//	Print_Double_Ascii( kinetics.truePositionFilter[2].value );
-//	Print_Line(").");
+//	Print_Double_Ascii( kinetics.rotation[1] * 57.295779 );
+//	Print_Char(',');
+//	Print_Double_Ascii( kinetics.rotation[2] * 57.295779 );
+//	Print_Line("");
+	Print_String("Coordinates - (");
+	Print_Double_Ascii( kinetics.truePositionFilter[0].value );
+	Print_Char(',');
+	Print_Double_Ascii( kinetics.truePositionFilter[1].value );
+	Print_Char(',');
+	Print_Double_Ascii( kinetics.truePositionFilter[2].value );
+	Print_Line(").");
 }
 
 void appModeSet( app_t * m )
