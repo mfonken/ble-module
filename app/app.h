@@ -15,11 +15,13 @@
 #include "app_interrupts.h"
 
 /* Gecko Library */
+#ifndef CHECK_TESTING
 #include "em_emu.h"
 #include "em_cmu.h"
 #include "em_timer.h"
 #include "em_usart.h"
 #include "em_gpio.h"
+#endif;
 
 /* Kinetic */
 #include "kinetic.h"

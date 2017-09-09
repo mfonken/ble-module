@@ -17,7 +17,12 @@ extern "C" {
 #include <stdio.h>
 #include <stdint.h>
     
+#ifdef CHECK_TESTING
+//#include "../testing/ble_core_stubs.h"
+#else
 #include "clock_sp.h"
+#endif
+
 
 /* Included types header */
 #include "kinetic_types.h"

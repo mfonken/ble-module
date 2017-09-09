@@ -10,6 +10,12 @@
 
 #include <stdint.h>
 
+#ifdef CHECK_TESTING
+#include "../../testing/ble_core_stubs.h"
+#else
+#include "i2c_sp.h"
+#endif
+
 #define LSM9DS1_IMU_ADDR        0xd4
 #define LSM9DS1_MAG_ADDR        0x38
 

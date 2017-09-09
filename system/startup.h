@@ -10,14 +10,18 @@
 #define startup_h
 
 /* System utilities */
-#include "usart_sp.h"
-#include "clock_sp.h"
+#ifdef CHECK_TESTING
+#include "../testing/ble_core_stubs.h"
+#else
+#include "utilities/usart_sp.h"
+#include "utilities/clock_sp.h"
+#endif
 
 /* Peripheral/Sensor headers */
-#include "cam_controller.h"
-#include "PCA9534A.h"
-#include "LSM9DS1.h"
-#include "CPT112S.h"
+#include "../sensors/camera/cam_controller.h"
+#include "utilities/PCA9534A.h"
+#include "../sensors/imu/LSM9DS1.h"
+#include "../sensors/touch/CPT112S.h"
 
 #define ENABLED             1
 #define DISABLED            0
@@ -52,12 +56,12 @@ typedef struct
     uint8_t     camera:1;
     uint8_t     touch:1;
     
-    uint8_t     RESERVED:5;
+    uint8_t     RESERVED:3;
 } system_t;
 
-extern system_t system;
+extern system_t sys;
 
-void startup( void );
+void startup( system_t * );
 
 void Utilities_Init( void );
 void Sensors_Init( void );

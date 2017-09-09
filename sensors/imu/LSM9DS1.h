@@ -10,14 +10,24 @@
 
 /* Standard headers */
 #include <stdbool.h>
+#include <stddef.h>
+#include <math.h>
 
 /* em headers */
+#ifdef CHECK_TESTING
+#include "../../testing/ble_core_stubs.h"
+#else
 #include "em_device.h"
+#include "em_i2c.h"
+#include "i2c_sp.h"
+#endif
 
 /* Included types header */
-//#include "sensor_data_types.h"
-#include "kinetic_types.h"
-#include "LSM9DS1_regs.h"
+#include "../sensor_data_types.h"
+#include "../../kinetic/kinetic_types.h"
+
+/* Math headers */
+#include "../../kinetic/matrix.h"
 
 /***********************************************************************************************//**
  * @addtogroup Application
@@ -53,30 +63,7 @@
 /***************************************************************************************************
  Local Structures
  **************************************************************************************************/
-typedef struct
-{
-	double 	accel[3];
-	double 	gyro[3];
-	double 	mag[3];
 
-	double  accel_res;
-	double 	gyro_res;
-	double 	mag_res;
-
-	double 	accel_bias[3];
-	double 	gyro_bias[3];
-	double 	mag_bias[3];
-
-	double	roll;
-	double	pitch;
-	double	yaw;
-} imu_t;
-
-typedef struct
-{
-    imu_t               data;
-    LSM9DS1_cfg_t       settings;
-} LSM9DS1_t;
 
 /***************************************************************************************************
  Local Functions
@@ -123,7 +110,7 @@ double IMU_Roll_Error_Get( LSM9DS1_t * );
  * \param[out] Return 3D vector of acceleration
  * \param[in] tba Tait-Bryan angles to transform by
  *****************************************************************************/
-vec3_t * IMU_Non_Grav_Get( LSM9DS1_t * imu, quaternion_t * q );
+void IMU_Non_Grav_Get( LSM9DS1_t * imu, quaternion_t * q, vec3_t * ngacc );
 
 /**************************************************************************//**
  * \brief Read temperature from register

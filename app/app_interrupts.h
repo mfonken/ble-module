@@ -19,7 +19,7 @@
 #include "em_usart.h"
 
 /* System utilities */
-#include "usart_sp.h"
+#include "../system/utilities/usart_sp.h"
 
 
 #define NUM_AVAILABLE_IRQ FPUEH_IRQn + 1

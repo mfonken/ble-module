@@ -11,6 +11,10 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+
+#ifdef CHECK_TESTING
+#include "../../testing/ble_core_stubs.h"
+#else
 /* Application */
 #include "app.h"
 #include "app_interrupts.h"
@@ -18,6 +22,7 @@
 /* Gecko Library */
 #include "em_usart.h"
 #include "em_cryotimer.h"
+#endif
 
 #define BEACON_HEADER       0xbe
 #define BEACON_USART        USART1

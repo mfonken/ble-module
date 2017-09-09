@@ -9,8 +9,8 @@
 #define SYSTEM_UTILITIES_CLOCK_SP_H_
 
 #include <stdint.h>
-#include "em_rtcc.h"
-#include "em_cmu.h"
+//#include "em_rtcc.h"
+//#include "em_cmu.h"
 
 #define SYSCLK_CHANNEL 	1
 

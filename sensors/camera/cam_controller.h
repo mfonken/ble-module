@@ -12,17 +12,21 @@
 #include <stdbool.h>
 
 /* Application */
-#include "app.h"
-#include "app_interrupts.h"
+#ifdef CHECK_TESTING
+#include "../../testing/ble_core_stubs.h"
+#else
+#include "../../app/app.h"
+#include "../../app/app_interrupts.h"
 
 /* Utilities */
 #include "clock_sp.h"
 #include "usart_sp.h"
 #include "rf_controller.h"
+#endif
 
 /* Types */
-#include "sensor_data_types.h"
-#include "data_types.h"
+#include "../sensor_data_types.h"
+#include "../../system/utilities/data_types.h"
 
 #define CAM_UART		USART0
 #define CAM_NULL_CMD	0xff
@@ -48,11 +52,11 @@
 #define MAX_Y_DIFF		30
 #define MAX_M_DIFF      50
 
-extern uint32_t		beacon_vector[2];
-extern centroids_t	centroids;
-extern beacon_t 	beacons[MAX_CENTROIDS];
-extern buffer_t 	camera_buffer;
-void Print_Beacons( void );
+extern  uint32_t		beacon_vector[2];
+extern  centroids_t     centroids;
+extern  beacon_t        beacons[MAX_CENTROIDS];
+extern  buffer_t        camera_buffer;
+void    Print_Beacons(  void );
 void 	Camera_Init(	void );
 void 	Camera_Read( 	void );
 uint8_t Camera_Check(  	void );

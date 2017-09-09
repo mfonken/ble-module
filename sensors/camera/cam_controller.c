@@ -7,8 +7,6 @@
 
 #include "cam_controller.h"
 
-#include "usart_sp.h"
-
 #define	diff( a, b ) ( a - b > 0 ) ? a - b : b - a
 
 beacon_t 	beacons[MAX_CENTROIDS];

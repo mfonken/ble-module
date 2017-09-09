@@ -24,19 +24,22 @@ extern "C" {
 #include "kalman.h"
 #include "matrix.h"
 
+/* Types */
+#include "kinetic_types.h"
+    
 /* Utilities */
+#ifdef CHECK_TESTING
+#include "../testing/ble_core_stubs.h"
+#else
 #include "usart_sp.h"
 #include "clock_sp.h"
+#endif
 
 /* Sensors headers */
-#include "LSM9DS1.h"
+#include "../sensors/imu/LSM9DS1.h"
+#include "../sensors/camera/cam_controller.h"
+#include "../sensors/sensor_data_types.h"
 
-/* Types */
-#include "sensor_data_types.h"
-#include "kinetic_types.h"
-
-#include "cam_controller.h"
-    
 /***********************************************************************************************//**
  * \defgroup Kinetic Motion Code
  * \brief Functions for Motion Analysis

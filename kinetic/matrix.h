@@ -62,13 +62,13 @@ double get2dDistance( cartesian2_t *a, cartesian2_t *b );
 /** @} (end addtogroup kinetic) */
 /** @} (end addtogroup Application) */
 
-void Multiply_Vec_3x1( double a[3][3], double b[3], double c[3] );
-void Quaternion_To_Matrix(quaternion_t * quat, double m[3][3]);
-void Euler_To_Quaternion( double a[3], quaternion_t * quat );
+void Multiply_Vec_3x1( mat3x3_t * a, vec3_t * b, vec3_t * c );
+void Euler_To_Quaternion( ang3_t * ang, quaternion_t * quat );
+void Quaternion_To_Matrix(quaternion_t * quat, mat3x3_t * m);
 void Quaternion_Combine(quaternion_t * a, quaternion_t * b, quaternion_t * c, quaternion_t * d );
-void cross3( double u[3], double v[3], double r[3] );
-void mul3( int m, double v[3], double r[3] );
-void add33( double u[3], double v[3], double w[3], double r[3]);
-void Rotate_Vector_By_Quaternion(double v[3], quaternion_t * q, double r[3]);
+void cross3( vec3_t * u, vec3_t * v, vec3_t * r );
+void mul3( double m, vec3_t * v, vec3_t * r );
+void add33( vec3_t * u, vec3_t * v, vec3_t * w, vec3_t * r);
+void Rotate_Vector_By_Quaternion(vec3_t * v, quaternion_t * q, vec3_t * r);
 
 #endif /* matrix_h */

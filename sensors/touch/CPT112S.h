@@ -11,7 +11,12 @@
 #include <stdio.h>
 #include <stdint.h>
 
+#ifdef CHECK_TESTING
+#include "../../testing/ble_core_stubs.h"
+#else
+#include "i2c_sp.h"
 #include "app.h"
+#endif
 
 #define TOUCH_CTR_ADDR      0xe0
 
@@ -30,7 +35,7 @@ enum event_types
     SLIDER_ACTIVITY = 2,
 };
 
-void 	  Touch_Init( void );
-uint8_t * Touch_Read( void );
+void    Touch_Init( void );
+void    Touch_Read( uint8_t * i2c_read_data );
 
 #endif /* CPT112S_h */

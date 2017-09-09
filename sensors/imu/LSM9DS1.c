@@ -5,21 +5,8 @@
  *      Author: Matthew Fonken
  **************************************************************************************************/
 
-/* Standard headers */
-#include <stddef.h>
-#include <math.h>
-
-/* em headers */
-#include "em_i2c.h"
-
-/* Additional function headers */
-#include "i2c_sp.h"
-
 /* Own header */
 #include "LSM9DS1.h"
-
-/* Math headers */
-#include "matrix.h"
 
 /***********************************************************************************************//**
  * @addtogroup Application
@@ -308,31 +295,29 @@ double IMU_Roll_Error_Get( LSM9DS1_t * imu )
  * \param[out] Return 3D vector of acceleration
  * \param[in] tba Tait-Bryan angles to transform by
  *****************************************************************************/
-vec3_t * IMU_Non_Grav_Get( LSM9DS1_t * imu, quaternion_t * q )
+void IMU_Non_Grav_Get( LSM9DS1_t * imu, quaternion_t * q, vec3_t * ngacc )
 {
     IMU_Update_All( imu );
     
     /* Create a vector of accelerometer values */
-    double avec[3];
-    avec[0] = -imu->data.accel[0];
-    avec[1] = -imu->data.accel[1];
-    avec[2] = -imu->data.accel[2];
+    vec3_t avec;
+    avec.i = -imu->data.accel[0];
+    avec.j = -imu->data.accel[1];
+    avec.k = -imu->data.accel[2];
 
-	double nvec[3];
-	double m[3][3];
-	Quaternion_To_Matrix( q, m );
-	Multiply_Vec_3x1( m, avec, nvec );
+	vec3_t nvec;
+	mat3x3_t m;
+	Quaternion_To_Matrix( q, &m );
+	Multiply_Vec_3x1( &m, &avec, &nvec );
 
-	double a[3];
-	a[0] = atan2(2*(q->w*q->x+q->y*q->z),1-2*(q->x*q->x+q->y*q->y)) * 57.295779; //yaw
-	a[1] = asin(2*((q->w*q->y) - (q->z*q->x))) * 57.295779;// roll
-	a[2] = atan2(2*(q->w*q->z+q->x*q->y),1-2*(q->y*q->y+q->z*q->z)) * 57.295779; // pitch
+	ang3_t a;
+	a.x = atan2(2*(q->w*q->x+q->y*q->z),1-2*(q->x*q->x+q->y*q->y)) * 57.295779; //yaw
+	a.y = asin(2*((q->w*q->y) - (q->z*q->x))) * 57.295779;// roll
+	a.z = atan2(2*(q->w*q->z+q->x*q->y),1-2*(q->y*q->y+q->z*q->z)) * 57.295779; // pitch
 
-	vec3_t ngacc;
-	ngacc.i = nvec[0];
-	ngacc.j = nvec[1];
-	ngacc.k = nvec[2] + 1; // Negate gravity
-    return &ngacc;
+	ngacc->i = nvec.i;
+	ngacc->j = nvec.j;
+	ngacc->k = nvec.k + 1; // Negate gravity
 }
 
 /******************************************************************************
