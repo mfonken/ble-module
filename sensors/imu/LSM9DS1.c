@@ -71,9 +71,9 @@ void IMU_Init( LSM9DS1_t * imu )
     this = *imu;
 	LSM9DS1_defaultInit( &imu->settings );
 
-    imu->data.accel_bias[0] 	= ACCEL_BIAS_X;
-    imu->data.accel_bias[1] 	= ACCEL_BIAS_Y;
-    imu->data.accel_bias[2] 	= ACCEL_BIAS_Z;
+    imu->data.accel_bias[0] = ACCEL_BIAS_X;
+    imu->data.accel_bias[1] = ACCEL_BIAS_Y;
+    imu->data.accel_bias[2] = ACCEL_BIAS_Z;
 
     imu->data.gyro_bias[0] 	= GYRO_BIAS_X;
 	imu->data.gyro_bias[1] 	= GYRO_BIAS_Y;
@@ -82,61 +82,10 @@ void IMU_Init( LSM9DS1_t * imu )
 	imu->data.mag_bias[0] 	= MAG_BIAS_X;
 	imu->data.mag_bias[1] 	= MAG_BIAS_Y;
 	imu->data.mag_bias[2] 	= MAG_BIAS_Z;
-
-	uint32_t accel_res;
-	switch ( XL_FS_DEFAULT )
-	{
-		default:
-		case XL_FS_2G:
-			accel_res = 2;
-			break;
-		case XL_FS_4G:
-			accel_res = 4;
-			break;
-		case XL_FS_8G:
-			accel_res = 8;
-			break;
-		case XL_FS_16G:
-			accel_res = 16;
-			break;
-	}
-
-	uint32_t gyro_res;
-	switch ( GYRO_FS_DEFAULT )
-	{
-		default:
-		case GYRO_FS_245DPS:
-			gyro_res = 245;
-			break;
-		case GYRO_FS_500DPS:
-			gyro_res = 500;
-			break;
-		case GYRO_FS_2000DPS:
-			gyro_res = 2000;
-			break;
-	}
-
-	double mag_res;
-	switch ( MAG_FS_DEFAULT )
-	{
-		default:
-		case MAG_FS_4GAUSS:
-			mag_res = magResolutions[0];
-			break;
-		case MAG_FS_8GAUSS:
-			mag_res = magResolutions[1];
-			break;
-		case MAG_FS_12GAUSS:
-			mag_res = magResolutions[2];
-			break;
-		case MAG_FS_16GAUSS:
-			mag_res = magResolutions[3];
-			break;
-	}
-
-	imu->data.accel_res      = accel_res / LSM9DS1_IMU_ADC_MAX;
-	imu->data.gyro_res 		= gyro_res  / LSM9DS1_IMU_ADC_MAX;
-	imu->data.mag_res 		= mag_res;
+    
+	imu->data.accel_res     = XL_RES_DEFAULT;
+    imu->data.gyro_res 		= GYRO_RES_DEFAULT;
+	imu->data.mag_res 		= MAG_RES_DEFAULT;
 }
 
 /******************************************************************************
@@ -196,7 +145,7 @@ void IMU_Update_Gyro( LSM9DS1_t * imu )
     
     for( int i = 0; i < 3 ; i++ )
     {
-        imu->data.gyro[i]  = gyro[i]  * imu->data.gyro_res  - imu->data.gyro_bias[i];
+        imu->data.gyro[i]  = gyro[i] * imu->data.gyro_res  - imu->data.gyro_bias[i];
     }
 }
 
@@ -212,7 +161,7 @@ void IMU_Update_Mag( LSM9DS1_t * imu )
     
     for( int i = 0; i < 3 ; i++ )
     {
-        imu->data.mag[i]   = mag[i]   * imu->data.mag_res	  - imu->data.mag_bias[i];
+        imu->data.mag[i]   = mag[i] * imu->data.mag_res	  - imu->data.mag_bias[i];
     }
 }
 
@@ -276,7 +225,7 @@ void IMU_Update_Pitch( LSM9DS1_t * imu )
  * \brief Calculate roll angle (phi) error from accelerometer data
  * \param[out] Return roll error
  *****************************************************************************/
-double IMU_Roll_Error_Get( LSM9DS1_t * imu )
+double IMU_Get_Roll_Error( LSM9DS1_t * imu )
 {
     double sin_phi   = sin( imu->data.roll );
     double sin_theta = sin( imu->data.pitch );
@@ -293,7 +242,7 @@ double IMU_Roll_Error_Get( LSM9DS1_t * imu )
 /**************************************************************************//**
  * \brief Get no gravitation acceleration from accelerometer data
  * \param[out] Return 3D vector of acceleration
- * \param[in] tba Tait-Bryan angles to transform by
+ * \param[in] q Tait-Bryan angles in quaternion form to transform by
  *****************************************************************************/
 void IMU_Non_Grav_Get( LSM9DS1_t * imu, quaternion_t * q, vec3_t * ngacc )
 {
@@ -311,9 +260,9 @@ void IMU_Non_Grav_Get( LSM9DS1_t * imu, quaternion_t * q, vec3_t * ngacc )
 	Multiply_Vec_3x1( &m, &avec, &nvec );
 
 	ang3_t a;
-	a.x = atan2(2*(q->w*q->x+q->y*q->z),1-2*(q->x*q->x+q->y*q->y)) * 57.295779; //yaw
-	a.y = asin(2*((q->w*q->y) - (q->z*q->x))) * 57.295779;// roll
-	a.z = atan2(2*(q->w*q->z+q->x*q->y),1-2*(q->y*q->y+q->z*q->z)) * 57.295779; // pitch
+	a.x = asin(  2 * ( ( q->w * q->y ) - ( q->z * q->x ) ) ) * 57.295779;                          // roll
+	a.y = atan2( 2 * ( q->w*q->z+q->x*q->y ), 1 - 2 * ( q->y * q->y + q->z * q->z ) ) * 57.295779; // pitch
+    a.z = atan2( 2 * ( q->w*q->x+q->y*q->z ), 1 - 2 * ( q->x * q->x + q->y * q->y ) ) * 57.295779; // yaw
 
 	ngacc->i = nvec.i;
 	ngacc->j = nvec.j;

@@ -103,7 +103,7 @@ void IMU_Update_Mag(    LSM9DS1_t * );
 void IMU_Update_Roll(   LSM9DS1_t *);
 void IMU_Update_Pitch(  LSM9DS1_t * );
 void IMU_Update_Yaw(    LSM9DS1_t * );
-double IMU_Roll_Error_Get( LSM9DS1_t * );
+double IMU_Get_Roll_Error( LSM9DS1_t * );
 
 /**************************************************************************//**
  * \brief Get no gravitation acceleration from accelerometer data

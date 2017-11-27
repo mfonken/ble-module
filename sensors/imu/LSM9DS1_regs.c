@@ -98,14 +98,14 @@ void LSM9DS1_defaultInit( LSM9DS1_cfg_t * this )
     uint8_t ctrl_reg6_xl_default        = CTRL_REG6_XL_DEFAULT;
     uint8_t ctrl_reg7_xl_default        = CTRL_REG7_XL_DEFAULT;
     uint8_t ctrl_reg5_xl_default        = CTRL_REG5_XL_DEFAULT;
-    this->a.interrupt_threshold_x   	= *( LSM9DS1_int_gen_ths_x_xl_t *)&int_gen_ths_x_xl_default;
-    this->a.interrupt_threshold_y   	= *( LSM9DS1_int_gen_ths_y_xl_t *)&int_gen_ths_y_xl_default;
-    this->a.interrupt_threshold_z   	= *( LSM9DS1_int_gen_ths_z_xl_t *)&int_gen_ths_z_xl_default;
-    this->a.interrupt_configuration 	= *( LSM9DS1_int_gen_cfg_xl_t   *)&int_gen_cfg_xl_default;
-    this->a.interrupt_duration      	= *( LSM9DS1_int_gen_dur_xl_t   *)&int_gen_dur_xl_default;
-    this->a.bw_odr_control          	= *( LSM9DS1_ctrl_reg6_xl_t     *)&ctrl_reg6_xl_default;
-    this->a.filter_control          	= *( LSM9DS1_ctrl_reg7_xl_t     *)&ctrl_reg7_xl_default;
-    this->a.enable                  	= *( LSM9DS1_ctrl_reg5_t        *)&ctrl_reg5_xl_default;
+    this->xl.interrupt_threshold_x   	= *( LSM9DS1_int_gen_ths_x_xl_t *)&int_gen_ths_x_xl_default;
+    this->xl.interrupt_threshold_y   	= *( LSM9DS1_int_gen_ths_y_xl_t *)&int_gen_ths_y_xl_default;
+    this->xl.interrupt_threshold_z   	= *( LSM9DS1_int_gen_ths_z_xl_t *)&int_gen_ths_z_xl_default;
+    this->xl.interrupt_configuration 	= *( LSM9DS1_int_gen_cfg_xl_t   *)&int_gen_cfg_xl_default;
+    this->xl.interrupt_duration      	= *( LSM9DS1_int_gen_dur_xl_t   *)&int_gen_dur_xl_default;
+    this->xl.bw_odr_control          	= *( LSM9DS1_ctrl_reg6_xl_t     *)&ctrl_reg6_xl_default;
+    this->xl.filter_control          	= *( LSM9DS1_ctrl_reg7_xl_t     *)&ctrl_reg7_xl_default;
+    this->xl.enable                  	= *( LSM9DS1_ctrl_reg5_t        *)&ctrl_reg5_xl_default;
     
     uint8_t ctrl_reg1_g_default         = CTRL_REG1_G_DEFAULT;
     uint8_t ctrl_reg2_g_default         = CTRL_REG2_G_DEFAULT;
@@ -113,7 +113,7 @@ void LSM9DS1_defaultInit( LSM9DS1_cfg_t * this )
     uint16_t int_gen_ths_x_g_default    = ( INT_GEN_THS_XH_G_DEFAULT << 8 ) && INT_GEN_THS_XL_G_DEFAULT;
     uint16_t int_gen_ths_y_g_default    = ( INT_GEN_THS_YH_G_DEFAULT << 8 ) && INT_GEN_THS_YL_G_DEFAULT;
     uint16_t int_gen_ths_z_g_default    = ( INT_GEN_THS_ZH_G_DEFAULT << 8 ) && INT_GEN_THS_ZL_G_DEFAULT;
-    uint8_t orient_cfg_g_default        = ORIENT_CFG_G_DEFAULT;
+    uint8_t orient_cfg_g_default        =  ORIENT_CFG_G_DEFAULT;
     uint8_t int_gen_cfg_g_default       = INT_GEN_CFG_G_DEFAULT;
     uint8_t int_gen_dur_g_default       = INT_GEN_DUR_G_DEFAULT;
     uint8_t ctrl_reg4_default           = CTRL_REG4_DEFAULT;
@@ -158,56 +158,56 @@ void LSM9DS1_defaultInit( LSM9DS1_cfg_t * this )
 void LSM9DS1_updateRegisters( LSM9DS1_cfg_t * this )
 {
 	/* Set General Registers */
-    LSM9DS1_SetRegister( ACT_THS,           *( uint8_t *)&this->general.activity_threshold);
-    LSM9DS1_SetRegister( ACT_DUR,           *( uint8_t *)&this->general.inactivity_duration);
-    LSM9DS1_SetRegister( INT1_CTRL,         *( uint8_t *)&this->general.int1_control);
-    LSM9DS1_SetRegister( INT2_CTRL,         *( uint8_t *)&this->general.int2_control);
-    LSM9DS1_SetRegister( CTRL_REG8,         *( uint8_t *)&this->general.system_control);
-    LSM9DS1_SetRegister( CTRL_REG9,         *( uint8_t *)&this->general.system_enables);
-    LSM9DS1_SetRegister( CTRL_REG10,        *( uint8_t *)&this->general.self_test);
+    LSM9DS1_SetRegister( ACT_THS,               *( uint8_t *)&this->general.activity_threshold);
+    LSM9DS1_SetRegister( ACT_DUR,               *( uint8_t *)&this->general.inactivity_duration);
+    LSM9DS1_SetRegister( INT1_CTRL,             *( uint8_t *)&this->general.int1_control);
+    LSM9DS1_SetRegister( INT2_CTRL,             *( uint8_t *)&this->general.int2_control);
+    LSM9DS1_SetRegister( CTRL_REG8,             *( uint8_t *)&this->general.system_control);
+    LSM9DS1_SetRegister( CTRL_REG9,             *( uint8_t *)&this->general.system_enables);
+    LSM9DS1_SetRegister( CTRL_REG10,            *( uint8_t *)&this->general.self_test);
     
     /* Set FIFO Registers */
-    LSM9DS1_SetRegister( FIFO_CTRL,         *( uint8_t *)&this->fifo.control);
-    LSM9DS1_SetRegister( FIFO_SRC,          *( uint8_t *)&this->fifo.status_control);
+    LSM9DS1_SetRegister( FIFO_CTRL,             *( uint8_t *)&this->fifo.control);
+    LSM9DS1_SetRegister( FIFO_SRC,              *( uint8_t *)&this->fifo.status_control);
     
     /* Set Accelerometer Registers */
-    LSM9DS1_SetRegister( INT_GEN_THS_X_XL,  *( uint8_t *)&this->a.interrupt_threshold_x);
-    LSM9DS1_SetRegister( INT_GEN_THS_Y_XL,  *( uint8_t *)&this->a.interrupt_threshold_y);
-    LSM9DS1_SetRegister( INT_GEN_THS_Z_XL,  *( uint8_t *)&this->a.interrupt_threshold_z);
-    LSM9DS1_SetRegister( INT_GEN_CFG_XL,    *( uint8_t *)&this->a.interrupt_configuration);
-    LSM9DS1_SetRegister( INT_GEN_DUR_XL,    *( uint8_t *)&this->a.interrupt_duration);
-    LSM9DS1_SetRegister( CTRL_REG6_XL,      *( uint8_t *)&this->a.bw_odr_control);
-    LSM9DS1_SetRegister( CTRL_REG7_XL,      *( uint8_t *)&this->a.filter_control);
-    LSM9DS1_SetRegister( CTRL_REG5_XL,      *( uint8_t *)&this->a.enable);
+    LSM9DS1_SetRegister( INT_GEN_THS_X_XL,      *( uint8_t *)&this->xl.interrupt_threshold_x);
+    LSM9DS1_SetRegister( INT_GEN_THS_Y_XL,      *( uint8_t *)&this->xl.interrupt_threshold_y);
+    LSM9DS1_SetRegister( INT_GEN_THS_Z_XL,      *( uint8_t *)&this->xl.interrupt_threshold_z);
+    LSM9DS1_SetRegister( INT_GEN_CFG_XL,        *( uint8_t *)&this->xl.interrupt_configuration);
+    LSM9DS1_SetRegister( INT_GEN_DUR_XL,        *( uint8_t *)&this->xl.interrupt_duration);
+    LSM9DS1_SetRegister( CTRL_REG6_XL,          *( uint8_t *)&this->xl.bw_odr_control);
+    LSM9DS1_SetRegister( CTRL_REG7_XL,          *( uint8_t *)&this->xl.filter_control);
+    LSM9DS1_SetRegister( CTRL_REG5_XL,          *( uint8_t *)&this->xl.enable);
     
     /* Set Gyroscope Registers */
-    LSM9DS1_SetRegister( CTRL_REG1_G,       *( uint8_t *)&this->g.ctrl1);
-    LSM9DS1_SetRegister( CTRL_REG2_G,       *( uint8_t *)&this->g.ctrl2);
-    LSM9DS1_SetRegister( CTRL_REG3_G,       *( uint8_t *)&this->g.ctrl3);
-    LSM9DS1_SetRegister( INT_GEN_THS_XH_G,  *( uint8_t *)&this->g.interrupt_threshold_x << 8 );
-    LSM9DS1_SetRegister( INT_GEN_THS_XL_G,  *( uint8_t *)&this->g.interrupt_threshold_x);
-    LSM9DS1_SetRegister( INT_GEN_THS_YH_G,  *( uint8_t *)&this->g.interrupt_threshold_y << 8 );
-    LSM9DS1_SetRegister( INT_GEN_THS_YL_G,  *( uint8_t *)&this->g.interrupt_threshold_y);
-    LSM9DS1_SetRegister( INT_GEN_THS_ZH_G,  *( uint8_t *)&this->g.interrupt_threshold_z << 8 );
-    LSM9DS1_SetRegister( INT_GEN_THS_ZL_G,  *( uint8_t *)&this->g.interrupt_threshold_z);
-    LSM9DS1_SetRegister( ORIENT_CFG_G,      *( uint8_t *)&this->g.orientation);
-    LSM9DS1_SetRegister( INT_GEN_CFG_G,     *( uint8_t *)&this->g.interrupt_configuration);
-    LSM9DS1_SetRegister( INT_GEN_DUR_G,     *( uint8_t *)&this->g.interrupt_duration);
-    LSM9DS1_SetRegister( CTRL_REG4,         *( uint8_t *)&this->g.enable);
+    LSM9DS1_SetRegister( CTRL_REG1_G,           *( uint8_t *)&this->g.ctrl1);
+    LSM9DS1_SetRegister( CTRL_REG2_G,           *( uint8_t *)&this->g.ctrl2);
+    LSM9DS1_SetRegister( CTRL_REG3_G,           *( uint8_t *)&this->g.ctrl3);
+    LSM9DS1_SetRegister( INT_GEN_THS_XH_G,      *( uint8_t *)&this->g.interrupt_threshold_x << 8 );
+    LSM9DS1_SetRegister( INT_GEN_THS_XL_G,      *( uint8_t *)&this->g.interrupt_threshold_x);
+    LSM9DS1_SetRegister( INT_GEN_THS_YH_G,      *( uint8_t *)&this->g.interrupt_threshold_y << 8 );
+    LSM9DS1_SetRegister( INT_GEN_THS_YL_G,      *( uint8_t *)&this->g.interrupt_threshold_y);
+    LSM9DS1_SetRegister( INT_GEN_THS_ZH_G,      *( uint8_t *)&this->g.interrupt_threshold_z << 8 );
+    LSM9DS1_SetRegister( INT_GEN_THS_ZL_G,      *( uint8_t *)&this->g.interrupt_threshold_z);
+    LSM9DS1_SetRegister( ORIENT_CFG_G,          *( uint8_t *)&this->g.orientation);
+    LSM9DS1_SetRegister( INT_GEN_CFG_G,         *( uint8_t *)&this->g.interrupt_configuration);
+    LSM9DS1_SetRegister( INT_GEN_DUR_G,         *( uint8_t *)&this->g.interrupt_duration);
+    LSM9DS1_SetRegister( CTRL_REG4,             *( uint8_t *)&this->g.enable);
     
     /* Set Magnometer Registers */
-    LSM9DS1_SetMagRegister( OFFSET_X_REG_H_M,  *( uint8_t *)&this->m.x_offset << 8 );
-    LSM9DS1_SetMagRegister( OFFSET_X_REG_L_M,  *( uint8_t *)&this->m.x_offset );
-    LSM9DS1_SetMagRegister( OFFSET_Y_REG_H_M,  *( uint8_t *)&this->m.y_offset << 8 );
-    LSM9DS1_SetMagRegister( OFFSET_Y_REG_L_M,  *( uint8_t *)&this->m.y_offset );
-    LSM9DS1_SetMagRegister( OFFSET_Z_REG_H_M,  *( uint8_t *)&this->m.z_offset << 8 );
-    LSM9DS1_SetMagRegister( OFFSET_Z_REG_L_M,  *( uint8_t *)&this->m.z_offset );
-    LSM9DS1_SetMagRegister( CTRL_REG1_M,       *( uint8_t *)&this->m.odr_control );
-    LSM9DS1_SetMagRegister( CTRL_REG2_M,       *( uint8_t *)&this->m.fs_control );
-    LSM9DS1_SetMagRegister( CTRL_REG3_M,       *( uint8_t *)&this->m.configuration_control );
-    LSM9DS1_SetMagRegister( CTRL_REG4_M,       *( uint8_t *)&this->m.operative_mode );
-    LSM9DS1_SetMagRegister( CTRL_REG5_M,       *( uint8_t *)&this->m.block_data_update_control );
-    LSM9DS1_SetMagRegister( INT_CFG_M,         *( uint8_t *)&this->m.interrupt_configuration );
-    LSM9DS1_SetMagRegister( INT_THS_H_M,       *( uint8_t *)&this->m.interrupt_threshold << 8 );
-    LSM9DS1_SetMagRegister( INT_THS_L_M,       *( uint8_t *)&this->m.interrupt_threshold );
+    LSM9DS1_SetMagRegister( OFFSET_X_REG_H_M,   *( uint8_t *)&this->m.x_offset << 8 );
+    LSM9DS1_SetMagRegister( OFFSET_X_REG_L_M,   *( uint8_t *)&this->m.x_offset );
+    LSM9DS1_SetMagRegister( OFFSET_Y_REG_H_M,   *( uint8_t *)&this->m.y_offset << 8 );
+    LSM9DS1_SetMagRegister( OFFSET_Y_REG_L_M,   *( uint8_t *)&this->m.y_offset );
+    LSM9DS1_SetMagRegister( OFFSET_Z_REG_H_M,   *( uint8_t *)&this->m.z_offset << 8 );
+    LSM9DS1_SetMagRegister( OFFSET_Z_REG_L_M,   *( uint8_t *)&this->m.z_offset );
+    LSM9DS1_SetMagRegister( CTRL_REG1_M,        *( uint8_t *)&this->m.odr_control );
+    LSM9DS1_SetMagRegister( CTRL_REG2_M,        *( uint8_t *)&this->m.fs_control );
+    LSM9DS1_SetMagRegister( CTRL_REG3_M,        *( uint8_t *)&this->m.configuration_control );
+    LSM9DS1_SetMagRegister( CTRL_REG4_M,        *( uint8_t *)&this->m.operative_mode );
+    LSM9DS1_SetMagRegister( CTRL_REG5_M,        *( uint8_t *)&this->m.block_data_update_control );
+    LSM9DS1_SetMagRegister( INT_CFG_M,          *( uint8_t *)&this->m.interrupt_configuration );
+    LSM9DS1_SetMagRegister( INT_THS_H_M,        *( uint8_t *)&this->m.interrupt_threshold << 8 );
+    LSM9DS1_SetMagRegister( INT_THS_L_M,        *( uint8_t *)&this->m.interrupt_threshold );
 }

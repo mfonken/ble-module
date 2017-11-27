@@ -174,7 +174,7 @@ typedef struct
 
 /* INT1_A/G Control Register */
 typedef struct
-{                                               /**<  On Pin INT1_A/G           */
+{                                               /**< On Pin INT1_A/G            */
     uint8_t int1_drdy_xl    :1;                 /**< Accel data ready           */
     uint8_t int1_drdy_g     :1;                 /**< Gyro data ready            */
     uint8_t int1_boot       :1;                 /**< Boot status available      */
@@ -212,7 +212,7 @@ typedef struct
 {
     uint8_t out_sel         :2;                 /**< Out selection              */
     uint8_t int_sel         :2;                 /**< INT selection              */
-    uint8_t RESERVED        :4;                 /**< */
+    uint8_t RESERVED        :4;                 
 } LSM9DS1_ctrl_reg2_g_t;
 
 /* Angular Rate Sensor Control Register 3 */
@@ -322,154 +322,154 @@ typedef struct
 /* Linear Acceleration Control Register 7 */
 typedef struct
 {
-    uint8_t hpis            :1;                 /**< */
-    uint8_t RESERVED1       :1;                 /**< */
-    uint8_t fds             :1;                 /**< */
-    uint8_t RESERVED2       :2;                 /**< */
-    uint8_t dcf             :2;                 /**< */
-    uint8_t hr              :1;                 /**< */
+    uint8_t hpis            :1;                 
+    uint8_t RESERVED1       :1;                 
+    uint8_t fds             :1;                 
+    uint8_t RESERVED2       :2;                 
+    uint8_t dcf             :2;                 
+    uint8_t hr              :1;                 
 } LSM9DS1_ctrl_reg7_xl_t;
 
 /* Control Register 8 */
 typedef struct
 {
-    uint8_t sw_reset        :1;                 /**< */
-    uint8_t ble             :1;                 /**< */
-    uint8_t if_add_inc      :1;                 /**< */
-    uint8_t sim             :1;                 /**< */
-    uint8_t pp_od           :1;                 /**< */
-    uint8_t h_lactive       :1;                 /**< */
-    uint8_t bdu             :1;                 /**< */
-    uint8_t boot            :1;                 /**< */
+    uint8_t sw_reset        :1;                 
+    uint8_t ble             :1;                 
+    uint8_t if_add_inc      :1;                 
+    uint8_t sim             :1;                 
+    uint8_t pp_od           :1;                 
+    uint8_t h_lactive       :1;                 
+    uint8_t bdu             :1;                 
+    uint8_t boot            :1;                 
 } LSM9DS1_ctrl_reg8_t;
 
 /* Control Register 9 */
 typedef struct
 {
-    uint8_t stop_on_fth     :1;                 /**< */
-    uint8_t fifo_en         :1;                 /**< */
-    uint8_t i2c_disable     :1;                 /**< */
-    uint8_t drdy_mask_bit   :1;                 /**< */
-    uint8_t fifo_temp_en    :1;                 /**< */
-    uint8_t RESERVED1       :1;                 /**< */
-    uint8_t sleep_g         :1;                 /**< */
-    uint8_t RESERVED2       :1;                 /**< */
+    uint8_t stop_on_fth     :1;                 
+    uint8_t fifo_en         :1;                 
+    uint8_t i2c_disable     :1;                 
+    uint8_t drdy_mask_bit   :1;                 
+    uint8_t fifo_temp_en    :1;                 
+    uint8_t RESERVED1       :1;                 
+    uint8_t sleep_g         :1;                 
+    uint8_t RESERVED2       :1;                 
 } LSM9DS1_ctrl_reg9_t;
 
 /* Control Register 10 */
 typedef struct
 {
-    uint8_t st_xl           :1;                 /**< */
-    uint8_t RESERVED1       :1;                 /**< */
-    uint8_t st_g            :1;                 /**< */
-    uint8_t RESERVED2       :5;                 /**< */
+    uint8_t st_xl           :1;                 
+    uint8_t RESERVED1       :1;                 
+    uint8_t st_g            :1;                 
+    uint8_t RESERVED2       :5;                 
 } LSM9DS1_ctrl_reg10_t;
 
 /* Linear Acceleration Interrupt Source Register 10 */
 typedef struct
 {
-    uint8_t xl_xl           :1;                 /**< */
-    uint8_t xh_xl           :1;                 /**< */
-    uint8_t yl_xl           :1;                 /**< */
-    uint8_t yh_xl           :1;                 /**< */
-    uint8_t zl_xl           :1;                 /**< */
-    uint8_t zh_xl           :1;                 /**< */
-    uint8_t ia_xl           :1;                 /**< */
-    uint8_t RESERVED        :1;                 /**< */
+    uint8_t xl_xl           :1;                 
+    uint8_t xh_xl           :1;                 
+    uint8_t yl_xl           :1;                 
+    uint8_t yh_xl           :1;                 
+    uint8_t zl_xl           :1;                 
+    uint8_t zh_xl           :1;                 
+    uint8_t ia_xl           :1;                 
+    uint8_t RESERVED        :1;                 
 } LSM9DS1_int_gen_src_xl_t;
 
 /* Status Register 2 */
 typedef struct
 {
-    uint8_t xlda            :1;                 /**< */
-    uint8_t gda             :1;                 /**< */
-    uint8_t tda             :1;                 /**< */
-    uint8_t boot_status     :1;                 /**< */
-    uint8_t inact           :1;                 /**< */
-    uint8_t ig_g            :1;                 /**< */
-    uint8_t ig_xl           :1;                 /**< */
-    uint8_t RESERVED        :1;                 /**< */
+    uint8_t xlda            :1;                 
+    uint8_t gda             :1;                 
+    uint8_t tda             :1;                 
+    uint8_t boot_status     :1;                 
+    uint8_t inact           :1;                 
+    uint8_t ig_g            :1;                 
+    uint8_t ig_xl           :1;                 
+    uint8_t RESERVED        :1;                 
 } LSM9DS1_status_reg_2_t;
 
 /* Linear Acceleration Sensor X */
 typedef struct
 {
-    uint16_t out_x_xl_l     :8;                 /**< */
-    uint16_t out_x_xl_h     :8;                 /**< */
+    uint16_t out_x_xl_l     :8;                 
+    uint16_t out_x_xl_h     :8;                 
 } LSM9DS1_out_x_xl_t;
 
 /* Linear Acceleration Sensor Y */
 typedef struct
 {
-    uint16_t out_y_xl_l     :8;                 /**< */
-    uint16_t out_y_xl_h     :8;                 /**< */
+    uint16_t out_y_xl_l     :8;                 
+    uint16_t out_y_xl_h     :8;                 
 } LSM9DS1_out_y_xl_t;
 
 /* Linear Acceleration Sensor Z */
 typedef struct
 {
-    uint16_t out_z_xl_l     :8;                 /**< */
-    uint16_t out_z_xl_h     :8;                 /**< */
+    uint16_t out_z_xl_l     :8;                 
+    uint16_t out_z_xl_h     :8;                 
 } LSM9DS1_out_z_xl_t;
 
 /* FIFO Control Register */
 typedef struct
 {
-    uint8_t fmode           :3;                 /**< */
-    uint8_t fth             :5;                 /**< */
+    uint8_t fmode           :3;                 
+    uint8_t fth             :5;                 
 } LSM9DS1_fifo_ctrl_t;
 
 /* FIFO Status Control Register */
 typedef struct
 {
-    uint8_t fss             :6;                 /**< */
-    uint8_t ovrn            :1;                 /**< */
-    uint8_t fth             :1;                 /**< */
+    uint8_t fss             :6;                 
+    uint8_t ovrn            :1;                 
+    uint8_t fth             :1;                 
 } LSM9DS1_fifo_src_t;
 
 /* Angular Rate Sensor Interrupt Generator Register */
 typedef struct
 {
-    uint8_t xlie_g          :1;                 /**< */
-    uint8_t xhie_g          :1;                 /**< */
-    uint8_t ylie_g          :1;                 /**< */
-    uint8_t yhie_g          :1;                 /**< */
-    uint8_t zlie_g          :1;                 /**< */
-    uint8_t zhie_g          :1;                 /**< */
-    uint8_t lir_g           :1;                 /**< */
-    uint8_t aoi_g           :1;                 /**< */
+    uint8_t xlie_g          :1;                 
+    uint8_t xhie_g          :1;                 
+    uint8_t ylie_g          :1;                 
+    uint8_t yhie_g          :1;                 
+    uint8_t zlie_g          :1;                 
+    uint8_t zhie_g          :1;                 
+    uint8_t lir_g           :1;                 
+    uint8_t aoi_g           :1;                 
 } LSM9DS1_int_gen_cfg_g_t;
 
 /* Angular Rate Sensor Interrupt X Threshold */
 typedef struct
 {
-    uint16_t ths_g_x_l      :8;                 /**< */
-    uint16_t ths_g_x_h      :7;                 /**< */
-    uint16_t dcrm_g         :1;                 /**< */
+    uint16_t ths_g_x_l      :8;                 
+    uint16_t ths_g_x_h      :7;                 
+    uint16_t dcrm_g         :1;                 
 } LSM9DS1_int_gen_ths_x_g_t;
 
 
 /* Angular Rate Sensor Interrupt Y Threshold */
 typedef struct
 {
-    uint16_t ths_g_y_l      :8;                 /**< */
-    uint16_t ths_g_y_h      :7;                 /**< */
+    uint16_t ths_g_y_l      :8;                 
+    uint16_t ths_g_y_h      :7;                 
 } LSM9DS1_int_gen_ths_y_g_t;
 
 
 /* Angular Rate Sensor Interrupt Z Threshold */
 typedef struct
 {
-    uint16_t ths_g_z_l      :8;                 /**< */
-    uint16_t ths_g_z_h      :7;                 /**< */
+    uint16_t ths_g_z_l      :8;                 
+    uint16_t ths_g_z_h      :7;                 
 } LSM9DS1_int_gen_ths_z_g_t;
 
 
 /* Angular Rate Sensor Interrupt Duration Register */
 typedef struct
 {
-    uint8_t dur_g           :7;                 /**< */
-    uint8_t wait_g          :1;                 /**< */
+    uint8_t dur_g           :7;                 
+    uint8_t wait_g          :1;                 
 } LSM9DS1_int_gen_dur_g_t;
 
 /***************************************************************************************************
@@ -479,137 +479,137 @@ typedef struct
 /* Magnometer X Offset */
 typedef struct
 {
-    uint16_t ofxm_l         :8;                 /**< */
-    uint16_t ofxm_h         :8;                 /**< */
+    uint16_t ofxm_l         :8;                 
+    uint16_t ofxm_h         :8;                 
 } LSM9DS1_offset_x_reg_m_t;
 
 /* Magnometer Y Offset */
 typedef struct
 {
-    uint16_t ofym_l         :8;                 /**< */
-    uint16_t ofym_h         :8;                 /**< */
+    uint16_t ofym_l         :8;                 
+    uint16_t ofym_h         :8;                 
 } LSM9DS1_offset_y_reg_m_t;
 
 /* Magnometer Z Offset */
 typedef struct
 {
-    uint16_t ofzm_l         :8;                 /**< */
-    uint16_t ofzm_h         :8;                 /**< */
+    uint16_t ofzm_l         :8;                 
+    uint16_t ofzm_h         :8;                 
 } LSM9DS1_offset_z_reg_m_t;
 
 /* Magnometer Control Register 1 */
 typedef struct
 {
-    uint8_t st              :1;                 /**< */
-    uint8_t fast_odr        :1;                 /**< */
-    uint8_t odr             :3;                 /**< */
-    uint8_t om              :2;                 /**< */
-    uint8_t temp_comp       :1;                 /**< */
+    uint8_t st              :1;                 
+    uint8_t fast_odr        :1;                 
+    uint8_t odr             :3;                 
+    uint8_t om              :2;                 
+    uint8_t temp_comp       :1;                 
 } LSM9DS1_ctrl_reg1_m_t;
 
 /* Magnometer Control Register 2 */
 typedef struct
 {
-    uint8_t RESERVED1       :2;                 /**< */
-    uint8_t soft_rst        :1;                 /**< */
-    uint8_t reboot          :1;                 /**< */
-    uint8_t RESERVED2       :1;                 /**< */
-    uint8_t fs              :2;                 /**< */
-    uint8_t RESERVED3       :1;                 /**< */
+    uint8_t RESERVED1       :2;                 
+    uint8_t soft_rst        :1;                 
+    uint8_t reboot          :1;                 
+    uint8_t RESERVED2       :1;                 
+    uint8_t fs              :2;                 
+    uint8_t RESERVED3       :1;                 
 } LSM9DS1_ctrl_reg2_m_t;
 
 /* Magnometer Control Register 3 */
 typedef struct
 {
-    uint8_t md              :2;                 /**< */
-    uint8_t sim             :1;                 /**< */
-    uint8_t RESERVED1       :2;                 /**< */
-    uint8_t lp              :1;                 /**< */
-    uint8_t RESERVED2       :1;                 /**< */
-    uint8_t i2c_disable     :1;                 /**< */
+    uint8_t md              :2;                 
+    uint8_t sim             :1;                 
+    uint8_t RESERVED1       :2;                 
+    uint8_t lp              :1;                 
+    uint8_t RESERVED2       :1;                 
+    uint8_t i2c_disable     :1;                 
 } LSM9DS1_ctrl_reg3_m_t;
 
 /* Magnometer Control Register 4 */
 typedef struct
 {
-    uint8_t RESERVED1       :1;                 /**< */
-    uint8_t ble             :2;                 /**< */
-    uint8_t omz             :2;                 /**< */
-    uint8_t RESERVED2       :4;                 /**< */
+    uint8_t RESERVED1       :1;                 
+    uint8_t ble             :2;                 
+    uint8_t omz             :2;                 
+    uint8_t RESERVED2       :4;                 
 } LSM9DS1_ctrl_reg4_m_t;
 
 /* Magnometer Control Register 5 */
 typedef struct
 {
-    uint8_t RESERVED1       :6;                 /**< */
-    uint8_t bdu             :1;                 /**< */
-    uint8_t fast_read       :1;                 /**< */
+    uint8_t RESERVED1       :6;                 
+    uint8_t bdu             :1;                 
+    uint8_t fast_read       :1;                 
 } LSM9DS1_ctrl_reg5_m_t;
 
 /* Magnometer Status Register */
 typedef struct
 {
-    uint8_t xda             :1;                 /**< */
-    uint8_t yda             :1;                 /**< */
-    uint8_t zda             :1;                 /**< */
-    uint8_t zyxda           :1;                 /**< */
-    uint8_t xorn            :1;                 /**< */
-    uint8_t yorn            :1;                 /**< */
-    uint8_t zorn            :1;                 /**< */
-    uint8_t zyxorn          :1;                 /**< */
+    uint8_t xda             :1;                 
+    uint8_t yda             :1;                 
+    uint8_t zda             :1;                 
+    uint8_t zyxda           :1;                 
+    uint8_t xorn            :1;                 
+    uint8_t yorn            :1;                 
+    uint8_t zorn            :1;                 
+    uint8_t zyxorn          :1;                 
 } LSM9DS1_status_reg_m_t;
 
 /* Magnometer X Output Register */
 typedef struct
 {
-    uint16_t out_x_l_m      :8;                 /**< */
-    uint16_t out_x_h_m      :8;                 /**< */
+    uint16_t out_x_l_m      :8;                 
+    uint16_t out_x_h_m      :8;                 
 } LSM9DS1_out_x_m_t;
 
 /* Magnometer Y Output Register */
 typedef struct
 {
-    uint16_t out_y_l_m      :8;                 /**< */
-    uint16_t out_y_h_m      :8;                 /**< */
+    uint16_t out_y_l_m      :8;                 
+    uint16_t out_y_h_m      :8;                 
 } LSM9DS1_out_y_m_t;
 
 /* Magnometer Z Output Register */
 typedef struct
 {
-    uint16_t out_z_l_m      :8;                 /**< */
-    uint16_t out_z_h_m      :8;                 /**< */
+    uint16_t out_z_l_m      :8;                 
+    uint16_t out_z_h_m      :8;                 
 } LSM9DS1_out_z_m_t;
 
 /* Magnometer Source Control Register */
 typedef struct
 {
-    uint8_t ien             :1;                 /**< */
-    uint8_t iel             :1;                 /**< */
-    uint8_t iea             :1;                 /**< */
-    uint8_t RESERVED        :2;                 /**< */
-    uint8_t zien            :1;                 /**< */
-    uint8_t yien            :1;                 /**< */
-    uint8_t xien            :1;                 /**< */
+    uint8_t ien             :1;                 
+    uint8_t iel             :1;                 
+    uint8_t iea             :1;                 
+    uint8_t RESERVED        :2;                 
+    uint8_t zien            :1;                 
+    uint8_t yien            :1;                 
+    uint8_t xien            :1;                 
 } LSM9DS1_int_cfg_m_t;
 
 /* Magnometer Source Control Register */
 typedef struct
 {
-    uint8_t int_            :1;                 /**< */
-    uint8_t mroi            :1;                 /**< */
-    uint8_t nth_z           :1;                 /**< */
-    uint8_t nth_y           :1;                 /**< */
-    uint8_t nth_x           :1;                 /**< */
-    uint8_t pth_z           :1;                 /**< */
-    uint8_t pth_y           :1;                 /**< */
-    uint8_t pth_x           :1;                 /**< */
+    uint8_t int_            :1;                 
+    uint8_t mroi            :1;                 
+    uint8_t nth_z           :1;                 
+    uint8_t nth_y           :1;                 
+    uint8_t nth_x           :1;                 
+    uint8_t pth_z           :1;                 
+    uint8_t pth_y           :1;                 
+    uint8_t pth_x           :1;                 
 } LSM9DS1_int_src_m_t;
 
 /* Magnometer Control Register 5 */
 typedef struct
 {
-    uint16_t int_ths_l      :8;                 /**< */
-    uint16_t int_ths_h      :8;                 /**< */
+    uint16_t int_ths_l      :8;                 
+    uint16_t int_ths_h      :8;                 
 } LSM9DS1_int_ths_t;
 
 /***************************************************************************************************
@@ -725,8 +725,8 @@ enum LSM9DS1_fifo_odr
 /* General Configuration Type - 10 Bytes */
 typedef struct
 {
-    LSM9DS1_act_ths_t             activity_threshold;       /**< */
-    LSM9DS1_act_dur_t             inactivity_duration;      /**< */
+    LSM9DS1_act_ths_t             activity_threshold;       
+    LSM9DS1_act_dur_t             inactivity_duration;      
     LSM9DS1_int1_ctrl_t           int1_control;
     LSM9DS1_int2_ctrl_t           int2_control;
     LSM9DS1_status_reg_1_t        status;
@@ -739,9 +739,9 @@ typedef struct
 /* Accelerometer Configuration Type - 10 Bytes */
 typedef struct
 {
-    LSM9DS1_int_gen_ths_x_xl_t    interrupt_threshold_x;        /**< */
-    LSM9DS1_int_gen_ths_y_xl_t    interrupt_threshold_y;         /**< */
-    LSM9DS1_int_gen_ths_z_xl_t    interrupt_threshold_z;     /**< */
+    LSM9DS1_int_gen_ths_x_xl_t    interrupt_threshold_x;        
+    LSM9DS1_int_gen_ths_y_xl_t    interrupt_threshold_y;         
+    LSM9DS1_int_gen_ths_z_xl_t    interrupt_threshold_z;     
     LSM9DS1_int_gen_cfg_xl_t      interrupt_configuration;
     LSM9DS1_int_gen_dur_xl_t      interrupt_duration;
     LSM9DS1_int_gen_src_xl_t      interrupt_source;
@@ -755,15 +755,15 @@ typedef struct
 typedef struct
 {
     LSM9DS1_ctrl_reg1_g_t         ctrl1;
-    LSM9DS1_ctrl_reg2_g_t         ctrl2;        /**< */
-    LSM9DS1_ctrl_reg3_g_t         ctrl3;         /**< */
-    LSM9DS1_orient_cfg_g_t        orientation;     /**< */
+    LSM9DS1_ctrl_reg2_g_t         ctrl2;
+    LSM9DS1_ctrl_reg3_g_t         ctrl3;
+    LSM9DS1_orient_cfg_g_t        orientation;     
     LSM9DS1_int_gen_src_g_t       interrupt_sources;
     LSM9DS1_ctrl_reg4_t           enable;
     LSM9DS1_int_gen_cfg_g_t       interrupt_configuration;
-    LSM9DS1_int_gen_ths_x_g_t     interrupt_threshold_x;        /**< */
-    LSM9DS1_int_gen_ths_y_g_t     interrupt_threshold_y;         /**< */
-    LSM9DS1_int_gen_ths_z_g_t     interrupt_threshold_z;     /**< */
+    LSM9DS1_int_gen_ths_x_g_t     interrupt_threshold_x;        
+    LSM9DS1_int_gen_ths_y_g_t     interrupt_threshold_y;         
+    LSM9DS1_int_gen_ths_z_g_t     interrupt_threshold_z;     
     LSM9DS1_int_gen_dur_g_t       interrupt_duration;
 } LSM9DS1_g_t;
 
@@ -795,7 +795,7 @@ typedef struct
 typedef struct
 {
     LSM9DS1_gen_t               general;
-    LSM9DS1_xl_t                a;
+    LSM9DS1_xl_t                xl;
     LSM9DS1_g_t                 g;
     LSM9DS1_m_t                 m;
     LSM9DS1_fifo_t              fifo;
@@ -807,9 +807,9 @@ typedef struct
 #define XL_FS_DEFAULT 			XL_FS_2G
 #define MAG_FS_DEFAULT			MAG_FS_8GAUSS
 
-#define GYRO_RES_DEFAULT 		( double )( GYRO_FS_DEFAULT / LSM9DS1_IMU_ADC_MAX )
-#define XL_RES_DEFAULT 			( double )( XL_FS_DEFAULT   / LSM9DS1_IMU_ADC_MAX )
-#define MAG_RES_DEFAULT			( double )( MAG_FS_DEFAULT  / LSM9DS1_IMU_ADC_MAX )
+#define GYRO_RES_DEFAULT 		( double )( GYRO_FS_DEFAULT ) / LSM9DS1_IMU_ADC_MAX
+#define XL_RES_DEFAULT 			( double )( XL_FS_DEFAULT   ) / LSM9DS1_IMU_ADC_MAX
+#define MAG_RES_DEFAULT			( double )( MAG_FS_DEFAULT  ) / LSM9DS1_IMU_ADC_MAX
 
 /* Gyro Enable */
 #define O_4D_EN_LOC             0
